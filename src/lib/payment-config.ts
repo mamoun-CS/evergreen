@@ -1,0 +1,1 @@
+export const DEFAULT_PAYMENT_METHOD = 'CASH_ON_DELIVERY' as const;

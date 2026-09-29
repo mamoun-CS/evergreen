@@ -1,0 +1,62 @@
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3107
+  - Environments: .env
+
+ ✓ Starting...
+ ⚠ Disabling outputFileTracing will not be an option in the next major version. Please report any issues you may be experiencing to https://github.com/vercel/next.js/issues
+ ✓ Ready in 2.3s
+ ✓ Compiled /api/shipping/options in 166ms (56 modules)
+ GET /api/shipping/options 200 in 989ms
+ GET /api/shipping/options 200 in 43ms
+ ✓ Compiled /api/wishlist in 381ms (70 modules)
+ POST /api/wishlist 201 in 1230ms
+ POST /api/wishlist 201 in 23ms
+ DELETE /api/wishlist?productId=cmul9dagm00045bg9bsy1hm6g 200 in 30ms
+ GET /api/wishlist 200 in 23ms
+ ✓ Compiled /api/admin/upload in 157ms (80 modules)
+ POST /api/admin/upload 201 in 376ms
+ ✓ Compiled /uploads/[...path] in 55ms (82 modules)
+ GET /uploads/integration/825b1621-ba89-4585-8bd5-9078b197c482.webp 200 in 490ms
+ ✓ Compiled /api/orders in 437ms (144 modules)
+ POST /api/orders 200 in 673ms
+ ✓ Compiled /api/admin/orders/[id]/confirm in 466ms (243 modules)
+Unauthorized admin access {
+  userId: 'cmul9da8s00025bg9r476gw74',
+  action: 'update',
+  resource: 'order',
+  ip: 'test-4d22b229',
+  timestamp: '2026-09-28T13:03:30.877Z'
+}
+ POST /api/admin/orders/cmul9dcz90006eoyfcpbk07yg/confirm 403 in 981ms
+ POST /api/admin/orders/cmul9dcz90006eoyfcpbk07yg/confirm 200 in 53ms
+ POST /api/admin/orders/cmul9dcz90006eoyfcpbk07yg/confirm 409 in 15ms
+ POST /api/orders 200 in 61ms
+ ✓ Compiled /api/admin/orders/[id]/reject in 72ms (245 modules)
+ POST /api/admin/orders/cmul9ddwp000ieoyf2u366ef6/reject 200 in 567ms
+ POST /api/orders 200 in 30ms
+ POST /api/admin/orders/cmul9deed000reoyf6hhh4ltp/confirm 409 in 25ms
+ ✓ Compiled /api/payments/lahza/webhook in 120ms (251 modules)
+ POST /api/payments/lahza/webhook 401 in 168ms
+ POST /api/payments/lahza/webhook 401 in 18ms
+ POST /api/payments/lahza/webhook 400 in 13ms
+ POST /api/payments/lahza/webhook 200 in 51ms
+ POST /api/payments/lahza/webhook 409 in 17ms
+ ✓ Compiled /api/auth/register in 107ms (254 modules)
+ POST /api/auth/register 201 in 438ms
+ ✓ Compiled /api/auth/login in 69ms (257 modules)
+ POST /api/auth/login 401 in 369ms
+ POST /api/auth/login 429 in 16ms
+ POST /api/auth/login 200 in 286ms
+ ✓ Compiled /src/middleware in 198ms (73 modules)
+ ✓ Compiled /api/admin/audit-logs in 98ms (260 modules)
+Unauthorized admin access {
+  userId: 'cmul9d9za00015bg92qq2ct1r',
+  action: 'read',
+  resource: 'settings',
+  ip: 'test-4d22b229',
+  timestamp: '2026-09-28T13:03:33.522Z'
+}
+ GET /api/admin/audit-logs 403 in 148ms
+ GET /api/admin/audit-logs 200 in 27ms
+ ○ Compiling /admin/orders ...
+ ✓ Compiled /admin/orders in 4s (918 modules)
