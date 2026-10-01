@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createReservedOrder, parseCheckout } from '@/lib/checkout-orders';
 import { getCurrentUser } from '@/lib/auth';
+import { getClientIp } from '@/lib/auth-middleware';
+import { consumeRateLimit, rateLimitConfig, rateLimitResponseHeaders } from '@/lib/rate-limit';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -9,6 +11,8 @@ export async function POST(req: NextRequest) {
   try {
     const details = parseCheckout(await req.json());
     if (!details) return NextResponse.json({ error: 'Missing or invalid order fields.' }, { status: 400 });
+    const limit = await consumeRateLimit(`order:${getClientIp(req.headers)}:${details.email}`, rateLimitConfig.payment.maximum, rateLimitConfig.payment.windowMs);
+    if (!limit.allowed) return NextResponse.json({ error: 'Too many order attempts. Please try again later.' }, { status: 429, headers: rateLimitResponseHeaders(limit) });
     const user = await getCurrentUser();
     const order = await createReservedOrder(details, 'CASH_ON_DELIVERY', user?.id);
     return NextResponse.json({ success: true, message: 'Order received! Our team will review and confirm soon.', order: { orderNumber: order.orderNumber, paymentAccessToken: order.paymentAccessToken } }, { headers: { 'Cache-Control': 'no-store' } });

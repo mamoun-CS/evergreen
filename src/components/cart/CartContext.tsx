@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from '@/components/auth/AuthContext';
 
 export interface CartItem {
   id: string;
@@ -45,22 +46,24 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const isAuthenticated = useAuth();
+
   useEffect(() => {
     if (isInitialized) {
       localStorage.setItem('evergreen_cart', JSON.stringify(cart));
       
-      // Debounce the backend sync slightly to avoid spamming if multiple rapid changes occur
-      const timeoutId = setTimeout(() => {
-        fetch('/api/cart/update', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cart })
-        }).catch(err => console.error('Error syncing cart state', err));
-      }, 500);
-
-      return () => clearTimeout(timeoutId);
+      if (isAuthenticated) {
+        const timeoutId = setTimeout(() => {
+          fetch('/api/cart/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cart })
+          }).catch(err => console.error('Error syncing cart state', err));
+        }, 500);
+        return () => clearTimeout(timeoutId);
+      }
     }
-  }, [cart, isInitialized]);
+  }, [cart, isInitialized, isAuthenticated]);
 
   const addToCart = (item: Omit<CartItem, 'quantity'>, quantity = 1) => {
     setCart((prev) => {
@@ -111,8 +114,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   // Sync cart on initial mount if authenticated
   useEffect(() => {
-    syncCart();
-  }, []);
+    if (isAuthenticated) {
+      syncCart();
+    }
+  }, [isAuthenticated]);
 
   return (
     <CartContext.Provider

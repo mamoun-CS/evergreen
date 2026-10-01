@@ -42,7 +42,10 @@ export default function ProductCard({ product, variant }: ProductCardProps) {
   const compare = useCompare();
 
   const title = lang === 'ar' ? product.nameAr : product.nameEn;
-  const image = product.images?.[0] || '/logo.jpg';
+  let image = product.images?.[0] || '/images/logo.jpg';
+  if (image.startsWith('/uploads/products/evg-product-')) {
+    image = image.replace('/uploads/products/', '/products/');
+  }
   const inStock = product.isAvailable !== false && (product.stockQuantity === undefined || product.stockQuantity > 0);
   const purchasable = product.purchaseMode === 'PURCHASABLE' && inStock && Boolean(product.discountPrice ?? product.basePrice);
   const wishlistProduct: WishlistProduct = { id: product.id, slug: product.slug, nameEn: product.nameEn, nameAr: product.nameAr, images: product.images || [], basePrice: product.basePrice ?? null, discountPrice: product.discountPrice ?? null, currency: product.currency || 'ILS', purchaseMode: product.purchaseMode, stockQuantity: product.stockQuantity || 0, isAvailable: product.isAvailable !== false };
@@ -86,6 +89,7 @@ export default function ProductCard({ product, variant }: ProductCardProps) {
           src={image}
           alt={title}
           fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
         />
 

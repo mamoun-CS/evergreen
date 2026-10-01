@@ -4,7 +4,7 @@ import { validate } from '@/lib/admin-validation';
 import { IdSchema, ProductFormSchema } from '@/lib/validation';
 import { assertAdmin } from '@/lib/auth';
 import { prisma } from '@/lib/admin-prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { PurchaseMode } from '@prisma/client';
 import { removeUnusedImages, remove } from '@/lib/storage';
 
@@ -54,6 +54,8 @@ export async function createProduct(data: ProductInput) {
     },
   });
   revalidatePath('/admin/products');
+  revalidateTag('products');
+  revalidateTag('categories');
   return created;
 }
 
@@ -84,6 +86,8 @@ export async function updateProduct(id: string, data: ProductInput) {
   }
 
   revalidatePath('/admin/products');
+  revalidateTag('products');
+  revalidateTag('categories');
   revalidatePath(`/admin/products/${id}`);
   return updated;
 }
@@ -114,4 +118,6 @@ export async function deleteProduct(id: string) {
     if (product) await Promise.all(product.images.map((url) => remove(url).catch(() => undefined)));
   }
   revalidatePath('/admin/products');
+  revalidateTag('products');
+  revalidateTag('categories');
 }

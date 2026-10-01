@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ReviewStatus } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/auth';
-import { consumeRateLimit, canReviewProduct } from '@/lib/rate-limit';
+import { consumeRateLimit, canReviewProduct, rateLimitConfig, rateLimitResponseHeaders } from '@/lib/rate-limit';
 import { ReviewSubmissionSchema } from '@/lib/validation';
 import { sanitizeReviewText } from '@/lib/reviews';
 
@@ -35,7 +35,8 @@ export async function GET(request: NextRequest, { params }: { params: { slug: st
 export async function POST(request: NextRequest, { params }: { params: { slug: string } }) {
   const user = await getCurrentUser();
   if (!user || user.role !== 'CUSTOMER') return NextResponse.json({ error: 'سجّل الدخول بحساب العميل لكتابة تقييم. / Sign in with a customer account to write a review.' }, { status: 401 });
-  if (!consumeRateLimit(`review:${user.id}`, 3, 60 * 60 * 1000)) return NextResponse.json({ error: 'وصلت إلى حد التقييمات المؤقت. / You have reached the temporary review limit.' }, { status: 429 });
+  const limit = await consumeRateLimit(`review:${user.id}`, rateLimitConfig.write.maximum, rateLimitConfig.write.windowMs);
+  if (!limit.allowed) return NextResponse.json({ error: 'وصلت إلى حد التقييمات المؤقت. / You have reached the temporary review limit.' }, { status: 429, headers: rateLimitResponseHeaders(limit) });
   let payload: unknown;
   try { payload = await request.json(); } catch { return NextResponse.json({ error: 'Invalid review data. / بيانات التقييم غير صالحة.' }, { status: 400 }); }
   const parsed = ReviewSubmissionSchema.safeParse(payload);

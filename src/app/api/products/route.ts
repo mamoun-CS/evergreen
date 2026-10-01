@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { unstable_cache } from 'next/cache';
 import { prisma } from '@/lib/prisma';
+import { getClientIp } from '@/lib/auth-middleware';
+import { consumeRateLimit, rateLimitConfig, rateLimitResponseHeaders } from '@/lib/rate-limit';
+import { productCardSelect, serializeCard } from '@/lib/storefront';
 
 export async function GET(req: NextRequest) {
+  const rateLimit = await consumeRateLimit(`products:${getClientIp(req.headers)}`, rateLimitConfig.browse.maximum, rateLimitConfig.browse.windowMs);
+  if (!rateLimit.allowed) return NextResponse.json({ error: 'Too many requests. Please try again shortly.' }, { status: 429, headers: rateLimitResponseHeaders(rateLimit) });
   const { searchParams } = new URL(req.url);
   const query = searchParams.get('search') || '';
   const productSlug = searchParams.get('slug') || '';
@@ -102,29 +108,34 @@ export async function GET(req: NextRequest) {
           ? [{ isFeatured: 'desc' as const }, { createdAt: 'desc' as const }]
           : { createdAt: 'desc' as const };
 
-    const total = await prisma.product.count({ where });
+    const load = async () => {
+      const [total, products] = await Promise.all([
+        prisma.product.count({ where }),
+        prisma.product.findMany({
+          where,
+          skip: (page - 1) * limit,
+          take: limit,
+          select: productCardSelect,
+          orderBy,
+        }),
+      ]);
+      return {
+        products: products.map((product) => serializeCard(product)),
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit) || 1,
+      };
+    };
 
-    const products = await prisma.product.findMany({
-      where,
-      skip: (page - 1) * limit,
-      take: limit,
-      include: {
-        brand: true,
-        categories: true,
-        applications: true,
-        specifications: true,
-      },
-      orderBy,
-    });
+    // Search is high-cardinality and stays uncached. Browse listings are public
+    // and shared, so a short cache removes repeated counts and joins.
+    const payload = query
+      ? await load()
+      : await unstable_cache(load, ['product-list', JSON.stringify({ where, orderBy, page, limit })], { revalidate: 60, tags: ['products'] })();
 
-    const totalPages = Math.ceil(total / limit) || 1;
-
-    return NextResponse.json({
-      products,
-      total,
-      page,
-      limit,
-      totalPages,
+    return NextResponse.json(payload, {
+      headers: query ? { 'Cache-Control': 'no-store' } : { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' },
     });
   } catch (error) {
     console.error('API Error fetching products:', error);

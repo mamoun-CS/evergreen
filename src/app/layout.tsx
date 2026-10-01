@@ -8,7 +8,10 @@ import CompareBar from '@/components/compare/CompareBar';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/cart/CartDrawer';
-import { prisma } from '@/lib/prisma';
+import { headers } from 'next/headers';
+import { getSiteSettings } from '@/lib/storefront';
+import { getCurrentUser } from '@/lib/auth';
+import { AuthProvider } from '@/components/auth/AuthContext';
 
 export const metadata: Metadata = {
   title: 'Ever Green | تحف وديكورات الحدائق | Garden Ornaments & Outdoor Decor',
@@ -22,25 +25,30 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const settings: any = await prisma.siteSettings.findUnique({ where: { id: 'global' } }) || {};
+  const settings: any = await getSiteSettings();
+  const nonce = headers().get('x-csp-nonce') || undefined;
+  const user = await getCurrentUser();
+  const isAuthenticated = !!user;
   return (
     <html lang="ar" dir="rtl">
       <body className="min-h-screen flex flex-col antialiased bg-white">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({'@context':'https://schema.org','@type':'Organization','name':settings.storeNameEn || 'Ever Green','url':process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000','logo':settings.logoUrl || '/images/logo.jpg','email':settings.contactEmail || undefined,'telephone':settings.contactPhone || undefined,'address':settings.addressEn || undefined}).replace(/</g,'\\u003c')}} />
+        <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({'@context':'https://schema.org','@type':'Organization','name':settings.storeNameEn || 'Ever Green','url':process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000','logo':settings.logoUrl || '/images/logo.jpg','email':settings.contactEmail || undefined,'telephone':settings.contactPhone || undefined,'address':settings.addressEn || undefined}).replace(/</g,'\\u003c')}} />
         <LanguageProvider>
-          <CartProvider>
-            <WishlistProvider>
-              <CompareProvider>
-                <Header settings={settings} />
-                <main className="flex-1 w-full">
-                  {children}
-                </main>
-                <Footer settings={settings} />
-                <CartDrawer />
-                <CompareBar />
-              </CompareProvider>
-            </WishlistProvider>
-          </CartProvider>
+          <AuthProvider isAuthenticated={isAuthenticated}>
+            <CartProvider>
+              <WishlistProvider>
+                <CompareProvider>
+                  <Header settings={settings} />
+                  <main className="flex-1 w-full">
+                    {children}
+                  </main>
+                  <Footer settings={settings} />
+                  <CartDrawer />
+                  <CompareBar />
+                </CompareProvider>
+              </WishlistProvider>
+            </CartProvider>
+          </AuthProvider>
         </LanguageProvider>
       </body>
     </html>

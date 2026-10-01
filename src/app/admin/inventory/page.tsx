@@ -4,7 +4,7 @@ import { requirePermission } from '@/lib/auth-middleware';
 export const dynamic = 'force-dynamic';
 
 export default async function InventoryAuditPage() {
-  await requirePermission('read', 'product');
+  await requirePermission('read', 'inventory');
 
   const logs = await prisma.inventoryAuditLog.findMany({
     orderBy: { createdAt: 'desc' },

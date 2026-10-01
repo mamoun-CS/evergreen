@@ -9,7 +9,7 @@ export default async function AccountLayout({ children }: { children: React.Reac
   if (!user) redirect('/login');
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50" dir="rtl">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <aside className="md:col-span-1">
@@ -27,16 +27,14 @@ export default async function AccountLayout({ children }: { children: React.Reac
                 <User className="h-5 w-5" /> نظرة عامة
               </Link>
               
-              {(user.role === 'ADMIN' || user.role === 'MANAGER') ? (
+              {(user.role === 'ADMIN' || user.role === 'MANAGER' || user.role === 'SUPER_ADMIN') && (
                 <Link href={user.role === 'MANAGER' ? '/admin/orders' : '/admin'} className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100">
                   <LayoutDashboard className="h-5 w-5" /> لوحة التحكم للإدارة
                 </Link>
-              ) : (
-                <>
-                  <Link href="/account/orders" className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-700"><Package className="h-5 w-5" /> طلباتي / My orders</Link>
-                  <Link href="/account/wishlist" className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-700"><Heart className="h-5 w-5" /> المفضلة / Wishlist</Link>
-                </>
               )}
+              <Link href="/account/orders" className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-700"><Package className="h-5 w-5" /> طلباتي</Link>
+              {/* Wishlist APIs intentionally authorize customer accounts only. Keep the link aligned with that policy. */}
+              {user.role === 'CUSTOMER' && <Link href="/account/wishlist" className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-700"><Heart className="h-5 w-5" /> المفضلة</Link>}
 
               <Link href="/account/profile" className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-700">
                 <Settings className="h-5 w-5" /> إعدادات الحساب

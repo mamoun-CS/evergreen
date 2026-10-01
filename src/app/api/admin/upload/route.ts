@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { randomUUID } from 'node:crypto';
 import { requirePermission, logAdminAction } from '@/lib/auth-middleware';
 import { requireAdmin } from '@/lib/auth';
-import { consumeRateLimit } from '@/lib/rate-limit';
+import { consumeRateLimit, rateLimitConfig, rateLimitResponseHeaders } from '@/lib/rate-limit';
 import { validateImageUpload } from '@/lib/upload-validation';
 import { storeImage } from '@/lib/storage';
 import sharp from 'sharp';
@@ -24,7 +24,8 @@ export async function POST(request: NextRequest) {
     admin = await requirePermission('create', 'upload');
   }
   catch { return NextResponse.json({ error: 'Admin access required. / يلزم صلاحية المدير.' }, { status: 403 }); }
-  if (!consumeRateLimit(`upload:${admin.id}`, 30, 60 * 60 * 1000)) return NextResponse.json({ error: 'Upload limit reached. / تم بلوغ حد رفع الملفات.' }, { status: 429 });
+  const limit = await consumeRateLimit(`upload:${admin.id}`, rateLimitConfig.write.maximum, rateLimitConfig.write.windowMs);
+  if (!limit.allowed) return NextResponse.json({ error: 'Upload limit reached. / تم بلوغ حد رفع الملفات.' }, { status: 429, headers: rateLimitResponseHeaders(limit) });
   let form: FormData;
   try { form = await request.formData(); } catch { return NextResponse.json({ error: 'Invalid upload form. / نموذج رفع الملفات غير صالح.' }, { status: 400 }); }
   const files = form.getAll('files').filter((entry): entry is File => entry instanceof File);

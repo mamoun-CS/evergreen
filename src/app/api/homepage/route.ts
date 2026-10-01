@@ -1,15 +1,12 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { getHomepageContent } from '@/lib/storefront';
+
+export const revalidate = 300;
 
 export async function GET() {
-  const sections = await prisma.homepageSection.findMany({
-    where: { isActive: true },
-  });
-  
-  const content = sections.reduce((acc, section) => {
-    acc[section.key] = section;
-    return acc;
-  }, {} as any);
-  
-  return NextResponse.json({ content });
+  const content = await getHomepageContent();
+  return NextResponse.json(
+    { content },
+    { headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' } },
+  );
 }

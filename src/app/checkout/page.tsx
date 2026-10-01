@@ -19,11 +19,8 @@ export default function CheckoutPage() {
   const [shippingOptions, setShippingOptions] = useState<Array<{ code: string; nameAr: string; nameEn: string; price: number }>>([]);
   const [shippingOptionCode, setShippingOptionCode] = useState('');
   const [couponCode, setCouponCode] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState<'CASH_ON_DELIVERY' | 'LAHZA'>(DEFAULT_PAYMENT_METHOD);
-  const [lahzaEnabled, setLahzaEnabled] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [orderNumber, setOrderNumber] = useState('');
-  const [accessToken, setAccessToken] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState<'CASH_ON_DELIVERY'>(DEFAULT_PAYMENT_METHOD);
+  const [showCardPaymentNotice, setShowCardPaymentNotice] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [createAccount, setCreateAccount] = useState(false);
@@ -41,20 +38,13 @@ export default function CheckoutPage() {
     }).catch(() => undefined);
   }, []);
 
-  useEffect(() => {
-    fetch('/api/payments/lahza/config', { cache: 'no-store' })
-      .then((response) => response.ok ? response.json() : null)
-      .then((data) => setLahzaEnabled(Boolean(data?.enabled)))
-      .catch(() => setLahzaEnabled(false));
-  }, []);
-
   const handleOrderSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
     try {
-      const res = await fetch(paymentMethod === 'LAHZA' ? '/api/payments/lahza/initialize' : '/api/orders', {
+      const res = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -76,16 +66,9 @@ export default function CheckoutPage() {
 
       if (res.ok) {
         const data = await res.json();
-        if (paymentMethod === 'LAHZA') {
-          if (!data.authorizationUrl) throw new Error('Missing secure payment URL');
-          clearCart();
-          window.location.assign(data.authorizationUrl);
-          return;
-        }
-        setOrderNumber(data.order.orderNumber);
-        if (data.order.paymentAccessToken) setAccessToken(data.order.paymentAccessToken);
-        setSubmitted(true);
         clearCart();
+        window.location.assign(`/order-confirmation?token=${encodeURIComponent(data.order.paymentAccessToken)}`);
+        return;
       } else {
         const data = await res.json().catch(() => ({}));
         setError(data.error || (lang === 'ar' ? 'تعذر تأكيد الطلب. يرجى المحاولة مرة أخرى.' : 'We could not confirm your order. Please try again.'));
@@ -97,41 +80,6 @@ export default function CheckoutPage() {
       setLoading(false);
     }
   };
-
-  if (submitted) {
-    return (
-      <div className="max-w-xl mx-auto py-12 px-4 text-center bg-white rounded-2xl border border-gray-200 shadow-sm space-y-4 my-8">
-        <CheckCircle2 className="w-16 h-16 text-emerald-600 mx-auto" />
-        <h1 className="text-xl font-bold text-gray-900">
-          {lang === 'ar' ? 'تم استلام طلبك!' : 'Order received!'}
-        </h1>
-        <p className="text-xs text-brand-navy font-mono font-bold bg-slate-100 py-1.5 px-3 rounded inline-block">
-          {orderNumber}
-        </p>
-        <p className="text-xs text-gray-600 leading-relaxed">
-          {lang === 'ar'
-            ? 'سيقوم فريقنا بمراجعة طلبك وتأكيده قريباً.'
-            : 'Our team will review and confirm your order soon.'}
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link
-            href="/"
-            className="inline-block px-6 py-2.5 bg-brand-navy text-white text-xs font-bold rounded-lg hover:bg-slate-800"
-          >
-            {t.cart.continueShopping}
-          </Link>
-          {accessToken && (
-            <Link
-              href={`/track/${orderNumber}?token=${accessToken}`}
-              className="inline-block px-6 py-2.5 border border-brand-navy text-brand-navy text-xs font-bold rounded-lg hover:bg-slate-50"
-            >
-              {lang === 'ar' ? 'تتبع الطلب' : 'Track Order'}
-            </Link>
-          )}
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-8 pb-12">
@@ -267,12 +215,16 @@ export default function CheckoutPage() {
                 <Truck className="h-5 w-5 shrink-0 text-brand-navy" aria-hidden />
                 <span className="space-y-1"><span className="block font-bold text-brand-navy">الدفع عند الاستلام</span><span className="block text-slate-700">ادفع عند وصول الطلب أو عند استلامه من المحل.</span></span>
               </label>
-              {lahzaEnabled && <label className={`flex min-h-11 cursor-pointer gap-3 rounded-lg border p-3 text-xs transition-colors ${paymentMethod === 'LAHZA' ? 'border-brand-navy bg-emerald-50/40' : 'border-slate-200 hover:border-slate-400'}`}>
-                <input type="radio" name="paymentMethod" value="LAHZA" checked={paymentMethod === 'LAHZA'} onChange={() => setPaymentMethod('LAHZA')} className="mt-0.5 h-4 w-4 accent-brand-navy" />
-                <CreditCard className="h-5 w-5 shrink-0 text-emerald-700" aria-hidden />
-                <span className="space-y-1"><span className="block font-bold text-brand-navy">دفع آمن عبر لحظة / Secure Lahza payment</span><span className="block text-slate-700">سيتم التحقق من المبلغ وحالة الدفع على الخادم قبل تأكيد الطلب. / Your total is verified securely on our server before confirmation.</span></span>
-              </label>}
-              {paymentMethod === 'LAHZA' && <div role="status" className="flex gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-3 text-xs leading-5 text-emerald-950"><ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" aria-hidden /><p>بعد الضغط على زر الدفع سيتم تحويلك إلى صفحة لحظة الآمنة. هناك فقط ستدخل رقم البطاقة وتاريخ الانتهاء ورمز الأمان، وتحدد البوابة تلقائيًا إن كانت البطاقة Visa أو Mastercard.</p></div>}
+              <button
+                type="button"
+                onClick={() => setShowCardPaymentNotice(true)}
+                aria-describedby={showCardPaymentNotice ? 'card-payment-notice' : undefined}
+                className="flex min-h-11 w-full cursor-pointer gap-3 rounded-lg border border-slate-200 p-3 text-start text-xs transition-colors hover:border-brand-navy hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand-navy"
+              >
+                <CreditCard className="h-5 w-5 shrink-0 text-slate-600" aria-hidden />
+                <span className="space-y-1"><span className="block font-bold text-brand-navy">الدفع بالفيزا أو البطاقة</span><span className="block text-slate-700">قريبًا / Visa and card payments — coming soon</span></span>
+              </button>
+              {showCardPaymentNotice && <div id="card-payment-notice" role="status" className="flex gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-3 text-xs leading-5 text-amber-950"><ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-amber-700" aria-hidden /><p>الدفع بالفيزا غير متاح حاليًا. سنستقبل دفعات الفيزا والبطاقات قريبًا، ويمكنك الآن اختيار الدفع عند الاستلام.</p></div>}
             </fieldset>
 
             <button
@@ -280,7 +232,7 @@ export default function CheckoutPage() {
               disabled={loading}
               className="w-full min-h-11 py-3 bg-brand-navy text-white text-xs font-bold rounded-lg hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-navy focus:ring-offset-2 flex items-center justify-center gap-2"
             >
-              <span>{loading ? 'جارٍ المعالجة...' : paymentMethod === 'LAHZA' ? 'الدفع الآمن عبر لحظة / Pay securely with Lahza' : 'تأكيد طلب الدفع عند الاستلام'}</span>
+              <span>{loading ? 'جارٍ المعالجة...' : 'تأكيد طلب الدفع عند الاستلام'}</span>
               {lang === 'ar' ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
             </button>
             {error && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">{error}</p>}

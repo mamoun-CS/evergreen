@@ -109,6 +109,8 @@ model Product {
   @@index([brandId])
   @@index([isAvailable, stockQuantity])
   @@index([discountPrice])
+  @@index([basePrice])
+  @@index([purchaseMode])
 }
 
 model Brand {
@@ -198,6 +200,9 @@ model QuoteRequest {
   status       OrderStatus        @default(QUOTE_REQUESTED)
   items        QuoteRequestItem[]
   createdAt    DateTime           @default(now())
+
+  @@index([createdAt])
+  @@index([status])
 }
 
 model QuoteRequestItem {
@@ -252,6 +257,11 @@ model Order {
   payments                  Payment[]
   reviews                   Review[]
   createdAt                 DateTime    @default(now())
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([userId, createdAt])
 }
 
 model Review {

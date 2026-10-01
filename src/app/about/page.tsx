@@ -18,7 +18,7 @@ export default function AboutPage() {
 
   const title = ar ? cms?.titleAr || t.nav.aboutUs : cms?.titleEn || t.nav.aboutUs;
   const content = ar ? cms?.contentAr || 'في Ever Green نختار مجموعة متنوعة من تحف وديكورات الحدائق التي تجمع بين الجمال والجودة، لنساعدك في تحويل المساحات الخارجية إلى أماكن أكثر أناقة وتميزًا.' : cms?.contentEn || 'At Ever Green, we offer a carefully selected collection of garden ornaments and outdoor decor that combines beauty and quality, helping you transform outdoor spaces into elegant and distinctive environments.';
-  const image = cms?.images?.[0] || '/logo.jpg';
+  const image = cms?.images?.[0] || '/images/logo.jpg';
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 space-y-8 pb-12">

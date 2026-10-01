@@ -1,5 +1,5 @@
-import CategoryPageClient from './CategoryPageClient';
+import { redirect } from 'next/navigation';
 
 export default function CategoryPage({ params }: { params: { identifier: string } }) {
-  return <CategoryPageClient identifier={params.identifier} />;
+  redirect(`/shop?category=${params.identifier}`);
 }

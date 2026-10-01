@@ -4,7 +4,7 @@ import { requirePermission } from '@/lib/auth-middleware';
 export const dynamic = 'force-dynamic';
 
 export default async function RecoveryCampaignsPage() {
-  await requirePermission('read', 'order');
+ await requirePermission('read', 'recoveryCampaign');
 
   const abandonedCarts = await prisma.abandonedCart.findMany({
     orderBy: { createdAt: 'desc' },

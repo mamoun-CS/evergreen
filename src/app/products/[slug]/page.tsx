@@ -2,6 +2,8 @@
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import ProductDetailsClient from './ProductDetailsClient';
+import { headers } from 'next/headers';
+import { getProductBySlug, serializeCard } from '@/lib/storefront';
 
 interface ProductPageProps {
   params: {
@@ -10,10 +12,7 @@ interface ProductPageProps {
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
-  const product = await prisma.product.findUnique({
-    where: { slug: params.slug },
-    select: { nameEn: true, nameAr: true, descriptionEn: true, descriptionAr: true, images: true },
-  });
+  const product = await getProductBySlug(params.slug);
   if (!product) return {};
   const title = `${product.nameEn} | Ever Green`;
   const description = product.descriptionEn || product.descriptionAr || `${product.nameEn} from Ever Green`;
@@ -28,33 +27,26 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const product = await prisma.product.findUnique({
-    where: { slug: params.slug },
-    include: {
-      brand: true,
-      categories: true,
-      applications: true,
-      specifications: true,
-      variants: { orderBy: { titleEn: 'asc' } },
-      accessories: {
-        include: { brand: true },
-      },
-    },
-  });
+  const nonce = headers().get('x-csp-nonce') || undefined;
+  const product = await getProductBySlug(params.slug);
 
   if (!product) {
     notFound();
   }
 
-  const relatedProducts = product.categories.length
-    ? await prisma.product.findMany({
-        where: { id: { not: product.id }, categories: { some: { id: { in: product.categories.map((category) => category.id) } } } },
-        select: { id: true, slug: true, sku: true, nameEn: true, nameAr: true, purchaseMode: true, basePrice: true, discountPrice: true, currency: true, images: true, isAvailable: true, stockQuantity: true, warrantyInfoEn: true, warrantyInfoAr: true, seriesModel: true, brand: { select: { name: true } } },
-        orderBy: { createdAt: 'desc' },
-        take: 3,
-      })
-    : [];
-  const approvedReviews = product.ratingCount > 0 ? await prisma.review.findMany({ where: { productId: product.id, status: 'APPROVED' }, orderBy: { createdAt: 'desc' }, take: 5, select: { rating: true, title: true, body: true, createdAt: true, user: { select: { name: true } } } }) : [];
+  const [relatedProducts, approvedReviews] = await Promise.all([
+    product.categories.length
+      ? prisma.product.findMany({
+          where: { id: { not: product.id }, categories: { some: { id: { in: product.categories.map((category) => category.id) } } } },
+          select: { id: true, slug: true, sku: true, nameEn: true, nameAr: true, purchaseMode: true, basePrice: true, discountPrice: true, currency: true, images: true, isAvailable: true, stockQuantity: true, warrantyInfoEn: true, warrantyInfoAr: true, seriesModel: true, ratingAvg: true, ratingCount: true, brand: { select: { name: true } } },
+          orderBy: { createdAt: 'desc' },
+          take: 3,
+        })
+      : Promise.resolve([]),
+    product.ratingCount > 0
+      ? prisma.review.findMany({ where: { productId: product.id, status: 'APPROVED' }, orderBy: { createdAt: 'desc' }, take: 5, select: { rating: true, title: true, body: true, createdAt: true, user: { select: { name: true } } } })
+      : Promise.resolve([]),
+  ]);
 
   // Convert Decimal fields to simple numbers for client props
   const serializedProduct = {
@@ -66,10 +58,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     heightCm: product.heightCm ? Number(product.heightCm) : null,
     weightKg: product.weightKg ? Number(product.weightKg) : null,
     variants: product.variants.map((variant) => ({ ...variant, price: variant.price ? Number(variant.price) : null })),
-    accessories: product.accessories.map((acc) => ({
-      ...acc,
-      basePrice: acc.basePrice ? Number(acc.basePrice) : null,
-    })),
+    accessories: product.accessories.map((acc) => serializeCard(acc)),
     relatedProducts: relatedProducts.map((related) => ({ ...related, basePrice: related.basePrice ? Number(related.basePrice) : null, discountPrice: related.discountPrice ? Number(related.discountPrice) : null })),
   };
   const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000').replace(/\/$/, '');
@@ -78,5 +67,5 @@ export default async function ProductPage({ params }: ProductPageProps) {
     { '@context':'https://schema.org', '@type':'Product', name:product.nameEn, description:product.descriptionEn || product.descriptionAr || undefined, image:product.images, sku:product.sku || undefined, brand:product.brand ? {'@type':'Brand',name:product.brand.name} : undefined, offers:product.purchaseMode === 'PURCHASABLE' && unitPrice ? {'@type':'Offer',url:`${baseUrl}/products/${encodeURIComponent(product.slug)}`,priceCurrency:product.currency,price:Number(unitPrice),availability:product.isAvailable && (product.variants.length ? product.variants.some(v=>v.stock>0) : product.stockQuantity>0) ? 'https://schema.org/InStock':'https://schema.org/OutOfStock'} : undefined, ...(product.ratingCount > 0 ? { aggregateRating: { '@type':'AggregateRating', ratingValue:product.ratingAvg, reviewCount:product.ratingCount }, review:approvedReviews.map((review) => ({ '@type':'Review', author:{ '@type':'Person', name:review.user.name }, reviewRating:{ '@type':'Rating', ratingValue:review.rating, bestRating:5 }, reviewBody:review.body, name:review.title || undefined, datePublished:review.createdAt.toISOString() })) } : {}) },
     { '@context':'https://schema.org', '@type':'BreadcrumbList', itemListElement:[{ '@type':'ListItem',position:1,name:'Home',item:baseUrl },{ '@type':'ListItem',position:2,name:'Shop',item:`${baseUrl}/shop` },...(product.categories[0]?[{'@type':'ListItem',position:3,name:product.categories[0].nameEn,item:`${baseUrl}/shop?category=${encodeURIComponent(product.categories[0].slug)}`}]:[]),{'@type':'ListItem',position:product.categories.length?4:3,name:product.nameEn,item:`${baseUrl}/products/${encodeURIComponent(product.slug)}`} ] },
   ];
-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(structuredData).replace(/</g,'\\u003c')}}/><ProductDetailsClient product={serializedProduct as any} /></>;
+  return <><script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(structuredData).replace(/</g,'\\u003c')}}/><ProductDetailsClient product={serializedProduct as any} /></>;
 }

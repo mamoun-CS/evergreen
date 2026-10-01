@@ -6,4 +6,6 @@ const globalForPrisma = globalThis as unknown as {
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient();
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+// One client per Node process, including production workers. Next's dev
+// reloader would otherwise open a new pool on every file change.
+globalForPrisma.prisma = prisma;

@@ -1,0 +1,140 @@
+import { cache } from 'react';
+import { unstable_cache } from 'next/cache';
+import { prisma } from './prisma';
+
+/** Card fields the storefront actually renders. Detail pages load the rest. */
+export const productCardSelect = {
+  id: true,
+  slug: true,
+  sku: true,
+  nameEn: true,
+  nameAr: true,
+  purchaseMode: true,
+  basePrice: true,
+  discountPrice: true,
+  currency: true,
+  images: true,
+  isAvailable: true,
+  stockQuantity: true,
+  warrantyInfoEn: true,
+  warrantyInfoAr: true,
+  seriesModel: true,
+  ratingAvg: true,
+  ratingCount: true,
+  brand: { select: { name: true } },
+} as const;
+
+function money(value: { toNumber?: () => number } | number | null | undefined) {
+  if (value == null) return null;
+  return typeof value === 'number' ? value : Number(value);
+}
+
+export function serializeCard<T extends { basePrice?: unknown; discountPrice?: unknown; images?: string[] }>(product: T) {
+  return {
+    ...product,
+    basePrice: money(product.basePrice as never),
+    discountPrice: money(product.discountPrice as never),
+    images: product.images?.slice(0, 1).map(img => img.startsWith('/uploads/products/evg-product-') ? img.replace('/uploads/products/', '/products/') : img) || [],
+  };
+}
+
+export const getSiteSettings = unstable_cache(
+  async () => {
+    const settings = await prisma.siteSettings.findUnique({ where: { id: 'global' } });
+    if (!settings) return {};
+    return { ...settings, updatedAt: settings.updatedAt.toISOString() };
+  },
+  ['site-settings'],
+  { revalidate: 300, tags: ['settings'] },
+);
+
+export const getHomepageContent = unstable_cache(
+  async () => {
+    const sections = await prisma.homepageSection.findMany({ where: { isActive: true } });
+    return Object.fromEntries(sections.map((section) => [section.key, section]));
+  },
+  ['homepage-content'],
+  { revalidate: 300, tags: ['homepage'] },
+);
+
+export const getRootCategories = unstable_cache(
+  async () => {
+    const categories = await prisma.category.findMany({
+      where: { parentId: null },
+      orderBy: { nameAr: 'asc' },
+      select: {
+        id: true,
+        slug: true,
+        nameAr: true,
+        nameEn: true,
+        products: {
+          where: { isAvailable: true },
+          orderBy: { updatedAt: 'desc' },
+          take: 1,
+          select: { images: true },
+        },
+        children: {
+          orderBy: { nameAr: 'asc' },
+          select: {
+            products: {
+              where: { isAvailable: true },
+              orderBy: { updatedAt: 'desc' },
+              take: 1,
+              select: { images: true },
+            },
+          },
+        },
+      },
+    });
+    return categories.map(({ products, children, ...category }) => ({
+      ...category,
+      image: products[0]?.images?.[0] || children.flatMap((child) => child.products)[0]?.images?.[0] || null,
+    }));
+  },
+  ['root-categories'],
+  { revalidate: 300, tags: ['categories'] },
+);
+
+export const getFilterOptions = unstable_cache(
+  async () => {
+    const [categories, brands, applications] = await Promise.all([
+      prisma.category.findMany({
+        select: { id: true, nameEn: true, nameAr: true, slug: true, parentId: true },
+        orderBy: { nameEn: 'asc' },
+      }),
+      prisma.brand.findMany({ select: { id: true, name: true }, orderBy: { name: 'asc' } }),
+      prisma.application.findMany({
+        select: { id: true, nameEn: true, nameAr: true, slug: true },
+        orderBy: { nameEn: 'asc' },
+      }),
+    ]);
+    return {
+      categories,
+      brands: brands.map((brand) => ({ id: brand.id, nameEn: brand.name, nameAr: brand.name, slug: brand.id })),
+      applications,
+    };
+  },
+  ['filter-options'],
+  { revalidate: 300, tags: ['categories', 'products'] },
+);
+
+/** Dedupes the product read shared by generateMetadata and the page in one request. */
+export const getProductBySlug = cache(async (slug: string) => {
+  const product = await prisma.product.findUnique({
+    where: { slug },
+    include: {
+      brand: { select: { id: true, name: true, logoUrl: true, description: true } },
+      categories: { select: { id: true, slug: true, nameEn: true, nameAr: true } },
+      applications: { select: { id: true, slug: true, nameEn: true, nameAr: true } },
+      specifications: true,
+      variants: { orderBy: { titleEn: 'asc' } },
+      accessories: { select: productCardSelect },
+    },
+  });
+
+  if (product) {
+    product.images = product.images.map(img => img.startsWith('/uploads/products/evg-product-') ? img.replace('/uploads/products/', '/products/') : img);
+  }
+
+  return product;
+});

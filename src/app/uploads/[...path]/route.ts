@@ -19,7 +19,7 @@ export async function GET(_request: NextRequest, { params }: { params: { path: s
   // The As Titanium catalogue was imported before the managed upload store.
   // Keep its already-local product assets available without exposing arbitrary files.
   const legacyFile = relative.startsWith('products/') ? relative.slice('products/'.length) : '';
-  if (!bytes && /^as-titanium-product-[a-z0-9]+_\d+\.(?:webp|png|jpe?g)$/.test(legacyFile)) {
+  if (!bytes && /^evg-product-[a-z0-9]+_\d+\.(?:webp|png|jpe?g)$/.test(legacyFile)) {
     const legacyRoot = path.resolve(process.cwd(), 'public', 'products');
     const legacyPath = path.resolve(legacyRoot, legacyFile);
     if (legacyPath.startsWith(`${legacyRoot}${path.sep}`) && (await stat(legacyPath).catch(() => null))?.isFile()) bytes = await readFile(legacyPath);

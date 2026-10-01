@@ -14,7 +14,24 @@ export default async function TrackOrderPage({ params, searchParams }: { params:
 
   const order = await prisma.order.findUnique({
     where: { orderNumber, paymentAccessToken: token },
-    include: { items: { include: { product: true } } }
+    select: {
+      id: true,
+      orderNumber: true,
+      status: true,
+      createdAt: true,
+      totalAmount: true,
+      shippingAddress: true,
+      requiresAdminConfirmation: true,
+      userId: true,
+      items: {
+        select: {
+          id: true,
+          quantity: true,
+          price: true,
+          product: { select: { nameEn: true, nameAr: true } },
+        },
+      },
+    },
   });
 
   if (!order) notFound();

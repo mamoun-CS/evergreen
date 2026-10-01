@@ -1,27 +1,13 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { getFilterOptions } from '@/lib/storefront';
+
+export const revalidate = 300;
 
 export async function GET() {
   try {
-    const categories = await prisma.category.findMany({
-      select: { id: true, nameEn: true, nameAr: true, slug: true, parentId: true },
-      orderBy: { nameEn: 'asc' },
-    });
-
-    const brands = await prisma.brand.findMany({
-      select: { id: true, name: true },
-      orderBy: { name: 'asc' },
-    });
-
-    const applications = await prisma.application.findMany({
-      select: { id: true, nameEn: true, nameAr: true, slug: true },
-      orderBy: { nameEn: 'asc' },
-    });
-
-    return NextResponse.json({
-      categories,
-      brands: brands.map((b) => ({ id: b.id, nameEn: b.name, nameAr: b.name, slug: b.id })),
-      applications,
+    const options = await getFilterOptions();
+    return NextResponse.json(options, {
+      headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' },
     });
   } catch (error) {
     console.error('API Error in equipment-finder options:', error);

@@ -91,7 +91,7 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
   const unitPrice = selectedVariant?.price ?? product.discountPrice ?? product.basePrice;
 
   const handleAction = () => {
-    const mainImg = product.images?.[0] || '/logo.jpg';
+    const mainImg = product.images?.[0] || '/images/logo.jpg';
     if (product.purchaseMode === 'PURCHASABLE' && unitPrice && inStock && (!product.variants?.length || selectedVariant)) {
       addToCart({
         id: product.id,
@@ -136,9 +136,9 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
         <div className="space-y-4">
           <div className="relative aspect-square rounded-xl bg-gray-50 border border-gray-200 overflow-hidden">
             <button type="button" onClick={() => void wishlist.toggle({ id: product.id, slug: product.slug, nameEn: product.nameEn, nameAr: product.nameAr, images: product.images, basePrice: product.basePrice ?? null, discountPrice: product.discountPrice ?? null, currency: product.currency || 'ILS', purchaseMode: product.purchaseMode, stockQuantity: product.stockQuantity, isAvailable: product.isAvailable })} aria-label={wishlist.has(product.id) ? (lang === 'ar' ? 'إزالة من قائمة الرغبات' : 'Remove from wishlist') : (lang === 'ar' ? 'إضافة إلى قائمة الرغبات' : 'Add to wishlist')} className="absolute right-3 top-3 z-10 rounded-full bg-white p-3 text-brand-dark shadow"><Heart className="h-5 w-5" fill={wishlist.has(product.id) ? 'currentColor' : 'none'} /></button>
-            <button type="button" onClick={() => compare.toggle({ slug: product.slug, nameAr: product.nameAr, nameEn: product.nameEn, image: product.images[0] || '/logo.jpg' })} aria-label={compare.items.some((item) => item.slug === product.slug) ? (lang === 'ar' ? 'إزالة من المقارنة' : 'Remove from comparison') : (lang === 'ar' ? 'إضافة إلى المقارنة' : 'Add to comparison')} className="absolute right-3 top-16 z-10 rounded-full bg-white p-3 text-brand-dark shadow"><ArrowLeftRight className="h-5 w-5" /></button>
+            <button type="button" onClick={() => compare.toggle({ slug: product.slug, nameAr: product.nameAr, nameEn: product.nameEn, image: product.images[0] || '/images/logo.jpg' })} aria-label={compare.items.some((item) => item.slug === product.slug) ? (lang === 'ar' ? 'إزالة من المقارنة' : 'Remove from comparison') : (lang === 'ar' ? 'إضافة إلى المقارنة' : 'Add to comparison')} className="absolute right-3 top-16 z-10 rounded-full bg-white p-3 text-brand-dark shadow"><ArrowLeftRight className="h-5 w-5" /></button>
             <Image
-              src={product.images?.[selectedImage] || '/logo.jpg'}
+              src={product.images?.[selectedImage] || '/images/logo.jpg'}
               alt={title}
               fill
               className="object-contain p-4"

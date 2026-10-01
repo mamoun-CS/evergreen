@@ -3,7 +3,7 @@ import test from 'node:test';
 import crypto from 'node:crypto';
 import { verifyLahzaSignature } from '../src/lib/payment-utils';
 import { loginLimit } from '../src/lib/rate-limit';
-import { canAccess } from '../src/lib/rbac';
+import { canAccess, pageResource } from '../src/lib/rbac';
 import { ProductFormSchema, CouponFormSchema, CategoryFormSchema, NavigationSchema, BannerSchema, HomepageSchema, AdminUserSchema } from '../src/lib/validation';
 import { csvCell } from '../src/lib/audit-filters';
 import { getLahzaConfig, isLahzaConfigured } from '../src/lib/lahza-config';
@@ -79,6 +79,17 @@ test('RBAC denies unknown resources, managers mutations, admin settings and bulk
  assert.equal(canAccess({role:'ADMIN'},'deleteMany','product'),false);
  assert.equal(canAccess({role:'ADMIN'},'update','product'),true);
  assert.equal(canAccess({role:'SUPER_ADMIN'},'update','admins'),true);
+});
+test('admin route resources are explicit and preserve role boundaries',()=>{
+ assert.equal(pageResource('/admin/shipping'),'shipping');
+ assert.equal(pageResource('/admin/inventory'),'inventory');
+ assert.equal(pageResource('/admin/content/policies'),'content');
+ assert.equal(pageResource('/admin/settings'),'settings');
+ assert.equal(pageResource('/admin/not-a-route'),'unknown');
+ assert.equal(canAccess({role:'ADMIN'},'update','shipping'),true);
+ assert.equal(canAccess({role:'MANAGER'},'read','shipping'),false);
+ assert.equal(canAccess({role:'MANAGER'},'read','order'),true);
+ assert.equal(canAccess({role:'SUPER_ADMIN'},'update','content'),true);
 });
 const product={nameEn:'Planter',nameAr:'أصيص',slug:'planter',purchaseMode:'PURCHASABLE',basePrice:0,currency:'ILS',isAvailable:true,isFeatured:false,stockQuantity:3,images:[],categories:[],applications:[]};
 test('product schema rejects corrupt prices, stock, oversized text, HTML and mass assignment',()=>{

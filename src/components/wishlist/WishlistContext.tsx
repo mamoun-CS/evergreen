@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { useAuth } from '@/components/auth/AuthContext';
 
 export interface WishlistProduct {
   id: string; slug: string; nameEn: string; nameAr: string; images: string[];
@@ -21,10 +21,10 @@ function normalizeProduct(product: any): WishlistProduct {
 }
 
 export function WishlistProvider({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
   const [ids, setIds] = useState<string[]>([]);
   const [products, setProducts] = useState<WishlistProduct[]>([]);
   const [authenticated, setAuthenticated] = useState(false);
+  const isAuthenticated = useAuth();
 
   const sync = useCallback(async () => {
     const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') as string[];
@@ -46,10 +46,13 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
     } catch { /* keep the local guest list available when the network is offline */ }
   }, []);
 
+  // Sync once on initial mount only if authenticated
   useEffect(() => {
     try { setIds(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')); } catch { localStorage.removeItem(STORAGE_KEY); }
-    void sync();
-  }, [pathname, sync]);
+    if (isAuthenticated) {
+      void sync();
+    }
+  }, [isAuthenticated, sync]);
 
   const toggle = async (product: WishlistProduct) => {
     const exists = ids.includes(product.id);

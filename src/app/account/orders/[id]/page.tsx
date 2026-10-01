@@ -11,7 +11,28 @@ export default async function AccountOrderDetailsPage({ params }: { params: { id
 
   const order = await prisma.order.findUnique({
     where: { id: params.id },
-    include: { items: { include: { product: true } }, payments: true }
+    select: {
+      id: true,
+      orderNumber: true,
+      status: true,
+      createdAt: true,
+      customerName: true,
+      phone: true,
+      shippingAddress: true,
+      totalAmount: true,
+      currency: true,
+      paymentMethod: true,
+      userId: true,
+      items: {
+        select: {
+          id: true,
+          quantity: true,
+          price: true,
+          product: { select: { nameAr: true, nameEn: true } },
+        },
+      },
+      payments: { select: { id: true, status: true } },
+    },
   });
 
   if (!order || order.userId !== session.userId) {

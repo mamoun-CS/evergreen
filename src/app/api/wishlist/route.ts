@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/auth';
-import { consumeRateLimit } from '@/lib/rate-limit';
+import { consumeRateLimit, rateLimitConfig, rateLimitResponseHeaders } from '@/lib/rate-limit';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,7 +20,8 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   const user = await customer();
   if (!user) return NextResponse.json({ error: 'Sign in required. / يرجى تسجيل الدخول.' }, { status: 401 });
-  if (!consumeRateLimit(`wishlist:${user.id}`, 60, 60_000)) return NextResponse.json({ error: 'Too many wishlist changes. / تغييرات كثيرة على قائمة الرغبات.' }, { status: 429 });
+  const limit = await consumeRateLimit(`wishlist:${user.id}`, rateLimitConfig.write.maximum, rateLimitConfig.write.windowMs);
+  if (!limit.allowed) return NextResponse.json({ error: 'Too many wishlist changes. / تغييرات كثيرة على قائمة الرغبات.' }, { status: 429, headers: rateLimitResponseHeaders(limit) });
   const body = await request.json().catch(() => null);
   const productId = typeof body?.productId === 'string' ? body.productId : '';
   if (!productId || productId.length > 64) return NextResponse.json({ error: 'Invalid product. / المنتج غير صالح.' }, { status: 400 });
@@ -38,7 +39,8 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   const user = await customer();
   if (!user) return NextResponse.json({ error: 'Sign in required. / يرجى تسجيل الدخول.' }, { status: 401 });
-  if (!consumeRateLimit(`wishlist:${user.id}`, 60, 60_000)) return NextResponse.json({ error: 'Too many wishlist changes. / تغييرات كثيرة على قائمة الرغبات.' }, { status: 429 });
+  const limit = await consumeRateLimit(`wishlist:${user.id}`, rateLimitConfig.write.maximum, rateLimitConfig.write.windowMs);
+  if (!limit.allowed) return NextResponse.json({ error: 'Too many wishlist changes. / تغييرات كثيرة على قائمة الرغبات.' }, { status: 429, headers: rateLimitResponseHeaders(limit) });
   const productId = request.nextUrl.searchParams.get('productId') || '';
   if (!productId || productId.length > 64) return NextResponse.json({ error: 'Invalid product. / المنتج غير صالح.' }, { status: 400 });
   await prisma.wishlistItem.deleteMany({ where: { userId: user.id, productId } });

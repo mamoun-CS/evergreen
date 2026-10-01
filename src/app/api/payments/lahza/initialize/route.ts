@@ -6,6 +6,8 @@ import { getLahzaConfig, initializeLahzaTransaction } from '@/lib/lahza';
 import { toMinorUnits } from '@/lib/money';
 import { releaseInventoryReservation, releaseExpiredReservations } from '@/lib/payment-lifecycle';
 import { getCurrentUser } from '@/lib/auth';
+import { getClientIp } from '@/lib/auth-middleware';
+import { consumeRateLimit, rateLimitConfig, rateLimitResponseHeaders } from '@/lib/rate-limit';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -23,6 +25,8 @@ export async function POST(req: NextRequest) {
     await releaseExpiredReservations();
     const details = parseCheckout(await req.json());
     if (!details) return NextResponse.json({ error: 'Missing or invalid checkout fields.' }, { status: 400 });
+    const limit = await consumeRateLimit(`payment:${getClientIp(req.headers)}:${details.email}`, rateLimitConfig.payment.maximum, rateLimitConfig.payment.windowMs);
+    if (!limit.allowed) return NextResponse.json({ error: 'Too many payment attempts. Please try again later.' }, { status: 429, headers: rateLimitResponseHeaders(limit) });
     const user = await getCurrentUser();
     const order = await createReservedOrder(details, 'LAHZA', user?.id);
     if (!order.paymentAccessToken) throw new Error('Payment access token was not created.');

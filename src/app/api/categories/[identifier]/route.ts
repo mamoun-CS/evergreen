@@ -10,6 +10,7 @@ export async function GET(_request: NextRequest, { params }: { params: { identif
         slug: true,
         nameAr: true,
         nameEn: true,
+        _count: { select: { products: true } },
         children: {
           orderBy: { nameAr: 'asc' },
           select: {
@@ -31,8 +32,12 @@ export async function GET(_request: NextRequest, { params }: { params: { identif
 
     if (!category) return NextResponse.json({ error: 'Category not found.' }, { status: 404 });
 
+    const isLeaf = category.children.length === 0;
+
     return NextResponse.json({
-      category,
+      category: { id: category.id, slug: category.slug, nameAr: category.nameAr, nameEn: category.nameEn },
+      isLeaf,
+      productCount: category._count.products,
       subcategories: category.children.map(({ products, ...child }) => ({
         ...child,
         image: products[0]?.images?.[0] || null,

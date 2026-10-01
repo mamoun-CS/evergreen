@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import bcrypt from 'bcryptjs';
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { consumeRateLimit, rateLimitConfig, rateLimitResponseHeaders } from '@/lib/rate-limit';
 
 export async function POST(request: NextRequest) {
   try {
@@ -9,7 +10,10 @@ export async function POST(request: NextRequest) {
     const token = typeof body.token === 'string' ? body.token : '';
     const password = typeof body.password === 'string' ? body.password : '';
     if (!token || password.length < 10 || password.length > 128) return NextResponse.json({ error: 'الرابط أو كلمة المرور غير صالحين.' }, { status: 400 });
-    const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+    const tokenFingerprint = crypto.createHash('sha256').update(token).digest('hex');
+    const limit = await consumeRateLimit(`password-reset-confirm:${tokenFingerprint}`, rateLimitConfig.auth.maximum, rateLimitConfig.auth.windowMs);
+    if (!limit.allowed) return NextResponse.json({ error: 'Too many attempts. / محاولات كثيرة.' }, { status: 429, headers: rateLimitResponseHeaders(limit) });
+    const tokenHash = tokenFingerprint;
     const reset = await prisma.passwordResetToken.findUnique({ where: { tokenHash }, select: { id: true, userId: true, expiresAt: true, usedAt: true } });
     if (!reset || reset.usedAt || reset.expiresAt <= new Date()) return NextResponse.json({ error: 'رابط إعادة التعيين غير صالح أو منتهي الصلاحية.' }, { status: 400 });
     await prisma.$transaction([

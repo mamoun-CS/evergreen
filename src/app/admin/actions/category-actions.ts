@@ -4,7 +4,7 @@ import { validate } from '@/lib/admin-validation';
 import { IdSchema, CategoryFormSchema } from '@/lib/validation';
 import { assertAdmin } from '@/lib/auth';
 import { prisma } from '@/lib/admin-prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function createCategory(data: { nameEn: string; nameAr: string; slug: string; parentId?: string }) {
   await assertAdmin();
@@ -18,6 +18,7 @@ export async function createCategory(data: { nameEn: string; nameAr: string; slu
     },
   });
   revalidatePath('/admin/categories');
+  revalidateTag('categories');
 }
 
 export async function updateCategory(id: string, data: { nameEn: string; nameAr: string; slug: string; parentId?: string }) {
@@ -36,6 +37,7 @@ export async function updateCategory(id: string, data: { nameEn: string; nameAr:
     },
   });
   revalidatePath('/admin/categories');
+  revalidateTag('categories');
 }
 
 export async function deleteCategory(id: string) {
@@ -48,4 +50,5 @@ export async function deleteCategory(id: string) {
     where: { id },
   });
   revalidatePath('/admin/categories');
+  revalidateTag('categories');
 }

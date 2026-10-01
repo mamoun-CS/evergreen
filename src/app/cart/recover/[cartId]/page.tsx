@@ -1,9 +1,11 @@
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
+import { headers } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
 
 export default async function RecoverCartPage({ params }: { params: { cartId: string } }) {
+  const nonce = headers().get('x-csp-nonce') || undefined;
   const { cartId } = params;
   
   if (!cartId) {
@@ -30,6 +32,7 @@ export default async function RecoverCartPage({ params }: { params: { cartId: st
       <p className="text-xl">We've saved your cart for you.</p>
       
       <script
+        nonce={nonce}
         dangerouslySetInnerHTML={{
           __html: `
             try {

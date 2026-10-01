@@ -10,74 +10,85 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json().catch(() => null);
-    const guestCart: Array<{ id: string; variantId?: string; quantity: number }> = Array.isArray(body?.cart) ? body.cart.filter((item: any) => item && typeof item.id === 'string' && Number.isInteger(item.quantity) && item.quantity > 0 && item.quantity <= 100) : [];
+    const guestCart: Array<{ id: string; variantId?: string; quantity: number }> = Array.isArray(body?.cart)
+      ? body.cart.filter((item: any) => item && typeof item.id === 'string' && Number.isInteger(item.quantity) && item.quantity > 0 && item.quantity <= 100)
+      : [];
+
+    const cartItemSelect = {
+      include: {
+        product: { select: { id: true, slug: true, nameEn: true, nameAr: true, images: true, basePrice: true, discountPrice: true } },
+        variant: { select: { id: true, titleEn: true, titleAr: true, price: true, stock: true } },
+      },
+    } as const;
 
     // 1. Get or create user's DB cart
     let dbCart = await prisma.cart.findUnique({
       where: { sessionId: user.id },
-      include: {
-        items: {
-          include: {
-            product: { select: { id: true, slug: true, nameEn: true, nameAr: true, images: true, basePrice: true, discountPrice: true } },
-            variant: { select: { id: true, titleEn: true, titleAr: true, price: true, stock: true } }
-          }
-        }
-      }
+      include: { items: cartItemSelect },
     });
 
     if (!dbCart) {
       dbCart = await prisma.cart.create({
         data: { sessionId: user.id },
-        include: { items: { include: { product: true, variant: true } } }
+        include: { items: cartItemSelect },
       }) as any;
     }
 
     const dbItemMap = new Map(dbCart!.items.map(i => [`${i.productId}:${i.variantId || ''}`, i]));
 
-    // 2. Merge guest cart into DB cart
-    for (const item of guestCart) {
-      const key = `${item.id}:${item.variantId || ''}`;
-      if (dbItemMap.has(key)) {
-        // Update quantity if needed (or just take max/sum)
-        const existing = dbItemMap.get(key)!;
-        const product = await prisma.product.findUnique({ where: { id: item.id }, include: { variants: true } });
-        const variant = item.variantId ? product?.variants.find((entry) => entry.id === item.variantId) : null;
-        const available = product && product.isAvailable && (item.variantId ? Boolean(variant && variant.stock >= item.quantity) : product.stockQuantity >= item.quantity && product.variants.length === 0);
-        if (available && existing.quantity < item.quantity) {
-          await prisma.cartItem.update({
-            where: { id: existing.id },
-            data: { quantity: item.quantity }
-          });
-        }
-      } else {
-        // Verify product exists and get price
-        const product = await prisma.product.findUnique({ where: { id: item.id }, include: { variants: true } });
-        if (product && product.isAvailable) {
-          const variant = item.variantId ? product.variants.find((entry) => entry.id === item.variantId && entry.stock > 0) : null;
-          if ((product.variants.length && !variant) || (!product.variants.length && item.variantId)) continue;
+    // 2. Batch-fetch all products referenced by the guest cart in a SINGLE query (fixes N+1).
+    //    Previously, findUnique was called inside the loop — one query per guest item.
+    if (guestCart.length > 0) {
+      const productIds = [...new Set(guestCart.map(i => i.id))];
+      const products = await prisma.product.findMany({
+        where: { id: { in: productIds } },
+        select: {
+          id: true,
+          isAvailable: true,
+          stockQuantity: true,
+          variants: { select: { id: true, stock: true } },
+        },
+      });
+      const productMap = new Map(products.map(p => [p.id, p]));
+
+      // 3. Merge guest cart into DB cart using the pre-fetched product map
+      for (const item of guestCart) {
+        const product = productMap.get(item.id);
+        if (!product || !product.isAvailable) continue;
+
+        const hasVariants = product.variants.length > 0;
+        const variant = item.variantId ? product.variants.find(v => v.id === item.variantId) : null;
+        const available = hasVariants
+          ? Boolean(variant && variant.stock >= item.quantity)
+          : product.stockQuantity >= item.quantity;
+
+        if (!available) continue;
+
+        const key = `${item.id}:${item.variantId || ''}`;
+        if (dbItemMap.has(key)) {
+          const existing = dbItemMap.get(key)!;
+          if (existing.quantity < item.quantity) {
+            await prisma.cartItem.update({ where: { id: existing.id }, data: { quantity: item.quantity } });
+          }
+        } else {
+          if (hasVariants && !variant) continue;
+          if (!hasVariants && item.variantId) continue;
           await prisma.cartItem.create({
             data: {
               cartId: dbCart!.id,
               productId: product.id,
               variantId: variant?.id,
-              quantity: item.quantity
-            }
+              quantity: item.quantity,
+            },
           });
         }
       }
     }
 
-    // 3. Fetch final merged cart
+    // 4. Fetch final merged cart
     const finalDbCart = await prisma.cart.findUnique({
       where: { sessionId: user.id },
-      include: {
-        items: {
-          include: {
-            product: { select: { id: true, slug: true, nameEn: true, nameAr: true, images: true, basePrice: true, discountPrice: true } },
-            variant: { select: { id: true, titleEn: true, titleAr: true, price: true, stock: true } }
-          }
-        }
-      }
+      include: { items: cartItemSelect },
     });
 
     const mergedCart = finalDbCart!.items.map(dbItem => ({
@@ -90,7 +101,7 @@ export async function POST(req: NextRequest) {
       nameAr: dbItem.product.nameAr,
       image: dbItem.product.images[0] || '',
       price: Number(dbItem.variant?.price ?? dbItem.product.discountPrice ?? dbItem.product.basePrice ?? 0),
-      quantity: dbItem.quantity
+      quantity: dbItem.quantity,
     }));
 
     return NextResponse.json({ cart: mergedCart });

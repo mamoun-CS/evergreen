@@ -1,24 +1,45 @@
 import { prisma } from '@/lib/prisma';
 import { requireAdmin } from '@/lib/auth';
-import { Eye } from 'lucide-react';
+import { Eye, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 const dateFormatter = new Intl.DateTimeFormat('ar-PS', { dateStyle: 'medium', timeStyle: 'short' });
+const PAGE_SIZE = 50;
 
-export default async function OrdersPage() {
+export default async function OrdersPage({ searchParams }: { searchParams: { page?: string } }) {
   await requireAdmin();
-  const orders = await prisma.order.findMany({
-    orderBy: { createdAt: 'desc' },
-    include: { _count: { select: { items: true } } }
-  });
+  const page = Math.max(1, parseInt(searchParams.page || '1', 10));
+  const skip = (page - 1) * PAGE_SIZE;
+
+  const [total, orders] = await Promise.all([
+    prisma.order.count(),
+    prisma.order.findMany({
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        orderNumber: true,
+        customerName: true,
+        email: true,
+        totalAmount: true,
+        currency: true,
+        status: true,
+        createdAt: true,
+        _count: { select: { items: true } },
+      },
+      take: PAGE_SIZE,
+      skip,
+    }),
+  ]);
+
+  const totalPages = Math.ceil(total / PAGE_SIZE) || 1;
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-6">
       <div className="sm:flex sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-extrabold text-slate-900">الطلبات</h1>
-          <p className="mt-2 text-sm text-slate-700">إدارة طلبات العملاء وحالات الدفع والتوصيل.</p>
+          <p className="mt-2 text-sm text-slate-700">إدارة طلبات العملاء وحالات الدفع والتوصيل. ({total} طلب)</p>
         </div>
       </div>
       
@@ -56,6 +77,24 @@ export default async function OrdersPage() {
         </table>
         {orders.length === 0 && <div className="py-10 text-center text-sm text-slate-500">لا توجد طلبات.</div>}
       </div>
+
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between">
+          <p className="text-sm text-slate-600">صفحة {page} من {totalPages}</p>
+          <div className="flex gap-2">
+            {page > 1 && (
+              <Link href={`/admin/orders?page=${page - 1}`} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+                <ChevronRight className="h-4 w-4" /> السابق
+              </Link>
+            )}
+            {page < totalPages && (
+              <Link href={`/admin/orders?page=${page + 1}`} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+                التالي <ChevronLeft className="h-4 w-4" />
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
