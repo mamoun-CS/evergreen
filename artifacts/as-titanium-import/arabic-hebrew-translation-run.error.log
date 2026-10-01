@@ -1,0 +1,2 @@
+Error: 1531 records could not be translated; details are in C:\Users\mamou\Desktop\Work\evergreen\artifacts\as-titanium-import\arabic-translation-report.json.
+    at main (C:\Users\mamou\Desktop\Work\evergreen\scripts\translate_as_titanium_to_arabic.ts:85:32)

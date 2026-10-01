@@ -105,7 +105,7 @@ export default function EquipmentFinder() {
               <option value="">{t.equipmentFinder.allBrands}</option>
               {brands.map((b) => (
                 <option key={b.id} value={b.id}>
-                  {b.nameEn}
+                  {lang === 'ar' ? b.nameAr : b.nameEn}
                 </option>
               ))}
             </select>

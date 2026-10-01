@@ -102,6 +102,13 @@ model Product {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([createdAt])
+  @@index([updatedAt])
+  @@index([isFeatured, createdAt])
+  @@index([brandId])
+  @@index([isAvailable, stockQuantity])
+  @@index([discountPrice])
 }
 
 model Brand {
@@ -121,6 +128,8 @@ model Category {
   parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
   children Category[] @relation("CategoryHierarchy")
   products Product[]  @relation("ProductCategories")
+
+  @@index([parentId])
 }
 
 model Application {
@@ -355,6 +364,15 @@ model PasswordResetToken {
   @@index([userId, expiresAt])
 }
 
+/// Shared, durable rate-limit counters. A database-backed implementation keeps
+/// limits consistent across application instances without depending on process memory.
+model RateLimitBucket {
+  key             String   @id @db.VarChar(255)
+  windowStartedAt DateTime
+  count           Int      @default(0)
+  updatedAt       DateTime @updatedAt
+}
+
 model ShippingOption {
   id        String   @id @default(cuid())
   code      String   @unique
@@ -390,7 +408,7 @@ model SiteSettings {
   faviconUrl      String?
   defaultCurrency String  @default("ILS")
   contactEmail    String  @default("info@evergreen.ps")
-  contactPhone    String  @default("0599 000 000")
+  contactPhone    String  @default("0559401774")
   contactWhatsApp String?
   addressAr       String  @default("فلسطين")
   addressEn       String  @default("Palestine")
@@ -432,6 +450,8 @@ model HomepageSection {
   ctaLink    String?
   isActive   Boolean @default(true)
   order      Int     @default(0)
+
+  @@index([isActive])
 }
 
 model Banner {

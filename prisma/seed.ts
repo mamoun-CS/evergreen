@@ -34,7 +34,6 @@ const products: SeedProduct[] = [
   { slug: 'outdoor-wall-decor', category: 'outdoor-decor', nameAr: 'ديكور جداري خارجي', nameEn: 'Outdoor Wall Decor', descriptionAr: 'قطعة فنية مقاومة للعوامل الخارجية لتزيين الجدران والمساحات المفتوحة.', descriptionEn: 'Weather-ready wall art for patios, walls, and open spaces.', price: 135, material: 'Metal', style: 'Modern', featured: true },
   { slug: 'garden-accessory-set', category: 'garden-accessories', nameAr: 'مجموعة إكسسوارات للحديقة', nameEn: 'Garden Accessory Set', descriptionAr: 'مجموعة مختارة من اللمسات الديكورية الصغيرة للحديقة.', descriptionEn: 'A selected set of small decorative finishing touches for the garden.', price: 110, discount: 88, material: 'Resin', featured: false },
   { slug: 'decorative-garden-birdbath', category: 'garden-accessories', nameAr: 'حوض طيور ديكوري', nameEn: 'Decorative Garden Birdbath', descriptionAr: 'قطعة لطيفة تضيف الحياة والهدوء إلى الحديقة.', descriptionEn: 'A charming piece that brings life and calm to the garden.', price: 155, material: 'Cement', featured: true },
-  { slug: 'test-garden-planter', category: 'floor-planters', nameAr: 'حوض اختبار للحديقة', nameEn: 'Test Garden Planter', descriptionAr: 'منتج تجريبي لاختبار عرض المنتجات والأسعار والعروض في المتجر.', descriptionEn: 'A test product for verifying catalogue display, pricing, and offers.', price: 120, discount: 90, material: 'Fiber', color: 'Olive Green', style: 'Modern', featured: true },
 ];
 
 async function main() {

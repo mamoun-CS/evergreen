@@ -1,0 +1,26 @@
+[
+  {
+    "id": "product-3b5d4d393a2e",
+    "name": "אדנית טרקוטה חלקה – עיצוב איטלקי קלאסי למרפסת ולגינה",
+    "sku": "45-2590",
+    "reason": "SKU occurs more than once in source; stored as null to honor Product.sku unique constraint. Original value remains in the reference report."
+  },
+  {
+    "id": "product-2aebd805b557",
+    "name": "סט של 3 עציצים עגולים עם עיטור פס עליון",
+    "sku": "155-113LG",
+    "reason": "SKU occurs more than once in source; stored as null to honor Product.sku unique constraint. Original value remains in the reference report."
+  },
+  {
+    "id": "product-a297d7fde56f",
+    "name": "סט 3 עציצים עגולים וינטג' 52.5 ס\"מ, ירוק",
+    "sku": "155-113LG",
+    "reason": "SKU occurs more than once in source; stored as null to honor Product.sku unique constraint. Original value remains in the reference report."
+  },
+  {
+    "id": "product-d8552234f59a",
+    "name": "אדנית טרקוטה מלבנית חלקה +תחתית 48.9 ס\"מ",
+    "sku": "45-2590",
+    "reason": "SKU occurs more than once in source; stored as null to honor Product.sku unique constraint. Original value remains in the reference report."
+  }
+]

@@ -181,7 +181,7 @@ function ShopContent() {
           </h1>
           <p className="text-xs text-gray-500 mt-1">
             {lang === 'ar'
-              ? 'تصفح كافة الأقسام والمعدات الهندسية بوُصول مباشر للبيانات الموثوقة'
+              ? 'تصفّح جميع أقسام ومنتجات الديكور الخارجي واختر ما يناسب مساحتك'
               : 'Browse all engineering equipment and products with verified data filtering'}
           </p>
         </div>

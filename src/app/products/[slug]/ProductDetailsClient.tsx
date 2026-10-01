@@ -221,8 +221,8 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
               {product.material && <><dt className="text-gray-500">{lang === 'ar' ? 'المادة' : 'Material'}</dt><dd className="font-semibold text-gray-800">{product.material}</dd></>}
               {product.color && <><dt className="text-gray-500">{lang === 'ar' ? 'اللون' : 'Color'}</dt><dd className="font-semibold text-gray-800">{product.color}</dd></>}
               {product.style && <><dt className="text-gray-500">{lang === 'ar' ? 'النمط' : 'Style'}</dt><dd className="font-semibold text-gray-800">{product.style}</dd></>}
-              {(product.lengthCm || product.widthCm || product.heightCm) && <><dt className="text-gray-500">{lang === 'ar' ? 'الأبعاد' : 'Dimensions'}</dt><dd className="font-semibold text-gray-800">{[product.lengthCm, product.widthCm, product.heightCm].filter(Boolean).join(' × ')} cm</dd></>}
-              {product.weightKg && <><dt className="text-gray-500">{lang === 'ar' ? 'الوزن' : 'Weight'}</dt><dd className="font-semibold text-gray-800">{product.weightKg} kg</dd></>}
+              {(product.lengthCm || product.widthCm || product.heightCm) && <><dt className="text-gray-500">{lang === 'ar' ? 'الأبعاد' : 'Dimensions'}</dt><dd className="font-semibold text-gray-800">{[product.lengthCm, product.widthCm, product.heightCm].filter(Boolean).join(' × ')} {lang === 'ar' ? 'سم' : 'cm'}</dd></>}
+              {product.weightKg && <><dt className="text-gray-500">{lang === 'ar' ? 'الوزن' : 'Weight'}</dt><dd className="font-semibold text-gray-800">{product.weightKg} {lang === 'ar' ? 'كجم' : 'kg'}</dd></>}
             </dl>
           )}
 
