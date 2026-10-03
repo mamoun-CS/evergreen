@@ -1,2 +1,2 @@
-import RouteLoading from '@/components/layout/RouteLoading';
+import RouteLoading from "@/components/layout/RouteLoading";
 export default RouteLoading;
