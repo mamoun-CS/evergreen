@@ -38,7 +38,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     product.categories.length
       ? prisma.product.findMany({
           where: { id: { not: product.id }, categories: { some: { id: { in: product.categories.map((category) => category.id) } } } },
-          select: { id: true, slug: true, sku: true, nameEn: true, nameAr: true, purchaseMode: true, basePrice: true, discountPrice: true, currency: true, images: true, isAvailable: true, stockQuantity: true, warrantyInfoEn: true, warrantyInfoAr: true, seriesModel: true, ratingAvg: true, ratingCount: true, brand: { select: { name: true } } },
+          select: { id: true, slug: true, sku: true, nameEn: true, nameAr: true, purchaseMode: true, basePrice: true, discountPrice: true, currency: true, images: true, isAvailable: true, stockQuantity: true, warrantyInfoEn: true, warrantyInfoAr: true, ratingAvg: true, ratingCount: true, brand: { select: { name: true } } },
           orderBy: { createdAt: 'desc' },
           take: 3,
         })

@@ -56,7 +56,6 @@ interface ProductDetailsClientProps {
     warrantyInfoEn?: string | null;
     warrantyInfoAr?: string | null;
     countryOfOrigin?: string | null;
-    seriesModel?: string | null;
     material?: string | null;
     color?: string | null;
     style?: string | null;
@@ -183,11 +182,6 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
               {title}
             </h1>
 
-            {product.seriesModel && (
-              <p className="text-xs text-brand-muted mt-1 font-semibold">
-                {t.product.model}: {product.seriesModel}
-              </p>
-            )}
           </div>
 
           {/* Description */}

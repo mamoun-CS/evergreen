@@ -38,7 +38,6 @@ export async function GET(req: NextRequest) {
         { nameEn: { contains: query, mode: 'insensitive' } },
         { nameAr: { contains: query, mode: 'insensitive' } },
         { sku: { contains: query, mode: 'insensitive' } },
-        { seriesModel: { contains: query, mode: 'insensitive' } },
         { descriptionEn: { contains: query, mode: 'insensitive' } },
         { descriptionAr: { contains: query, mode: 'insensitive' } },
         { categories: { some: { OR: [

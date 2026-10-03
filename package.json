@@ -10,6 +10,9 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:seed": "npx tsx prisma/seed.ts",
+    "catalog:fix": "tsx prisma/scripts/fix-evergreen-catalog.ts",
+    "catalog:translate": "tsx prisma/scripts/translate-catalog-ar-en.ts",
+    "catalog:prepare-translations": "tsx prisma/scripts/prepare-approved-translations.ts",
     "test": "tsx --test tests/*.test.ts",
     "test:integration": "node tests/integration.mjs"
   },

@@ -32,7 +32,6 @@ export default async function ShopPage({
       { nameEn:        { contains: search, mode: 'insensitive' } },
       { nameAr:        { contains: search, mode: 'insensitive' } },
       { sku:           { contains: search, mode: 'insensitive' } },
-      { seriesModel:   { contains: search, mode: 'insensitive' } },
       { descriptionEn: { contains: search, mode: 'insensitive' } },
       { descriptionAr: { contains: search, mode: 'insensitive' } },
     ];

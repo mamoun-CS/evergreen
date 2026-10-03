@@ -14,7 +14,7 @@ import ProductCard from "@/components/product/ProductCard";
 
 type Category = { id: string; slug: string; nameAr: string; nameEn: string; image?: string | null };
 type CmsSection = { titleAr?: string | null; titleEn?: string | null; subtitleAr?: string | null; subtitleEn?: string | null; contentAr?: string | null; contentEn?: string | null; imageAr?: string | null; imageEn?: string | null; ctaTextAr?: string | null; ctaTextEn?: string | null; ctaLink?: string | null };
-type Product = { id: string; slug: string; sku?: string | null; nameEn: string; nameAr: string; purchaseMode: "PURCHASABLE" | "CONTACT_FOR_PRICE"; basePrice?: number | null; discountPrice?: number | null; currency?: string; images: string[]; brand?: { name: string } | null; isAvailable?: boolean; stockQuantity?: number; warrantyInfoEn?: string | null; warrantyInfoAr?: string | null; seriesModel?: string | null; ratingAvg?: number | null; ratingCount?: number };
+type Product = { id: string; slug: string; sku?: string | null; nameEn: string; nameAr: string; purchaseMode: "PURCHASABLE" | "CONTACT_FOR_PRICE"; basePrice?: number | null; discountPrice?: number | null; currency?: string; images: string[]; brand?: { name: string } | null; isAvailable?: boolean; stockQuantity?: number; warrantyInfoEn?: string | null; warrantyInfoAr?: string | null; ratingAvg?: number | null; ratingCount?: number };
 
 export default function HomeView({ categories, content, products }: { categories: Category[]; content: Record<string, CmsSection>; products: { featured: Product[]; latest: Product[] } }) {
   const { lang } = useLanguage();

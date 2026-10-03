@@ -18,7 +18,6 @@ export const productCardSelect = {
   stockQuantity: true,
   warrantyInfoEn: true,
   warrantyInfoAr: true,
-  seriesModel: true,
   ratingAvg: true,
   ratingCount: true,
   brand: { select: { name: true } },
@@ -165,7 +164,11 @@ export const getProductBySlug = cache(async (slug: string) => {
 
   if (product) {
     product.images = product.images.map(img => img.startsWith('/uploads/products/evg-product-') ? img.replace('/uploads/products/', '/products/') : img);
+    // Import provenance/model data is internal. Do not serialize it into the
+    // public product page payload or any server-rendered storefront response.
+    const { seriesModel: _internalSeriesModel, ...publicProduct } = product;
+    return publicProduct;
   }
 
-  return product;
+  return null;
 });
