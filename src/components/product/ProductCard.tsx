@@ -67,23 +67,32 @@ export default function ProductCard({ product, variant }: ProductCardProps) {
     }
   };
 
+  const wishLabel = wishlisted ? (lang === 'ar' ? 'إزالة من قائمة الرغبات' : 'Remove from wishlist') : (lang === 'ar' ? 'إضافة إلى قائمة الرغبات' : 'Add to wishlist');
+  const compareLabel = compare.items.some((item) => item.slug === product.slug) ? (lang === 'ar' ? 'إزالة من المقارنة' : 'Remove from comparison') : (lang === 'ar' ? 'إضافة إلى المقارنة' : 'Add to comparison');
+  const overlayButtons = (
+    <>
+      <button type="button" onClick={() => void wishlist.toggle(wishlistProduct)} aria-label={wishLabel} className="absolute end-2 top-2 z-10 rounded-full bg-white/90 p-2 text-brand-dark shadow"><Heart className="h-4 w-4" fill={wishlisted ? 'currentColor' : 'none'} /></button>
+      <button type="button" onClick={() => compare.toggle({ slug: product.slug, nameAr: product.nameAr, nameEn: product.nameEn, image })} aria-label={compareLabel} className="absolute end-2 bottom-2 z-10 rounded-full bg-white/90 p-2 text-brand-dark shadow"><ArrowLeftRight className="h-4 w-4" /></button>
+    </>
+  );
+
   if (variant === 'featured') {
-    return <article className="eg-product-card group relative">
-      <button type="button" onClick={() => void wishlist.toggle(wishlistProduct)} aria-label={wishlisted ? (lang === 'ar' ? 'إزالة من قائمة الرغبات' : 'Remove from wishlist') : (lang === 'ar' ? 'إضافة إلى قائمة الرغبات' : 'Add to wishlist')} className="absolute right-2 top-2 z-10 rounded-full bg-white/90 p-2 text-brand-dark shadow"><Heart className="h-4 w-4" fill={wishlisted ? 'currentColor' : 'none'} /></button>
-      <button type="button" onClick={() => compare.toggle({ slug: product.slug, nameAr: product.nameAr, nameEn: product.nameEn, image })} aria-label={compare.items.some((item) => item.slug === product.slug) ? (lang === 'ar' ? 'إزالة من المقارنة' : 'Remove from comparison') : (lang === 'ar' ? 'إضافة إلى المقارنة' : 'Add to comparison')} className="absolute bottom-2 right-2 z-10 rounded-full bg-white/90 p-2 text-brand-dark shadow"><ArrowLeftRight className="h-4 w-4" /></button>
-      <Link href={`/products/${product.slug}`} className="eg-agri-product-image relative">
-        <Image src={image} alt={title} fill sizes="(max-width: 760px) 100vw, 220px" className="object-contain p-3 transition-transform duration-300 group-hover:scale-105" />
-      </Link>
+    return <article className="eg-product-card group">
+      <div className="eg-agri-product-image">
+        {overlayButtons}
+        <Link href={`/products/${product.slug}`} className="absolute inset-0">
+          <Image src={image} alt={title} fill sizes="(max-width: 760px) 50vw, 220px" className="object-contain p-3 transition-transform duration-300 group-hover:scale-105" />
+        </Link>
+      </div>
       <div className="eg-product-body"><Link href={`/products/${product.slug}`}><h3>{title}</h3></Link><div className="eg-product-meta">{product.basePrice ? <b>{Number(product.discountPrice ?? product.basePrice).toLocaleString()} {product.currency || (lang === 'ar' ? '₪' : 'ILS')}</b> : <span>{product.purchaseMode === 'PURCHASABLE' ? (lang === 'ar' ? 'السعر عند الطلب' : 'Price on request') : t.product.priceOnRequest}</span>}{product.purchaseMode === 'PURCHASABLE' ? <button onClick={handleAction} disabled={!inStock} aria-label={lang === 'ar' ? 'أضف للسلة' : 'Add to cart'}><ShoppingCart /></button> : <Link href={`/contact?product=${encodeURIComponent(product.slug)}`} aria-label={t.product.contactUsForPrice}>{t.product.contactUsForPrice}</Link>}</div></div>
     </article>;
   }
 
   return (
-    <div className={`${variant === 'featured' ? 'eg-product-card' : 'bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md'} h-full transition-all duration-200 flex flex-col group relative`}>
-      <button type="button" onClick={() => void wishlist.toggle(wishlistProduct)} aria-label={wishlisted ? (lang === 'ar' ? 'إزالة من قائمة الرغبات' : 'Remove from wishlist') : (lang === 'ar' ? 'إضافة إلى قائمة الرغبات' : 'Add to wishlist')} className="absolute right-2 top-2 z-10 rounded-full bg-white/90 p-2 text-brand-dark shadow"><Heart className="h-4 w-4" fill={wishlisted ? 'currentColor' : 'none'} /></button>
-      <button type="button" onClick={() => compare.toggle({ slug: product.slug, nameAr: product.nameAr, nameEn: product.nameEn, image })} aria-label={compare.items.some((item) => item.slug === product.slug) ? (lang === 'ar' ? 'إزالة من المقارنة' : 'Remove from comparison') : (lang === 'ar' ? 'إضافة إلى المقارنة' : 'Add to comparison')} className="absolute bottom-2 right-2 z-10 rounded-full bg-white/90 p-2 text-brand-dark shadow"><ArrowLeftRight className="h-4 w-4" /></button>
-      {/* Image Container */}
-      <Link href={`/products/${product.slug}`} className="block relative aspect-square bg-gray-50 border-b border-gray-100 overflow-hidden p-4">
+    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md h-full transition-all duration-200 flex flex-col group relative">
+      <div className="relative aspect-square bg-gray-50 border-b border-gray-100 overflow-hidden">
+      {overlayButtons}
+      <Link href={`/products/${product.slug}`} className="absolute inset-0 block p-4">
         <Image
           src={image}
           alt={title}
@@ -94,7 +103,7 @@ export default function ProductCard({ product, variant }: ProductCardProps) {
 
         {/* Brand Badge */}
         {product.brand && (
-          <span className="absolute top-2 right-2 bg-brand-dark text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">
+          <span className="absolute top-2 start-2 bg-brand-dark text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">
             {product.brand.name}
           </span>
         )}
@@ -106,6 +115,7 @@ export default function ProductCard({ product, variant }: ProductCardProps) {
           </span>
         )}
       </Link>
+      </div>
 
       {/* Content */}
       <div className={`${variant === 'featured' ? 'eg-product-body' : 'p-4'} flex-1 flex flex-col`}>

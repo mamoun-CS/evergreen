@@ -156,4 +156,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .home-v2{position:relative;isolation:isolate}
 .home-v2::before{content:"";position:absolute;z-index:0;top:475px;right:0;left:0;height:min(72vw,860px);pointer-events:none;background:url('/images/Logo-background.png') center top / min(92vw,1600px) auto no-repeat;opacity:.075}
 .home-v2 > *{position:relative;z-index:1}
+
+/* Product cards: equal height, no overlay on the price row. */
+.home-product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;align-items:stretch}
+.home-product-grid>.eg-product-card,.eg-products>.eg-product-card{position:relative;display:flex;flex-direction:column;height:100%;min-width:0;margin:0}
+.eg-product-card .eg-agri-product-image{position:relative;display:block;width:100%;height:180px;overflow:hidden}
+.eg-product-card .eg-agri-product-image img{display:block;width:100%;height:100%;object-fit:contain}
+.eg-product-card .eg-product-body{display:flex;flex-direction:column;flex-grow:1;padding:12px 14px 14px}
+.eg-product-card .eg-product-meta{margin-top:auto}
+@media(max-width:1100px){.home-product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
+@media(max-width:760px){.home-product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.eg-product-card{min-width:0;max-width:none}}
 @media(max-width:760px){.home-v2::before{top:430px;height:560px;background-size:780px auto;opacity:.055}}
