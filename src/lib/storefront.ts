@@ -95,6 +95,37 @@ export const getRootCategories = unstable_cache(
   { revalidate: 300, tags: ['categories'] },
 );
 
+/** A small, cacheable catalogue slice for the homepage. Keep this selection in
+ * sync with ProductCard so the landing page never needs a second product shape. */
+export const getHomepageProducts = unstable_cache(
+  async () => {
+    const available = { isAvailable: true, stockQuantity: { gt: 0 } };
+    const [featured, latest] = await Promise.all([
+      prisma.product.findMany({
+        where: { ...available, isFeatured: true },
+        orderBy: [{ updatedAt: 'desc' }],
+        take: 4,
+        select: productCardSelect,
+      }),
+      prisma.product.findMany({
+        where: available,
+        orderBy: [{ createdAt: 'desc' }],
+        take: 8,
+        select: productCardSelect,
+      }),
+    ]);
+
+    // A newly populated catalogue may not yet mark any product as featured.
+    // In that case, still give visitors a real, useful first product row.
+    return {
+      featured: (featured.length ? featured : latest.slice(0, 4)).map(serializeCard),
+      latest: latest.map(serializeCard),
+    };
+  },
+  ['homepage-products'],
+  { revalidate: 120, tags: ['products'] },
+);
+
 export const getFilterOptions = unstable_cache(
   async () => {
     const [categories, brands, applications] = await Promise.all([

@@ -60,7 +60,7 @@ export default function CartDrawer() {
                 >
                   <div className="relative w-16 h-16 rounded bg-white overflow-hidden border border-gray-200 flex-shrink-0">
                     <Image
-                      src={item.image || '/images/logo.jpg'}
+                      src={item.image || '/logo.jpg'}
                       alt={lang === 'ar' ? item.nameAr : item.nameEn}
                       fill
                       className="object-contain p-1"
@@ -122,11 +122,11 @@ aria-label={lang === 'ar' ? `إزالة ${item.nameAr} من السلة` : `Remov
               <p className="text-[11px] text-gray-500">{t.cart.shippingNote}</p>
 
               <Link
-                href="/cart"
+                href="/checkout"
                 onClick={() => setIsCartOpen(false)}
                 className="w-full py-2.5 px-4 bg-brand-navy text-white text-xs font-bold rounded-lg hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
               >
-                <span>{lang === 'ar' ? 'مراجعة السلة' : 'Review cart'}</span>
+                <span>{t.cart.proceedToCheckout}</span>
                 {lang === 'ar' ? (
                   <ArrowLeft className="w-4 h-4" />
                 ) : (
