@@ -60,7 +60,8 @@ async function main() {
   const report = JSON.parse(await readFile(reportPath, 'utf8')) as { changes: Issue[] };
   const supported = report.changes.filter((issue): issue is Issue & { entity: 'Product' | 'Category'; field: Translation['field'] } =>
     (issue.entity === 'Product' || issue.entity === 'Category') && ['nameAr', 'nameEn', 'descriptionAr', 'descriptionEn'].includes(issue.field));
-  const excluded = report.changes.filter(issue => !supported.includes(issue));
+  const excluded = report.changes.filter(issue =>
+    !((issue.entity === 'Product' || issue.entity === 'Category') && ['nameAr', 'nameEn', 'descriptionAr', 'descriptionEn'].includes(issue.field)));
   const unique = new Map<string, { text: string; target: 'ar' | 'en' }>();
   const blocked: Array<Issue & { validation: string }> = [];
   for (const issue of supported) {
