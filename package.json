@@ -2,6 +2,13 @@
   "name": "evergreen-store",
   "version": "0.1.0",
   "private": true,
+  "allowScripts": {
+    "@prisma/client@5.22.0": true,
+    "@prisma/engines@5.22.0": true,
+    "esbuild@0.28.2": true,
+    "prisma@5.22.0": true,
+    "unrs-resolver@1.12.2": true
+  },
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
