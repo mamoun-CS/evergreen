@@ -20,6 +20,10 @@
     "catalog:fix": "tsx prisma/scripts/fix-evergreen-catalog.ts",
     "catalog:translate": "tsx prisma/scripts/translate-catalog-ar-en.ts",
     "catalog:prepare-translations": "tsx prisma/scripts/prepare-approved-translations.ts",
+    "products:import": "tsx scripts/import-products.ts",
+    "products:optimize-images": "tsx scripts/optimize-product-images.ts",
+    "products:export-texts": "tsx scripts/export-product-texts.ts",
+    "products:import-texts": "tsx scripts/import-product-texts.ts",
     "test": "tsx --test tests/*.test.ts",
     "test:integration": "node tests/integration.mjs"
   },

@@ -84,7 +84,7 @@ export default function ProductCard({ product, variant }: ProductCardProps) {
           <Image src={image} alt={title} fill sizes="(max-width: 760px) 50vw, 220px" className="object-contain p-3 transition-transform duration-300 group-hover:scale-105" />
         </Link>
       </div>
-      <div className="eg-product-body"><Link href={`/products/${product.slug}`}><h3>{title}</h3></Link><div className="eg-product-meta">{product.basePrice ? <b>{Number(product.discountPrice ?? product.basePrice).toLocaleString()} {product.currency || (lang === 'ar' ? '₪' : 'ILS')}</b> : <span>{product.purchaseMode === 'PURCHASABLE' ? (lang === 'ar' ? 'السعر عند الطلب' : 'Price on request') : t.product.priceOnRequest}</span>}{product.purchaseMode === 'PURCHASABLE' ? <button onClick={handleAction} disabled={!inStock} aria-label={lang === 'ar' ? 'أضف للسلة' : 'Add to cart'}><ShoppingCart /></button> : <Link href={`/contact?product=${encodeURIComponent(product.slug)}`} aria-label={t.product.contactUsForPrice}>{t.product.contactUsForPrice}</Link>}</div></div>
+      <div className="eg-product-body"><Link href={`/products/${product.slug}`}><h3>{title}</h3></Link><div className="eg-product-meta">{product.basePrice ? <b>{Number(product.discountPrice ?? product.basePrice).toLocaleString()} {product.currency === 'ILS' || !product.currency ? '₪' : product.currency}</b> : <span>{product.purchaseMode === 'PURCHASABLE' ? (lang === 'ar' ? 'السعر عند الطلب' : 'Price on request') : t.product.priceOnRequest}</span>}{product.purchaseMode === 'PURCHASABLE' ? <button onClick={handleAction} disabled={!inStock} aria-label={lang === 'ar' ? 'أضف للسلة' : 'Add to cart'}><ShoppingCart /></button> : <Link href={`/contact?product=${encodeURIComponent(product.slug)}`} aria-label={t.product.contactUsForPrice}>{t.product.contactUsForPrice}</Link>}</div></div>
     </article>;
   }
 
@@ -97,7 +97,7 @@ export default function ProductCard({ product, variant }: ProductCardProps) {
           src={image}
           alt={title}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
           className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
         />
 
@@ -145,7 +145,7 @@ export default function ProductCard({ product, variant }: ProductCardProps) {
                 {product.basePrice && <>
                   <span className="block text-xs text-gray-500">{t.product.price}</span>
                   <span className="text-base font-extrabold text-brand-navy">
-                    {Number(product.discountPrice ?? product.basePrice).toLocaleString()} {product.currency || 'ILS'}
+                    {Number(product.discountPrice ?? product.basePrice).toLocaleString()} {product.currency === 'ILS' || !product.currency ? '₪' : product.currency}
                   </span>
                   {product.discountPrice && <span className="ms-1 text-xs text-gray-400 line-through">{Number(product.basePrice).toLocaleString()}</span>}
                 </>}

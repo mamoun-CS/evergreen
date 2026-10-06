@@ -66,7 +66,7 @@ export default function HomeView({ categories, content, products }: { categories
   const heroImage = ar ? cms.hero?.imageAr || "/images/background.png" : cms.hero?.imageEn || "/images/background-en.png";
   return (
     <main className="home-v2">
-      <section className="home-hero" style={{ backgroundImage: `url(${heroImage})` }}>
+      <section className="home-hero">
         <Image src={heroImage} alt="" fill priority sizes="100vw" className="home-hero-image" />
         <div className="home-hero-shade" />
         <div className="home-hero-content">

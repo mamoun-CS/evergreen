@@ -48,6 +48,8 @@ enum ReviewStatus {
 
 model Product {
   id              String       @id @default(cuid())
+  /// Stable ID supplied by the external catalogue importer.
+  externalId      String?      @unique
   nameEn          String
   nameAr          String
   slug            String       @unique
@@ -71,6 +73,10 @@ model Product {
   heightCm        Decimal?     @db.Decimal(10, 2)
   weightKg        Decimal?     @db.Decimal(10, 2)
   images          String[]
+  productImages   ProductImage[]
+  sourceUrl       String?
+  externalSize    String?
+  importDetails   String?
   datasheetUrl    String?
   manualUrl       String?
   warrantyInfoEn  String?
@@ -111,6 +117,21 @@ model Product {
   @@index([discountPrice])
   @@index([basePrice])
   @@index([purchaseMode])
+}
+
+/// Ordered local product assets. `path` is always a public, relative URL.
+model ProductImage {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  path      String
+  isMain    Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([productId, path])
+  @@index([productId, isMain, sortOrder])
 }
 
 model Brand {

@@ -10,6 +10,11 @@ import sharp from 'sharp';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+// Large camera images are wasteful for product pages. This keeps enough detail
+// for the product gallery while sharply reducing storage and transfer size.
+const MAX_IMAGE_DIMENSION = 1600;
+const WEBP_QUALITY = 80;
+
 export async function POST(request: NextRequest) {
   const contentLength = Number(request.headers.get('content-length') || 0);
   if (contentLength > 105 * 1024 * 1024) return NextResponse.json({ error: 'Upload request is too large. / حجم الطلب كبير جداً.' }, { status: 413 });
@@ -47,7 +52,13 @@ export async function POST(request: NextRequest) {
     for (const image of validated) {
       const output = await sharp(image.bytes, { limitInputPixels: 40_000_000, failOn: 'error' })
         .rotate()
-        .toFormat('webp', { quality: 85, effort: 4 })
+        .resize({
+          width: MAX_IMAGE_DIMENSION,
+          height: MAX_IMAGE_DIMENSION,
+          fit: 'inside',
+          withoutEnlargement: true,
+        })
+        .webp({ quality: WEBP_QUALITY, effort: 5, smartSubsample: true })
         .toBuffer();
       const url = await storeImage(output, 'image/webp', category);
       saved.push(url);

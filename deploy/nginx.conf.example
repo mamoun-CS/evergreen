@@ -25,6 +25,17 @@ server {
         try_files $uri =404;
     }
 
+    # Imported catalogue assets are served directly from public/products.
+    # Their filenames are stable per import, so cache them rather than making
+    # returning visitors download the original images again.
+    location ^~ /products/ {
+        alias /var/www/evergreen/public/products/;
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+        add_header X-Content-Type-Options nosniff always;
+        try_files $uri =404;
+    }
+
     location / {
         proxy_pass http://127.0.0.1:3000;
         proxy_http_version 1.1;

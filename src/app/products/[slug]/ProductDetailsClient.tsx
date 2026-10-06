@@ -52,6 +52,7 @@ interface ProductDetailsClientProps {
     nameAr: string;
     descriptionEn?: string | null;
     descriptionAr?: string | null;
+    importDetails?: string | null;
     purchaseMode: "PURCHASABLE" | "CONTACT_FOR_PRICE";
     basePrice?: number | null;
     discountPrice?: number | null;
@@ -292,6 +293,14 @@ export default function ProductDetailsClient({
               {description}
             </p>
           )}
+          {product.importDetails && (
+            <section className="border-b border-gray-100 pb-3 text-xs sm:text-sm text-gray-700">
+              <h2 className="mb-2 font-bold text-gray-900">{lang === "ar" ? "التفاصيل" : "Details"}</h2>
+              <ul className="list-disc space-y-1 ps-5 leading-relaxed">
+                {product.importDetails.split(/\r?\n/).map((line, index) => line.trim() && <li key={index}>{line.trim()}</li>)}
+              </ul>
+            </section>
+          )}
 
           {/* Metadata badges */}
           <div className="grid grid-cols-2 gap-3 text-xs">
@@ -397,7 +406,7 @@ export default function ProductDetailsClient({
               {product.purchaseMode === "PURCHASABLE" && unitPrice ? (
                 <span className="text-xl font-extrabold text-brand-gold">
                   {Number(unitPrice).toLocaleString()}{" "}
-                  {product.currency || "ILS"}
+                  {product.currency === "ILS" || !product.currency ? "₪" : product.currency}
                   {product.discountPrice && (
                     <span className="ms-2 text-xs font-medium text-slate-400 line-through">
                       {Number(product.basePrice).toLocaleString()}
