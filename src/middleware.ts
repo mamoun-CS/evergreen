@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { canAccess, pageResource } from './lib/rbac';
 export async function middleware(req: NextRequest) {
  const bytes = crypto.getRandomValues(new Uint8Array(16));
+ // API replies get the compact CSPv3 header; page replies keep the nonce flow below.
+ if (req.nextUrl.pathname.startsWith('/api/')) {
+  const response = NextResponse.next();
+  response.headers.set('Content-Security-Policy', "default-src 'self'; object-src 'none'; frame-ancestors 'none'");
+  return response;
+ }
  const nonce = btoa(String.fromCharCode(...bytes));
  const csp = ["default-src 'self'", `script-src 'self' 'nonce-${nonce}'` + (process.env.NODE_ENV !== 'production' ? " 'unsafe-eval'" : ''), "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com", "img-src 'self' data:", "font-src 'self' https://fonts.gstatic.com", "connect-src 'self'", "frame-src 'none'", "object-src 'none'", "base-uri 'self'", "form-action 'self'", "frame-ancestors 'none'"].join('; ');
  const requestHeaders = new Headers(req.headers); requestHeaders.set('x-csp-nonce', nonce);
@@ -20,4 +26,4 @@ export async function middleware(req: NextRequest) {
   return proceed();
  }catch{return secure(NextResponse.redirect(new URL('/login',req.url)));}
 }
-export const config = { matcher: ['/((?!api/|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpe?g|webp|gif|svg|ico|css|js|map|woff2?|pdf|txt)$).*)'] };
+export const config = { matcher: ['/api/:path*', '/((?!api/|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpe?g|webp|gif|svg|ico|css|js|map|woff2?|pdf|txt)$).*)'] };

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import useSWR from 'swr';
 import { useLanguage } from '@/components/layout/LanguageContext';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import ProductCard from '@/components/product/ProductCard';
 import { Filter, Search, RotateCcw, PackageCheck, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -157,16 +158,18 @@ export default function ShopContent({ initialData }: ShopContentProps) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 space-y-6 pb-12">
-      <div className="border-b border-gray-200 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-extrabold text-gray-900">
-            {t.nav.shopByCategory}
-          </h1>
-          <p className="text-xs text-gray-500 mt-1">
+    <div className="dg-catalog space-y-6 pb-12 pt-4">
+      <Breadcrumbs items={lang === 'ar'
+        ? [{ label: 'الرئيسية', href: '/' }, { label: 'المتجر', href: '/shop' }]
+        : [{ label: 'Home', href: '/' }, { label: 'Shop', href: '/shop' }]} />
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-200 pb-6 pt-4">
+        <div className="dg-titlebar" style={{ marginTop: 0, paddingBlock: 0, borderBlock: 0 }}>
+          <p className="dg-kicker">{lang === 'ar' ? 'كتالوج المنتجات' : 'Product catalog'}</p>
+          <h1>{t.nav.shopByCategory}</h1>
+          <p className="dg-lede">
             {lang === 'ar'
-              ? 'تصفّح جميع أقسام ومنتجات الديكور الخارجي واختر ما يناسب مساحتك'
-              : 'Browse all engineering equipment and products with verified data filtering'}
+              ? 'تصفّح جميع الأقسام واختر ما يناسب مساحتك: أواني الزرع، الديكور، العشب الصناعي، الأدوات الاحترافية والمزيد.'
+              : 'Browse all main product families and choose what fits your space: planters, decor, synthetic grass, professional tools and more.'}
           </p>
         </div>
         <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-800 rounded-lg text-xs font-bold border border-emerald-200 w-fit">
@@ -174,6 +177,35 @@ export default function ShopContent({ initialData }: ShopContentProps) {
           <span>{`${t.filter.totalProducts}: ${totalProducts} | ${t.filter.pageOf} ${page} ${t.filter.of} ${totalPages}`}</span>
         </div>
       </div>
+
+      {/* Category Discovery Navigation */}
+      {categories.length > 0 && (
+        <div className="flex flex-wrap items-center gap-2 border-b border-gray-100 pb-4">
+          <button
+            onClick={() => {
+              setDraftFilters({ ...draftFilters, category: '' });
+              setAppliedFilters({ ...appliedFilters, category: '' });
+              setPage(1);
+            }}
+            className={`px-4 py-2 rounded-full text-xs font-bold transition-colors cursor-pointer ${!appliedFilters.category ? 'bg-brand-dark text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+          >
+            {t.filter.allCategories}
+          </button>
+          {categories.map((cat: any) => (
+            <button
+              key={cat.id}
+              onClick={() => {
+                setDraftFilters({ ...draftFilters, category: cat.slug });
+                setAppliedFilters({ ...appliedFilters, category: cat.slug });
+                setPage(1);
+              }}
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-colors cursor-pointer ${appliedFilters.category === cat.slug ? 'bg-brand-dark text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+            >
+              {lang === 'ar' ? cat.nameAr : cat.nameEn}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {/* Sidebar Filters */}

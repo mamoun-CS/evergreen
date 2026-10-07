@@ -1,7 +1,14 @@
 import React, { Suspense } from 'react';
+import type { Metadata } from 'next';
 import { productCardSelect, serializeCard } from '@/lib/storefront';
 import { prisma } from '@/lib/prisma';
 import ShopContent from './ShopContent';
+
+export const metadata: Metadata = {
+  title: 'المتجر — كتالوج المنتجات | Ever Green',
+  description: 'تصفّح كتالوج Ever Green الكامل: أواني الزرع، الديكور، العشب الصناعي، أدوات احترافية، حصى الأنهار، خلطات الزراعة والمزيد — مع فلترة وبحث متقدم.',
+  alternates: { canonical: '/shop' },
+};
 
 /**
  * Server Component - queries Prisma directly at request-time so the

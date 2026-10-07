@@ -3,11 +3,12 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ArrowLeft, ArrowRight, Boxes } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, ArrowRight, Boxes, ChevronLeft } from 'lucide-react';
 import { useLanguage } from '@/components/layout/LanguageContext';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-type Subcategory = { id: string; slug: string; nameAr: string; nameEn: string; image: string | null; _count: { products: number } };
+type Subcategory = { id: string; slug: string; nameAr: string; nameEn: string; image: string | null; isDirectProducts?: boolean; _count: { products: number } };
 type CategoryResponse = {
   category: { id: string; slug: string; nameAr: string; nameEn: string };
   subcategories: Subcategory[];
@@ -30,14 +31,12 @@ export default function CategoryPageClient({ identifier }: { identifier: string 
         if (response.status === 404) { setStatus('not-found'); return; }
         if (!response.ok) throw new Error('Category request failed');
         const json: CategoryResponse = await response.json();
-
-        // If this is a leaf category (no subcategories), redirect directly to shop with filter.
-        // This handles root categories that have products directly, not through subcategories.
+        // A leaf is already a real product type. Its exact category listing is
+        // the useful next step; only actual parents get the type chooser.
         if (json.isLeaf) {
           router.replace(`/shop?category=${encodeURIComponent(json.category.slug)}`);
           return;
         }
-
         setData(json);
         setStatus('ready');
       })
@@ -61,33 +60,33 @@ export default function CategoryPageClient({ identifier }: { identifier: string 
 
   const title = ar ? data.category.nameAr : data.category.nameEn;
   return (
-    <main className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
-      <Link href="/category" className="inline-flex min-h-11 items-center gap-2 text-sm font-bold text-brand-navy hover:text-brand-hover">
-        <ChevronLeft className="h-4 w-4" aria-hidden="true" />{ar ? 'كل الأقسام' : 'All categories'}
-      </Link>
-      <header className="mt-5 border-b border-brand-gold/30 pb-6">
-        <p className="text-xs font-bold tracking-wide text-brand-gold">{ar ? 'تسوّق حسب القسم' : 'SHOP BY CATEGORY'}</p>
-        <h1 className="mt-2 text-3xl font-extrabold text-brand-navy sm:text-4xl">{title}</h1>
-        <p className="mt-3 text-sm text-slate-600">{ar ? 'اختر الصنف لعرض المنتجات التابعة له.' : 'Choose a subcategory to view its products.'}</p>
+    <main className="catalogue-page mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:py-14">
+      <Breadcrumbs items={ar
+        ? [{ label: 'الرئيسية', href: '/' }, { label: 'الأقسام', href: '/category' }, { label: title }]
+        : [{ label: 'Home', href: '/' }, { label: 'Categories', href: '/category' }, { label: title }]} />
+      <header className="catalogue-titlebar">
+        <p>{ar ? 'تسوّق حسب النوع' : 'EXPLORE BY TYPE'}</p>
+        <h1>{title}</h1>
+        <span>{ar ? 'اختر نوع المنتج لعرض المجموعة المناسبة لمساحتك.' : 'Choose a product type to find the right collection for your space.'}</span>
       </header>
       {data.subcategories.length ? (
-        <section className="mt-9 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <section aria-label={ar ? 'أنواع المنتجات' : 'Product types'} className="catalogue-type-grid">
           {data.subcategories.map((subcategory) => (
             <Link
               key={subcategory.id}
-              href={`/shop?category=${encodeURIComponent(subcategory.slug)}`}
-              className="group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-navy"
+              href={`/category/${encodeURIComponent(data.category.slug)}/${encodeURIComponent(subcategory.slug)}`}
+              className="catalogue-type-card group"
             >
-              <div className="relative aspect-[4/3] overflow-hidden bg-slate-50">
+              <div className="catalogue-type-image relative">
                 {subcategory.image
                   ? <Image src={subcategory.image} alt={ar ? subcategory.nameAr : subcategory.nameEn} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" className="object-cover transition duration-300 group-hover:scale-105" />
                   : <Image src="/images/Logo-background.png" alt="" fill aria-hidden className="object-contain p-8 opacity-30" />
                 }
               </div>
-              <div className="flex items-center justify-between gap-3 p-5">
+              <div className="catalogue-type-content">
                 <div>
                   <h2 className="font-extrabold text-brand-navy">{ar ? subcategory.nameAr : subcategory.nameEn}</h2>
-                  <p className="mt-1 text-xs text-slate-500">
+                  <p>
                     {ar ? `${subcategory._count.products} منتج متاح` : `${subcategory._count.products} products available`}
                   </p>
                 </div>
@@ -99,8 +98,8 @@ export default function CategoryPageClient({ identifier }: { identifier: string 
       ) : (
         <CategoryMessage
           icon={<Boxes />}
-          title={ar ? 'لا توجد أصناف متاحة حاليًا' : 'No subcategories are available yet'}
-          text={ar ? 'لم تتم إضافة أصناف لهذا القسم بعد.' : 'No subcategories have been added to this category yet.'}
+          title={ar ? 'لا توجد أنواع منتجات متاحة حاليًا' : 'No product types are available yet'}
+          text={ar ? 'سنضيف أنواع منتجات إلى هذا القسم قريبًا.' : 'Product types will be added to this category soon.'}
           action={ar ? 'كل الأقسام' : 'All categories'}
           compact
         />

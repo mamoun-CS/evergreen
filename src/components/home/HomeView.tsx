@@ -5,67 +5,56 @@ import Image from "next/image";
 import {
   ArrowLeft,
   ArrowRight,
-  Headphones,
   Leaf,
+  Sprout,
   Truck,
+  ShieldCheck,
+  Headset,
 } from "lucide-react";
 import { useLanguage } from "@/components/layout/LanguageContext";
-import ProductCard from "@/components/product/ProductCard";
 
 type Category = { id: string; slug: string; nameAr: string; nameEn: string; image?: string | null };
 type CmsSection = { titleAr?: string | null; titleEn?: string | null; subtitleAr?: string | null; subtitleEn?: string | null; contentAr?: string | null; contentEn?: string | null; imageAr?: string | null; imageEn?: string | null; ctaTextAr?: string | null; ctaTextEn?: string | null; ctaLink?: string | null };
 type Product = { id: string; slug: string; sku?: string | null; nameEn: string; nameAr: string; purchaseMode: "PURCHASABLE" | "CONTACT_FOR_PRICE"; basePrice?: number | null; discountPrice?: number | null; currency?: string; images: string[]; brand?: { name: string } | null; isAvailable?: boolean; stockQuantity?: number; warrantyInfoEn?: string | null; warrantyInfoAr?: string | null; ratingAvg?: number | null; ratingCount?: number };
+type Brand = { id: string; name: string; logoUrl: string };
 
-export default function HomeView({ categories, content, products }: { categories: Category[]; content: Record<string, CmsSection>; products: { featured: Product[]; latest: Product[] } }) {
+export default function HomeView({ categories, content, brands }: { categories: Category[]; content: Record<string, CmsSection>; products: { featured: Product[]; latest: Product[] }; brands: Brand[] }) {
   const { lang } = useLanguage();
   const ar = lang === "ar";
   const cms = content || {};
   const copy = ar
     ? {
-        eyebrow: cms.hero?.subtitleAr || "ديكورات خارجية مختارة بعناية",
-        title: cms.hero?.titleAr || "كل ما تحتاجه لحديقة أكثر جمالًا",
-        description: cms.hero?.contentAr || "تحف وديكورات مختارة بعناية لتضيف لمسة مختلفة لكل مساحة خارجية.",
-        shop: "تسوّق الآن",
+        eyebrow: cms.hero?.subtitleAr || "Ever Green",
+        title: cms.hero?.titleAr || "حان الوقت لتحويل الصور إلى واقع",
+        description: cms.hero?.contentAr || "منتجات حدائق مختارة بعناية: أواني الزرع، الديكور، العشب الصناعي، الأدوات الاحترافية والمزيد — لمساحة خارجية تليق بكم.",
+        shop: "تصفّح المتجر",
         explore: "استكشف الأقسام",
-        categories: "تسوّق حسب الفئة",
-        categoriesSub: "قطع منتقاة لتمنح مساحتك الخارجية طابعًا متفردًا.",
+        categories: "الأقسام الرئيسية",
+        categoriesSub: "رؤوايا عائلات منتجنا كاملة بخطوة واحدة.",
         all: "عرض الكل",
-        featured: "منتجات مختارة",
-        featuredSub: "مختارات جاهزة لمساحتك الخارجية.",
-        latest: "أحدث المنتجات",
-        latestSub: "اكتشف ما وصل حديثًا إلى المتجر.",
-        trustTitle: "ثقة تمتد إلى باب حديقتك",
+        brands: "علاماتنا التجارية",
+        brandsSub: "شركاء مختارون بعناية لحديقتك.",
+        contact: "تواصل معنا",
       }
     : {
-        eyebrow: cms.hero?.subtitleEn || "Thoughtfully selected outdoor decor",
-        title: cms.hero?.titleEn || "Everything you need for a more beautiful garden",
-        description: cms.hero?.contentEn || "Thoughtfully selected ornaments and decor for a distinctive outdoor space.",
+        eyebrow: cms.hero?.subtitleEn || "ever green",
+        title: cms.hero?.titleEn || "It is time to turn the images into reality",
+        description: cms.hero?.contentEn || "Carefully selected garden products: planters, decor, synthetic grass, professional tools and more — for an outdoor space that matches your ambitions.",
         shop: "Shop now",
         explore: "Explore categories",
-        categories: "Shop by category",
-        categoriesSub: "Selected pieces for an outdoor space with character.",
+        categories: "Featured Categories",
+        categoriesSub: "A first look at our main product families.",
         all: "View all",
-        featured: "Selected products",
-        featuredSub: "Ready picks for your outdoor space.",
-        latest: "Latest products",
-        latestSub: "Discover what has recently arrived in store.",
-        trustTitle: "Confidence, delivered to your garden",
+        brands: "Our Brands",
+        brandsSub: "Carefully selected partners for your garden.",
+        contact: "Contact us",
       };
   const Arrow = ar ? ArrowLeft : ArrowRight;
-  const trusts = ar
-    ? [
-        [Truck, "توصيل", "إلى مناطق فلسطين"],
-        [Leaf, "لحديقتك ومساحتك الخارجية", "تسوّق من الكتالوج"],
-        [Headphones, "خدمة العملاء", "تواصل معنا عند الحاجة"],
-      ]
-    : [
-        [Truck, "Delivery", "Across Palestine"],
-        [Leaf, "Garden & outdoor living", "Shop the catalogue"],
-        [Headphones, "Customer service", "Contact us when you need us"],
-      ];
   const heroImage = ar ? cms.hero?.imageAr || "/images/background.png" : cms.hero?.imageEn || "/images/background-en.png";
+
   return (
     <main className="home-v2">
+      {/* Section 1 — hero */}
       <section className="home-hero">
         <Image src={heroImage} alt="" fill priority sizes="100vw" className="home-hero-image" />
         <div className="home-hero-shade" />
@@ -79,6 +68,8 @@ export default function HomeView({ categories, content, products }: { categories
           </div>
         </div>
       </section>
+
+      {/* Section 2 — featured categories */}
       <section id="categories" className="home-section">
         <header className="home-heading"><h2>{copy.categories}</h2><p>{copy.categoriesSub}</p></header>
         {categories.length ? (
@@ -91,7 +82,7 @@ export default function HomeView({ categories, content, products }: { categories
                 <span className="home-category-overlay" />
                 <span className="home-category-copy">
                   <strong>{ar ? category.nameAr : category.nameEn}</strong>
-                  <small>{copy.shop}<Arrow aria-hidden="true" /></small>
+                  <small>{copy.all}<Arrow aria-hidden="true" /></small>
                 </span>
               </Link>
             ))}
@@ -104,41 +95,90 @@ export default function HomeView({ categories, content, products }: { categories
           </div>
         )}
       </section>
-      <ProductShelf title={copy.featured} subtitle={copy.featuredSub} products={products.featured} all={copy.all} arrow={Arrow} ar={ar} accent />
-      {cms.promo && (cms.promo.imageAr || cms.promo.imageEn) && <PromoBand section={cms.promo} ar={ar} arrow={Arrow} />}
-      <ProductShelf title={copy.latest} subtitle={copy.latestSub} products={products.latest} all={copy.all} arrow={Arrow} ar={ar} />
-      <section className="home-trust home-section" aria-label={copy.trustTitle}>
-        {trusts.map(([Icon, title, description]) => {
-          const TrustIcon = Icon as typeof Truck;
-          return (
-            <article key={title as string} className="home-trust-item">
-              <TrustIcon aria-hidden="true" />
-              <div><h3>{title as string}</h3><p>{description as string}</p></div>
-            </article>
-          );
-        })}
-      </section>
-      <nav className="home-section flex flex-wrap justify-center gap-x-5 gap-y-2 pt-6 text-sm font-bold text-emerald-800" aria-label={ar ? "سياسات المتجر" : "Store policies"}>
-        <Link href="/policies/privacy">{ar ? "سياسة الخصوصية" : "Privacy policy"}</Link>
-        <Link href="/policies/refunds">{ar ? "سياسة الاسترجاع والاسترداد" : "Return & refund policy"}</Link>
-        <Link href="/policies/shipping">{ar ? "سياسة الشحن" : "Shipping policy"}</Link>
-      </nav>
+
+      {/* Section 3 — brand showcase marquee */}
+      {brands.length > 0 && (
+        <section className="home-section home-brands" aria-label={copy.brands}>
+          <header className="home-heading"><h2>{copy.brands}</h2><p>{copy.brandsSub}</p></header>
+          <BrandRail brands={brands} ar={ar} />
+        </section>
+      )}
+
+      {/* Section 4 — supporting editorial content */}
+      {cms.promo && (cms.promo.imageAr || cms.promo.imageEn) ? (
+        <PromoBand section={cms.promo} ar={ar} arrow={Arrow} />
+      ) : (
+        <TrustBand ar={ar} />
+      )}
     </main>
   );
 }
 
-function ProductShelf({ title, subtitle, products, all, arrow: Arrow, ar, accent = false }: { title: string; subtitle: string; products: Product[]; all: string; arrow: typeof ArrowLeft; ar: boolean; accent?: boolean }) {
-  return <section className={`home-section ${accent ? "home-products-accent" : ""}`}>
-    <div className="home-section-top"><header className="home-heading home-heading-start"><h2>{title}</h2><p>{subtitle}</p></header><Link href="/shop" className="home-text-link">{all}<Arrow aria-hidden="true" /></Link></div>
-    {products.length ? <div className="home-product-grid">{products.map((product) => <ProductCard key={product.id} product={product} variant="featured" />)}</div> : <div className="home-empty"><Leaf aria-hidden="true" /><span>{ar ? "ستظهر المنتجات هنا عند توفرها." : "Products will appear here when available."}</span><Link href="/shop" className="home-text-link">{all}<Arrow aria-hidden="true" /></Link></div>}
-  </section>;
+function BrandRail({ brands, ar }: { brands: Brand[]; ar: boolean }) {
+  const strip = brands.map((brand) => (
+    <Link role="listitem" key={brand.id} href={`/shop?brand=${encodeURIComponent(brand.id)}`} className="home-brand-mark dg-rail-item" aria-label={ar ? `تسوّق منتجات ${brand.name}` : `Shop ${brand.name}`}>
+      <Image src={brand.logoUrl} alt={brand.name} fill sizes="190px" className="object-contain" />
+    </Link>
+  ));
+  return (
+    <div className="dg-marquee">
+      <div className="dg-marquee-track" role="list">
+        {strip}
+        <span aria-hidden="true" style={{ display: "contents" }}>{strip}</span>
+      </div>
+    </div>
+  );
 }
 
 function PromoBand({ section, ar, arrow: Arrow }: { section: CmsSection; ar: boolean; arrow: typeof ArrowLeft }) {
   const image = ar ? section.imageAr : section.imageEn;
   const title = ar ? section.titleAr : section.titleEn;
-  const copy = ar ? section.contentAr : section.contentEn;
+  const body = ar ? section.contentAr : section.contentEn;
   const action = ar ? section.ctaTextAr : section.ctaTextEn;
   if (!image) return null;
-  return <section className="home-story-band"><div className="home-story-poster"><Image src={image} alt="" fill sizes="(max-width: 760px) 100vw, 430px" className="object-cover" /></div><div className="home-story-copy">{section.subtitleAr || section.subtitleEn ? <p className="home-kicker">{ar ? section.subtitleAr : section.subtitleEn}</p> : null}{title ? <h2>{title}</h2> : null}{copy ? <p>{copy}</p> : null}{action && section.ctaLink ? <Link href={section.ctaLink} className="home-button">{action}<Arrow aria-hidden="true" /></Link> : null}</div></section>;
+  return (
+    <section className="home-story-band">
+      <div className="home-story-poster"><Image src={image} alt="" fill sizes="(max-width: 760px) 100vw, 430px" className="object-cover" /></div>
+      <div className="home-story-copy">
+        {section.subtitleAr || section.subtitleEn ? <p className="home-kicker">{ar ? section.subtitleAr : section.subtitleEn}</p> : null}
+        {title ? <h2>{title}</h2> : null}
+        {body ? <p>{body}</p> : null}
+        <div className="home-hero-actions">
+          <Link href="/shop" className="home-button home-button-primary">{ar ? "تصفّح المتجر" : "Shop now"}<Arrow aria-hidden="true" /></Link>
+          <Link href="/contact" className="home-button home-button-light">{ar ? "تواصل معنا" : "Contact us"}</Link>
+        </div>
+        {action && section.ctaLink ? <Link href={section.ctaLink} className="home-text-link mt-4">{action}<Arrow aria-hidden="true" /></Link> : null}
+      </div>
+    </section>
+  );
+}
+
+function TrustBand({ ar }: { ar: boolean }) {
+  const items = [
+    { Icon: Sprout, title: ar ? "تشكيلة واسعة" : "Wide selection", body: ar ? "عائلات منتجات تغطي كل مساحتك الخارجية." : "Product families covering every outdoor space." },
+    { Icon: Truck, title: ar ? "توصيل لجميع مناطق فلسطين" : "Nationwide delivery", body: ar ? "شحن إلى حيث تكون حديقتك." : "Shipping to wherever your garden is." },
+    { Icon: Headset, title: ar ? "فريق خدمة العملاء" : "Customer service team", body: ar ? "رد سريع على استفساراتك عبر الهاتف أو النموذج." : "Quick answers by phone or contact form." },
+    { Icon: ShieldCheck, title: ar ? "سياسات واضحة" : "Clear policies", body: ar ? "شحن، استرجاع وخصوصية بخطوات واضحة." : "Shipping, refunds and privacy made clear." },
+  ];
+  return (
+    <section className="home-story-band" aria-label={ar ? "لماذا Ever Green" : "Why Ever Green"}>
+      <div className="home-story-copy" style={{ maxWidth: "100%" }}>
+        <p className="home-kicker"><Sprout aria-hidden="true" />{ar ? "لماذا Ever Green؟" : "Why Ever Green?"}</p>
+        <h2>{ar ? "خدمة تليق بحديقتك من بداية المسار إلى باب المنزل" : "Service your garden deserves, from browsing to doorstep"}</h2>
+        <div className="dg-value-grid" style={{ margin: "24px auto", paddingInline: 0 }}>
+          {items.map(({ Icon, title: t, body: b }) => (
+            <div key={t} className="dg-value-card">
+              <i><Icon aria-hidden="true" /></i>
+              <h3>{t}</h3>
+              <p>{b}</p>
+            </div>
+          ))}
+        </div>
+        <div className="home-hero-actions">
+          <Link href="/shop" className="home-button home-button-primary">{ar ? "تصفّح المتجر" : "Shop now"}</Link>
+          <Link href="/contact" className="home-button home-button-light">{ar ? "تواصل معنا" : "Contact us"}</Link>
+        </div>
+      </div>
+    </section>
+  );
 }

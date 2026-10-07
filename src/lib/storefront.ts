@@ -135,6 +135,21 @@ export const getHomepageProducts = unstable_cache(
   { revalidate: 120, tags: ['products'] },
 );
 
+/** Brand marks are optional editorial content. Only serve local, uploaded
+ * assets—never third-party logo URLs—and hide this section when none exist. */
+export const getHomepageBrands = unstable_cache(
+  async () => {
+    const brands = await prisma.brand.findMany({
+      where: { logoUrl: { not: null }, products: { some: {} } },
+      select: { id: true, name: true, logoUrl: true },
+      orderBy: { name: 'asc' },
+    });
+    return brands.filter((brand): brand is { id: string; name: string; logoUrl: string } => Boolean(brand.logoUrl?.startsWith('/')));
+  },
+  ['homepage-brands'],
+  { revalidate: 300, tags: ['products'] },
+);
+
 export const getFilterOptions = unstable_cache(
   async () => {
     const [categories, brands, applications] = await Promise.all([

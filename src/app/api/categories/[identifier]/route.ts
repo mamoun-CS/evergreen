@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { optimizeProductImagePath } from '@/lib/storefront';
 
 export async function GET(_request: NextRequest, { params }: { params: { identifier: string } }) {
   try {
@@ -33,15 +34,26 @@ export async function GET(_request: NextRequest, { params }: { params: { identif
     if (!category) return NextResponse.json({ error: 'Category not found.' }, { status: 404 });
 
     const isLeaf = category.children.length === 0;
+    // Directly assigned products on a true parent need their own honest browse
+    // bucket: the parent remains a type-selection page, without hiding stock.
+    const directProductsType = !isLeaf && category._count.products > 0 ? [{
+      id: '__direct__',
+      slug: '__direct__',
+      nameAr: `منتجات أخرى من ${category.nameAr}`,
+      nameEn: `Other ${category.nameEn} products`,
+      _count: { products: category._count.products },
+      image: null,
+      isDirectProducts: true,
+    }] : [];
 
     return NextResponse.json({
       category: { id: category.id, slug: category.slug, nameAr: category.nameAr, nameEn: category.nameEn },
       isLeaf,
       productCount: category._count.products,
-      subcategories: category.children.map(({ products, ...child }) => ({
+      subcategories: [...category.children.map(({ products, ...child }) => ({
         ...child,
-        image: products[0]?.images?.[0] || null,
-      })),
+        image: products[0]?.images?.[0] ? optimizeProductImagePath(products[0].images[0]) : null,
+      })), ...directProductsType],
     });
   } catch (error) {
     console.error('Unable to load category:', error);

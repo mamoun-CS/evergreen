@@ -15,6 +15,14 @@ const categories = [
   { id: 'modern-fountains', slug: 'modern-fountains', nameAr: 'نوافير عصرية', nameEn: 'Modern Fountains', parentSlug: 'fountains-water-features' },
   { id: 'animal-sculptures', slug: 'animal-sculptures', nameAr: 'مجسمات حيوانات', nameEn: 'Animal Sculptures', parentSlug: 'statues-ornaments' },
   { id: 'floor-planters', slug: 'floor-planters', nameAr: 'أصص أرضية', nameEn: 'Floor Planters', parentSlug: 'pots-planters' },
+  { id: 'planters', slug: 'planters', nameAr: 'أواني الزرع', nameEn: 'Planters' },
+  { id: 'decoration', slug: 'decoration', nameAr: 'الديكور', nameEn: 'Decoration' },
+  { id: 'synthetic-grass', slug: 'alashb-alsnaay', nameAr: 'العشب الصناعي', nameEn: 'Synthetic Grass' },
+  { id: 'professional-tools', slug: 'aladwat-almhnya', nameAr: 'أدوات احترافية', nameEn: 'Professional Tools' },
+  { id: 'river-pebbles', slug: 'hsa-alnhr', nameAr: 'حصى الأنهار', nameEn: 'River Pebbles' },
+  { id: 'planting-mixes', slug: 'khltat-alzra', nameAr: 'خلطات الزراعة', nameEn: 'Planting Mixes' },
+  { id: 'bamboo-fences', slug: 'aswar-alkhyzran', nameAr: 'أسوار البامبو', nameEn: 'Bamboo Fences' },
+  { id: 'terrace-it', slug: 'terrace-it', nameAr: 'بلاط الشرفات', nameEn: 'TERRACE-IT' },
 ] as const;
 
 type SeedProduct = {

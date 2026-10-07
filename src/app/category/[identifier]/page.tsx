@@ -1,5 +1,6 @@
-import { redirect } from 'next/navigation';
+import CategoryPageClient from './CategoryPageClient';
 
+/** A parent category is a browse step, never a mixed product listing. */
 export default function CategoryPage({ params }: { params: { identifier: string } }) {
-  redirect(`/shop?category=${params.identifier}`);
+  return <CategoryPageClient identifier={params.identifier} />;
 }

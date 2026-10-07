@@ -1,0 +1,15 @@
+{
+  "cache-control": "no-store",
+  "connection": "keep-alive",
+  "content-security-policy": "default-src 'self'; object-src 'none'; frame-ancestors 'none'",
+  "content-type": "application/json",
+  "date": "Wed, 07 Oct 2026 10:29:51 GMT",
+  "keep-alive": "timeout=5",
+  "referrer-policy": "strict-origin-when-cross-origin",
+  "strict-transport-security": "max-age=31536000; includeSubDomains",
+  "transfer-encoding": "chunked",
+  "vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch",
+  "x-content-type-options": "nosniff",
+  "x-frame-options": "DENY",
+  "x-xss-protection": "1; mode=block"
+}

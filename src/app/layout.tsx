@@ -8,6 +8,10 @@ import CompareBar from '@/components/compare/CompareBar';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/cart/CartDrawer';
+import BackToTopButton from '@/components/layout/BackToTopButton';
+import WhatsAppFloatingButton from '@/components/layout/WhatsAppFloatingButton';
+import AccessibilityToolbar from '@/components/layout/AccessibilityToolbar';
+import CookieConsent from '@/components/layout/CookieConsent';
 import { headers } from 'next/headers';
 import { getSiteSettings } from '@/lib/storefront';
 import { getCurrentUser } from '@/lib/auth';
@@ -45,6 +49,10 @@ export default async function RootLayout({
                   <Footer settings={settings} />
                   <CartDrawer />
                   <CompareBar />
+                  <BackToTopButton />
+                  <WhatsAppFloatingButton phone={settings.contactWhatsApp} />
+                  <AccessibilityToolbar />
+                  <CookieConsent />
                 </CompareProvider>
               </WishlistProvider>
             </CartProvider>

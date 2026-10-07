@@ -7,19 +7,20 @@ import { useLanguage } from "@/components/layout/LanguageContext";
 import { useCart } from "@/components/cart/CartContext";
 import ProductCard from "@/components/product/ProductCard";
 import ProductReviews from "@/components/product/ProductReviews";
+import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import {
   ShoppingCart,
   ShieldCheck,
   CheckCircle,
-  Download,
   FileSpreadsheet,
-  Globe,
-  Tag,
-  ChevronRight,
   ChevronLeft,
-  Share2,
+  ChevronRight,
   Heart,
   ArrowLeftRight,
+  Phone,
+  Sparkles,
+  Package,
+  FolderOpen,
 } from "lucide-react";
 import { useWishlist } from "@/components/wishlist/WishlistContext";
 import { useCompare } from "@/components/compare/CompareContext";
@@ -83,6 +84,7 @@ export default function ProductDetailsClient({
   product,
 }: ProductDetailsClientProps) {
   const { lang, t } = useLanguage();
+  const ar = lang === "ar";
   const { addToCart } = useCart();
   const wishlist = useWishlist();
   const compare = useCompare();
@@ -91,12 +93,13 @@ export default function ProductDetailsClient({
   const [selectedVariantId, setSelectedVariantId] = useState(
     product.variants?.length === 1 ? product.variants[0].id : "",
   );
+  const [touchStart, setTouchStart] = useState<number | null>(null);
 
-  const title = lang === "ar" ? product.nameAr : product.nameEn;
-  const description =
-    lang === "ar" ? product.descriptionAr : product.descriptionEn;
-  const warranty =
-    lang === "ar" ? product.warrantyInfoAr : product.warrantyInfoEn;
+  const title = ar ? product.nameAr : product.nameEn;
+  const description = ar ? product.descriptionAr : product.descriptionEn;
+  // Positioning statement = the first sentence of the description (own content).
+  const tagline = description?.split(/(?<=[.!؟\n])/)[0]?.trim().slice(0, 160);
+  const warranty = ar ? product.warrantyInfoAr : product.warrantyInfoEn;
   const selectedVariant = product.variants?.find(
     (variant) => variant.id === selectedVariantId,
   );
@@ -106,6 +109,13 @@ export default function ProductDetailsClient({
   const inStock = product.isAvailable && stockQuantity > 0;
   const unitPrice =
     selectedVariant?.price ?? product.discountPrice ?? product.basePrice;
+  const currencyGlyph =
+    !product.currency || product.currency === "ILS" ? "₪" : product.currency;
+  const gallery = product.images?.length ? product.images : ["/images/logo.jpg"];
+  const firstCategory = product.categories?.[0];
+  const categoryHref = firstCategory?.slug
+    ? `/shop?category=${encodeURIComponent(firstCategory.slug)}`
+    : "/shop";
 
   const handleAction = () => {
     const mainImg = product.images?.[0] || "/images/logo.jpg";
@@ -132,56 +142,40 @@ export default function ProductDetailsClient({
     }
   };
 
+  const stepGallery = (delta: number) =>
+    setSelectedImage((current) => (current + delta + gallery.length) % gallery.length);
+
+  const onTouchStart = (event: React.TouchEvent) => setTouchStart(event.touches[0]?.clientX ?? null);
+  const onTouchEnd = (event: React.TouchEvent) => {
+    if (touchStart === null) return;
+    const delta = event.changedTouches[0]?.clientX - touchStart;
+    if (Math.abs(delta) > 44) stepGallery(ar ? (delta > 0 ? 1 : -1) : delta > 0 ? -1 : 1);
+    setTouchStart(null);
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 space-y-8 pb-12">
       {/* Breadcrumbs */}
-      <nav
-        aria-label={lang === "ar" ? "مسار التنقل" : "Breadcrumb"}
-        className="flex items-center gap-2 text-xs text-gray-500"
-      >
-        <Link href="/" className="hover:text-brand-navy">
-          {t.nav.home}
-        </Link>
-        {lang === "ar" ? (
-          <ChevronLeft className="w-3.5 h-3.5" />
-        ) : (
-          <ChevronRight className="w-3.5 h-3.5" />
-        )}
-        <Link href="/shop" className="hover:text-brand-navy">
-          {t.nav.shopByCategory}
-        </Link>
-        {product.categories?.[0] && (
-          <>
-            {lang === "ar" ? (
-              <ChevronLeft className="w-3.5 h-3.5" />
-            ) : (
-              <ChevronRight className="w-3.5 h-3.5" />
-            )}
-            <Link
-              href={`/shop?category=${encodeURIComponent(product.categories[0].slug)}`}
-              className="hover:text-brand-navy"
-            >
-              {lang === "ar"
-                ? product.categories[0].nameAr
-                : product.categories[0].nameEn}
-            </Link>
-          </>
-        )}
-        {lang === "ar" ? (
-          <ChevronLeft className="w-3.5 h-3.5" />
-        ) : (
-          <ChevronRight className="w-3.5 h-3.5" />
-        )}
-        <span className="font-bold text-gray-900 truncate max-w-xs">
-          {title}
-        </span>
-      </nav>
+      <Breadcrumbs
+        items={[
+          { label: t.nav.home, href: "/" },
+          { label: t.nav.shopByCategory, href: "/shop" },
+          ...(firstCategory
+            ? [{ label: ar ? firstCategory.nameAr : firstCategory.nameEn, href: categoryHref }]
+            : []),
+          { label: title },
+        ]}
+      />
 
-      {/* Main Details Grid */}
+      {/* Main Details Grid: gallery → title → SKU → positioning → description → purchase */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm">
-        {/* Left Column: Gallery */}
+        {/* Product gallery */}
         <div className="space-y-4">
-          <div className="relative aspect-square rounded-xl bg-gray-50 border border-gray-200 overflow-hidden">
+          <div
+            className="relative aspect-square rounded-xl bg-gray-50 border border-gray-200 overflow-hidden"
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
             <button
               type="button"
               onClick={() =>
@@ -201,14 +195,10 @@ export default function ProductDetailsClient({
               }
               aria-label={
                 wishlist.has(product.id)
-                  ? lang === "ar"
-                    ? "إزالة من قائمة الرغبات"
-                    : "Remove from wishlist"
-                  : lang === "ar"
-                    ? "إضافة إلى قائمة الرغبات"
-                    : "Add to wishlist"
+                  ? ar ? "إزالة من قائمة الرغبات" : "Remove from wishlist"
+                  : ar ? "إضافة إلى قائمة الرغبات" : "Add to wishlist"
               }
-              className="absolute right-3 top-3 z-10 rounded-full bg-white p-3 text-brand-dark shadow"
+              className="absolute end-3 top-3 z-10 rounded-full bg-white p-3 text-brand-dark shadow"
             >
               <Heart
                 className="h-5 w-5"
@@ -227,32 +217,42 @@ export default function ProductDetailsClient({
               }
               aria-label={
                 compare.items.some((item) => item.slug === product.slug)
-                  ? lang === "ar"
-                    ? "إزالة من المقارنة"
-                    : "Remove from comparison"
-                  : lang === "ar"
-                    ? "إضافة إلى المقارنة"
-                    : "Add to comparison"
+                  ? ar ? "إزالة من المقارنة" : "Remove from comparison"
+                  : ar ? "إضافة إلى المقارنة" : "Add to comparison"
               }
-              className="absolute right-3 top-16 z-10 rounded-full bg-white p-3 text-brand-dark shadow"
+              className="absolute end-3 top-16 z-10 rounded-full bg-white p-3 text-brand-dark shadow"
             >
               <ArrowLeftRight className="h-5 w-5" />
             </button>
             <Image
-              src={product.images?.[selectedImage] || "/images/logo.jpg"}
-              alt={title}
+              src={gallery[selectedImage]}
+              alt={`${title} — ${product.brand?.name ?? ""} ${product.sku ? product.sku : ""}`.trim()}
               fill
               className="object-contain p-4"
               priority
             />
+            {gallery.length > 1 && (
+              <>
+                <button type="button" onClick={() => stepGallery(-1)} aria-label={ar ? "الصورة السابقة" : "Previous image"} className="absolute start-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/90 p-2 text-brand-dark shadow hover:bg-white">
+                  <ChevronLeft className="h-5 w-5" style={ar ? undefined : { display: "none" }} />
+                  <ChevronRight className="h-5 w-5" style={ar ? { display: "none" } : undefined} />
+                </button>
+                <button type="button" onClick={() => stepGallery(1)} aria-label={ar ? "الصورة التالية" : "Next image"} className="absolute end-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/90 p-2 text-brand-dark shadow hover:bg-white">
+                  <ChevronRight className="h-5 w-5" style={ar ? undefined : { display: "none" }} />
+                  <ChevronLeft className="h-5 w-5" style={ar ? { display: "none" } : undefined} />
+                </button>
+              </>
+            )}
           </div>
 
-          {product.images?.length > 1 && (
+          {gallery.length > 1 && (
             <div className="flex items-center gap-3 overflow-x-auto pb-2">
-              {product.images.map((img, idx) => (
+              {gallery.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(idx)}
+                  aria-label={`${ar ? "صورة" : "Image"} ${idx + 1}`}
+                  aria-current={selectedImage === idx}
                   className={`relative w-16 h-16 rounded-lg border overflow-hidden flex-shrink-0 bg-gray-50 ${
                     selectedImage === idx
                       ? "border-brand-dark ring-2 ring-brand-dark"
@@ -266,7 +266,7 @@ export default function ProductDetailsClient({
           )}
         </div>
 
-        {/* Right Column: Info & Actions */}
+        {/* Product information column */}
         <div className="space-y-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
@@ -276,8 +276,8 @@ export default function ProductDetailsClient({
                 </span>
               )}
               {product.sku && (
-                <span className="bg-slate-100 text-slate-700 text-xs font-mono px-2 py-0.5 rounded border">
-                  SKU: {product.sku}
+                <span className="bg-slate-100 text-slate-700 text-xs font-mono px-2 py-0.5 rounded border" dir="ltr">
+                  {product.sku}
                 </span>
               )}
             </div>
@@ -285,139 +285,62 @@ export default function ProductDetailsClient({
             <h1 className="text-xl sm:text-2xl font-extrabold text-gray-900 leading-tight">
               {title}
             </h1>
+            {tagline && tagline !== description && (
+              <p className="mt-2 text-sm font-semibold text-brand-navy">{tagline}</p>
+            )}
           </div>
 
-          {/* Description */}
+          {/* Main description */}
           {description && (
             <p className="text-xs sm:text-sm text-gray-600 leading-relaxed border-t border-b border-gray-100 py-3">
               {description}
             </p>
           )}
+
+          {/* Itemized product details */}
           {product.importDetails && (
             <section className="border-b border-gray-100 pb-3 text-xs sm:text-sm text-gray-700">
-              <h2 className="mb-2 font-bold text-gray-900">{lang === "ar" ? "التفاصيل" : "Details"}</h2>
-              <ul className="list-disc space-y-1 ps-5 leading-relaxed">
-                {product.importDetails.split(/\r?\n/).map((line, index) => line.trim() && <li key={index}>{line.trim()}</li>)}
+              <h2 className="mb-2 flex items-center gap-2 font-bold text-gray-900">
+                <Sparkles className="h-4 w-4 text-brand-gold" />
+                <span>{ar ? "تفاصيل المنتج" : "Product details"}</span>
+              </h2>
+              <ul className="dg-benefit-list">
+                {product.importDetails.split(/\r?\n/).map((line, index) => line.trim() && (
+                  <li key={index}><CheckCircle aria-hidden="true" /><span dir="auto">{line.trim()}</span></li>
+                ))}
               </ul>
             </section>
           )}
 
-          {/* Metadata badges */}
-          <div className="grid grid-cols-2 gap-3 text-xs">
-            <div className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-50 border border-gray-200">
-              {inStock && (
-                <CheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-              )}
-              <div>
-                <span className="text-[10px] text-gray-400 block">
-                  {t.product.availability}
-                </span>
-                <span
-                  className={`font-bold ${inStock ? "text-gray-800" : "text-red-700"}`}
-                >
-                  {inStock ? t.product.inStock : t.product.outOfStock}
-                </span>
-              </div>
-            </div>
-
-            {warranty && (
-              <div className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-50 border border-gray-200">
-                <ShieldCheck className="w-4 h-4 text-brand-gold flex-shrink-0" />
-                <div>
-                  <span className="text-[10px] text-gray-400 block">
-                    {t.product.warranty}
-                  </span>
-                  <span className="font-bold text-gray-800">{warranty}</span>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {(product.material ||
-            product.color ||
-            product.style ||
-            product.lengthCm ||
-            product.widthCm ||
-            product.heightCm ||
-            product.weightKg) && (
-            <dl className="grid grid-cols-2 gap-x-4 gap-y-2 rounded-lg border border-gray-200 bg-gray-50 p-3 text-xs">
-              {product.material && (
-                <>
-                  <dt className="text-gray-500">
-                    {lang === "ar" ? "المادة" : "Material"}
-                  </dt>
-                  <dd className="font-semibold text-gray-800">
-                    {product.material}
-                  </dd>
-                </>
-              )}
-              {product.color && (
-                <>
-                  <dt className="text-gray-500">
-                    {lang === "ar" ? "اللون" : "Color"}
-                  </dt>
-                  <dd className="font-semibold text-gray-800">
-                    {product.color}
-                  </dd>
-                </>
-              )}
-              {product.style && (
-                <>
-                  <dt className="text-gray-500">
-                    {lang === "ar" ? "النمط" : "Style"}
-                  </dt>
-                  <dd className="font-semibold text-gray-800">
-                    {product.style}
-                  </dd>
-                </>
-              )}
-              {(product.lengthCm || product.widthCm || product.heightCm) && (
-                <>
-                  <dt className="text-gray-500">
-                    {lang === "ar" ? "الأبعاد" : "Dimensions"}
-                  </dt>
-                  <dd className="font-semibold text-gray-800">
-                    {[product.lengthCm, product.widthCm, product.heightCm]
-                      .filter(Boolean)
-                      .join(" × ")}{" "}
-                    {lang === "ar" ? "سم" : "cm"}
-                  </dd>
-                </>
-              )}
-              {product.weightKg && (
-                <>
-                  <dt className="text-gray-500">
-                    {lang === "ar" ? "الوزن" : "Weight"}
-                  </dt>
-                  <dd className="font-semibold text-gray-800">
-                    {product.weightKg} {lang === "ar" ? "كجم" : "kg"}
-                  </dd>
-                </>
-              )}
-            </dl>
-          )}
-
-          {/* Purchase / Contact Card */}
+          {/* Price, availability, purchase card */}
           <div className="p-4 rounded-xl bg-slate-900 text-white space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-xs text-slate-400 font-semibold">
                 {t.product.price}
               </span>
               {product.purchaseMode === "PURCHASABLE" && unitPrice ? (
-                <span className="text-xl font-extrabold text-brand-gold">
-                  {Number(unitPrice).toLocaleString()}{" "}
-                  {product.currency === "ILS" || !product.currency ? "₪" : product.currency}
-                  {product.discountPrice && (
-                    <span className="ms-2 text-xs font-medium text-slate-400 line-through">
-                      {Number(product.basePrice).toLocaleString()}
-                    </span>
-                  )}
+                <span className="dg-price-tag">
+                  <span className="dg-price-now">
+                    {Number(unitPrice).toLocaleString()}{" "}
+                    {currencyGlyph}
+                    {product.discountPrice && (
+                      <span className="dg-price-was ms-2">
+                        {Number(product.basePrice).toLocaleString()}
+                      </span>
+                    )}
+                  </span>
                 </span>
               ) : (
                 <span className="text-xs uppercase tracking-wider bg-amber-600 text-slate-950 font-extrabold px-3 py-1 rounded">
                   {t.product.priceOnRequest}
                 </span>
               )}
+              <span
+                className={`dg-note ${inStock ? "bg-emerald-900/40 text-emerald-100" : "bg-red-900/40 text-red-100"}`}
+              >
+                <CheckCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                {inStock ? t.product.inStock : t.product.outOfStock}
+              </span>
             </div>
 
             {product.purchaseMode === "PURCHASABLE" &&
@@ -427,7 +350,7 @@ export default function ProductDetailsClient({
                     htmlFor="product-variant"
                     className="mb-1 block text-xs font-semibold"
                   >
-                    {lang === "ar" ? "الخيار" : "Option"}
+                    {ar ? "الخيار" : "Option"}
                   </label>
                   <select
                     id="product-variant"
@@ -438,7 +361,7 @@ export default function ProductDetailsClient({
                     className="min-h-11 w-full rounded border border-slate-500 bg-slate-800 px-3 text-white"
                   >
                     <option value="">
-                      {lang === "ar" ? "اختر خياراً" : "Select an option"}
+                      {ar ? "اختر خياراً" : "Select an option"}
                     </option>
                     {product.variants.map((variant) => (
                       <option
@@ -446,11 +369,9 @@ export default function ProductDetailsClient({
                         value={variant.id}
                         disabled={variant.stock < 1}
                       >
-                        {lang === "ar" ? variant.titleAr : variant.titleEn}
+                        {ar ? variant.titleAr : variant.titleEn}
                         {variant.stock < 1
-                          ? lang === "ar"
-                            ? " — غير متوفر"
-                            : " — Out of stock"
+                          ? ar ? " — غير متوفر" : " — Out of stock"
                           : ""}
                       </option>
                     ))}
@@ -460,7 +381,7 @@ export default function ProductDetailsClient({
             {product.purchaseMode === "PURCHASABLE" && inStock && (
               <div className="flex items-center gap-3 text-white">
                 <label htmlFor="product-quantity" className="text-xs">
-                  {lang === "ar" ? "الكمية" : "Quantity"}
+                  {ar ? "الكمية" : "Quantity"}
                 </label>
                 <input
                   id="product-quantity"
@@ -482,7 +403,7 @@ export default function ProductDetailsClient({
                   className="min-h-10 w-20 rounded px-2 text-slate-900"
                 />
                 <span className="text-xs">
-                  {lang === "ar"
+                  {ar
                     ? `متبقي ${stockQuantity}`
                     : `${stockQuantity} available`}
                 </span>
@@ -511,43 +432,109 @@ export default function ProductDetailsClient({
             ) : (
               <Link
                 href={`/contact?product=${encodeURIComponent(product.slug)}`}
-                className="w-full py-3 px-4 bg-brand-dark hover:bg-brand-hover text-white font-bold text-xs rounded-lg shadow-md flex items-center justify-center gap-2 transition-all"
+                className="w-full py-3 px-4 bg-terra hover:bg-[var(--eg-terra-dark)] text-white font-bold text-xs rounded-lg shadow-md flex items-center justify-center gap-2 transition-all"
               >
-                {t.product.contactUsForPrice}
+                <Phone className="w-4 h-4" aria-hidden="true" />
+                <span>{t.product.contactUsForPrice}</span>
               </Link>
             )}
           </div>
+
+          {warranty && (
+            <div className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-50 border border-gray-200 text-xs">
+              <ShieldCheck className="w-4 h-4 text-brand-gold flex-shrink-0" />
+              <span className="font-bold text-gray-800">
+                {t.product.warranty}: {warranty}
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Technical Specifications Table */}
-      {product.specifications?.length > 0 && (
-        <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-200 shadow-sm space-y-4">
-          <h2 className="text-base sm:text-lg font-bold text-gray-900 border-b border-gray-200 pb-3 flex items-center gap-2">
-            <FileSpreadsheet className="w-5 h-5 text-brand-navy" />
+      {/* Technical specifications table (basics + structured specs) */}
+      {(product.specifications?.length > 0 ||
+        product.material ||
+        product.color ||
+        product.style ||
+        product.lengthCm ||
+        product.widthCm ||
+        product.heightCm ||
+        product.weightKg ||
+        product.countryOfOrigin) && (
+        <section className="dg-spec-panel space-y-4 bg-white p-6 sm:p-8">
+          <h2 className="flex items-center gap-2 border-b border-gray-200 pb-3 text-base sm:text-lg font-bold text-gray-900">
+            <FileSpreadsheet className="h-5 w-5 text-brand-navy" aria-hidden="true" />
             <span>{t.product.specifications}</span>
           </h2>
-
           <div className="overflow-x-auto">
-            <table className="w-full text-xs text-right dir-rtl border-collapse">
+            <table className="dir-rtl w-full border-collapse text-xs text-right">
               <thead>
-                <tr className="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
-                  <th className="p-3 text-start">المواصفة / Specification</th>
-                  <th className="p-3 text-start">القيمة / Value</th>
-                  <th className="p-3 text-start">المجموعة / Group</th>
+                <tr className="bg-slate-100 border-b border-slate-200 font-bold text-slate-700">
+                  <th className="p-3 text-start">{ar ? "المواصفة / Specification" : "Specification"}</th>
+                  <th className="p-3 text-start">{ar ? "القيمة / Value" : "Value"}</th>
+                  <th className="p-3 text-start">{ar ? "المجموعة / Group" : "Group"}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
+                {product.material && (
+                  <tr className="hover:bg-gray-50">
+                    <td className="p-3 font-semibold text-gray-900">{ar ? "المادة" : "Material"}</td>
+                    <td className="p-3 text-gray-700">{product.material}</td>
+                    <td className="p-3 text-gray-400">{ar ? "أساسيات" : "Basics"}</td>
+                  </tr>
+                )}
+                {product.color && (
+                  <tr className="hover:bg-gray-50">
+                    <td className="p-3 font-semibold text-gray-900">{ar ? "اللون" : "Color"}</td>
+                    <td className="p-3 text-gray-700">{product.color}</td>
+                    <td className="p-3 text-gray-400">{ar ? "أساسيات" : "Basics"}</td>
+                  </tr>
+                )}
+                {product.style && (
+                  <tr className="hover:bg-gray-50">
+                    <td className="p-3 font-semibold text-gray-900">{ar ? "النمط" : "Style"}</td>
+                    <td className="p-3 text-gray-700">{product.style}</td>
+                    <td className="p-3 text-gray-400">{ar ? "أساسيات" : "Basics"}</td>
+                  </tr>
+                )}
+                {(product.lengthCm || product.widthCm || product.heightCm) && (
+                  <tr className="hover:bg-gray-50">
+                    <td className="p-3 font-semibold text-gray-900">{ar ? "الأبعاد" : "Dimensions"}</td>
+                    <td className="p-3 text-gray-700">
+                      {[product.lengthCm, product.widthCm, product.heightCm]
+                        .filter(Boolean)
+                        .join(" × ")}{" "}
+                      {ar ? "سم" : "cm"}
+                    </td>
+                    <td className="p-3 text-gray-400">{ar ? "أساسيات" : "Basics"}</td>
+                  </tr>
+                )}
+                {product.weightKg && (
+                  <tr className="hover:bg-gray-50">
+                    <td className="p-3 font-semibold text-gray-900">{ar ? "الوزن" : "Weight"}</td>
+                    <td className="p-3 text-gray-700">
+                      {product.weightKg} {ar ? "كجم" : "kg"}
+                    </td>
+                    <td className="p-3 text-gray-400">{ar ? "أساسيات" : "Basics"}</td>
+                  </tr>
+                )}
+                {product.countryOfOrigin && (
+                  <tr className="hover:bg-gray-50">
+                    <td className="p-3 font-semibold text-gray-900">{ar ? "بلد الصنع" : "Country of origin"}</td>
+                    <td className="p-3 text-gray-700">{product.countryOfOrigin}</td>
+                    <td className="p-3 text-gray-400">{ar ? "أساسيات" : "Basics"}</td>
+                  </tr>
+                )}
                 {product.specifications.map((spec) => (
                   <tr key={spec.id} className="hover:bg-gray-50">
                     <td className="p-3 font-semibold text-gray-900">
-                      {lang === "ar" ? spec.keyAr : spec.keyEn}
+                      {ar ? spec.keyAr : spec.keyEn}
                     </td>
                     <td className="p-3 text-gray-700 font-mono">
-                      {lang === "ar" ? spec.valueAr : spec.valueEn}
+                      {ar ? spec.valueAr : spec.valueEn}
                     </td>
                     <td className="p-3 text-gray-400">
-                      {lang === "ar" ? spec.groupAr : spec.groupEn}
+                      {ar ? spec.groupAr : spec.groupEn}
                     </td>
                   </tr>
                 ))}
@@ -557,13 +544,12 @@ export default function ProductDetailsClient({
         </section>
       )}
 
-      {/* Compatible Accessories */}
+      {/* Complementary products */}
       {product.accessories?.length > 0 && (
         <section className="space-y-4">
-          <h2 className="text-base sm:text-lg font-bold text-gray-900 border-b border-gray-200 pb-3">
+          <h2 className="border-b border-gray-200 pb-3 text-base sm:text-lg font-bold text-gray-900">
             {t.product.accessories}
           </h2>
-
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {product.accessories.map((acc) => (
               <ProductCard key={acc.id} product={acc} />
@@ -572,9 +558,10 @@ export default function ProductDetailsClient({
         </section>
       )}
 
+      {/* Related products */}
       {product.relatedProducts?.length > 0 && (
         <section className="space-y-4">
-          <h2 className="text-base sm:text-lg font-bold text-gray-900 border-b border-gray-200 pb-3">
+          <h2 className="border-b border-gray-200 pb-3 text-base sm:text-lg font-bold text-gray-900">
             {t.product.relatedProducts}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -584,6 +571,14 @@ export default function ProductDetailsClient({
           </div>
         </section>
       )}
+
+      {/* Related guides & links */}
+      <section aria-label={ar ? "روابط ذات صلة" : "Related links"} className="dg-chiprow">
+        <Link href={categoryHref} className="dg-chip"><Package aria-hidden="true" className="h-3.5 w-3.5" />{ar ? "كل منتجات القسم" : "All products in category"}</Link>
+        <Link href="/projects" className="dg-chip"><FolderOpen aria-hidden="true" className="h-3.5 w-3.5" />{ar ? "أفكار ومشاريع للحدائق" : "Garden ideas & projects"}</Link>
+        <Link href="/contact" className="dg-chip"><Phone aria-hidden="true" className="h-3.5 w-3.5" />{ar ? "استفسار عن هذا المنتج" : "Inquire about this product"}</Link>
+      </section>
+
       <ProductReviews slug={product.slug} />
     </div>
   );
