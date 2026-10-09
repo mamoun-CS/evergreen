@@ -51,6 +51,12 @@ export default function HomeView({ categories, content, brands }: { categories: 
       };
   const Arrow = ar ? ArrowLeft : ArrowRight;
   const heroImage = ar ? cms.hero?.imageAr || "/images/background.png" : cms.hero?.imageEn || "/images/background-en.png";
+  // Keep the pots hub visible in the limited homepage category shelf. It is a
+  // parent category, so opening it leads shoppers to every pot collection.
+  const featuredCategories = [...categories].sort((first, second) => {
+    const priority = (category: Category) => category.slug === "alawany" ? 0 : 1;
+    return priority(first) - priority(second);
+  }).slice(0, 8);
 
   return (
     <main className="home-v2">
@@ -74,7 +80,7 @@ export default function HomeView({ categories, content, brands }: { categories: 
         <header className="home-heading"><h2>{copy.categories}</h2><p>{copy.categoriesSub}</p></header>
         {categories.length ? (
           <div className="home-category-grid">
-            {categories.slice(0, 8).map((category) => (
+            {featuredCategories.map((category) => (
               <Link key={category.id} href={`/category/${encodeURIComponent(category.slug)}`} className="home-category-card">
                 <span className="home-category-image">
                   <Image src={category.image || "/images/background.png"} alt="" fill sizes="(max-width: 760px) 50vw, (max-width: 1100px) 33vw, 25vw" className="object-cover" />
