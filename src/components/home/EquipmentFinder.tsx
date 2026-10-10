@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import useSWR from 'swr';
 import { useLanguage } from '../layout/LanguageContext';
 import { Filter, Search, RotateCcw, Compass, ArrowRight, ArrowLeft } from 'lucide-react';
 
@@ -11,33 +12,28 @@ interface OptionItem {
   slug: string;
 }
 
+const finderOptionsFetcher = async (url: string) => {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error('Unable to load equipment finder options');
+  return response.json();
+};
+
 export default function EquipmentFinder() {
   const { lang, t } = useLanguage();
 
-  const [categories, setCategories] = useState<OptionItem[]>([]);
-  const [brands, setBrands] = useState<OptionItem[]>([]);
-  const [applications, setApplications] = useState<OptionItem[]>([]);
+  const { data: optionsData } = useSWR('/api/equipment-finder/options', finderOptionsFetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    revalidateIfStale: false,
+    dedupingInterval: 300_000,
+  });
+  const categories: OptionItem[] = optionsData?.categories ?? [];
+  const brands: OptionItem[] = optionsData?.brands ?? [];
+  const applications: OptionItem[] = optionsData?.applications ?? [];
 
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedApplication, setSelectedApplication] = useState('');
-
-  useEffect(() => {
-    async function fetchOptions() {
-      try {
-        const res = await fetch('/api/equipment-finder/options');
-        if (res.ok) {
-          const data = await res.json();
-          setCategories(data.categories || []);
-          setBrands(data.brands || []);
-          setApplications(data.applications || []);
-        }
-      } catch (err) {
-        console.error('Error loading finder options:', err);
-      }
-    }
-    fetchOptions();
-  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();

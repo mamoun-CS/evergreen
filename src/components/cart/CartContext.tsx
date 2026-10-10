@@ -1,6 +1,7 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useAuth } from '@/components/auth/AuthContext';
 
 export interface CartItem {
   id: string;
@@ -23,16 +24,18 @@ interface CartContextType {
   clearCart: () => void;
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
-  syncCart: () => Promise<void>;
+  syncCart: (forceAuthenticatedSync?: boolean) => Promise<void>;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
+  const isAuthenticated = useAuth();
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const [isInitialized, setIsInitialized] = useState(false);
+  const updateControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     try {
@@ -49,16 +52,28 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     if (isInitialized) {
       localStorage.setItem('evergreen_cart', JSON.stringify(cart));
       
+      // Guests keep their cart locally. The API routes are intentionally
+      // authenticated, so posting guest carts only produces avoidable 401s.
+      if (!isAuthenticated) return;
+      const controller = new AbortController();
+      updateControllerRef.current?.abort();
+      updateControllerRef.current = controller;
       const timeoutId = setTimeout(() => {
         fetch('/api/cart/update', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cart })
-        }).catch(err => console.error('Error syncing cart state', err));
+          body: JSON.stringify({ cart }),
+          signal: controller.signal,
+        }).catch(err => {
+          if (err.name !== 'AbortError') console.error('Error syncing cart state', err);
+        });
       }, 500);
-      return () => clearTimeout(timeoutId);
+      return () => {
+        clearTimeout(timeoutId);
+        controller.abort();
+      };
     }
-  }, [cart, isInitialized]);
+  }, [cart, isAuthenticated, isInitialized]);
 
   const addToCart = (item: Omit<CartItem, 'quantity'>, quantity = 1) => {
     setCart((prev) => {
@@ -88,7 +103,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const clearCart = () => setCart([]);
 
-  const syncCart = async () => {
+  const syncCart = useCallback(async (forceAuthenticatedSync = false) => {
+    if (!isAuthenticated && !forceAuthenticatedSync) return;
     try {
       const currentCart = JSON.parse(localStorage.getItem('evergreen_cart') || '[]');
       const res = await fetch('/api/cart/sync', {
@@ -105,12 +121,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     } catch (e) {
       console.error('Failed to sync cart', e);
     }
-  };
+  }, [isAuthenticated]);
 
   // Sync cart on initial mount if authenticated
   useEffect(() => {
-    syncCart();
-  }, []);
+    void syncCart();
+  }, [syncCart]);
 
   return (
     <CartContext.Provider

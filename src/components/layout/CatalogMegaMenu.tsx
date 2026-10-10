@@ -42,7 +42,7 @@ export default function CatalogMegaMenu({ open, onClose }: { open: boolean; onCl
         )}
         <div className="dg-mega-foot">
           <Link href="/category" onClick={onClose} className="dg-btn dg-btn-light">
-            {ar ? 'كل الأقسام' : 'All categories'} <ArrowRight aria-hidden="true" style={ar ? { display: 'none' } : undefined} /><ArrowLeft aria-hidden="true" style={ar ? undefined : { display: 'none' }} />
+            <span className="dg-all-categories-label">{ar ? 'كل الأقسام' : 'All categories'}</span> <ArrowRight aria-hidden="true" style={ar ? { display: 'none' } : undefined} /><ArrowLeft aria-hidden="true" style={ar ? undefined : { display: 'none' }} />
           </Link>
         </div>
       </div>

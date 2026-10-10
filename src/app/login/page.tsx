@@ -24,7 +24,9 @@ export default function LoginPage() {
         throw new Error(data.error || 'Unable to sign in.');
       }
       const data = await response.json();
-      await syncCart();
+      // The login response has set the session cookie, while this provider
+      // still has the pre-login auth snapshot until router.refresh().
+      await syncCart(true);
       if (data.redirectUrl) {
         router.replace(data.redirectUrl);
       } else {

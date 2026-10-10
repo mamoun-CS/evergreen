@@ -81,7 +81,7 @@ export default function HomeView({ categories, content, brands }: { categories: 
         {categories.length ? (
           <div className="home-category-grid">
             {featuredCategories.map((category) => (
-              <Link key={category.id} href={`/category/${encodeURIComponent(category.slug)}`} className="home-category-card">
+              <Link key={category.id} href={`/category/${encodeURIComponent(category.slug)}`} className="home-category-card" title={ar ? category.nameAr : category.nameEn}>
                 <span className="home-category-image">
                   <Image src={category.image || "/images/background.png"} alt="" fill sizes="(max-width: 760px) 50vw, (max-width: 1100px) 33vw, 25vw" className="object-cover" />
                 </span>
@@ -167,11 +167,11 @@ function TrustBand({ ar }: { ar: boolean }) {
     { Icon: ShieldCheck, title: ar ? "سياسات واضحة" : "Clear policies", body: ar ? "شحن، استرجاع وخصوصية بخطوات واضحة." : "Shipping, refunds and privacy made clear." },
   ];
   return (
-    <section className="home-story-band" aria-label={ar ? "لماذا Ever Green" : "Why Ever Green"}>
-      <div className="home-story-copy" style={{ maxWidth: "100%" }}>
+    <section className="home-story-band home-story-band--benefits" aria-label={ar ? "لماذا Ever Green" : "Why Ever Green"}>
+      <div className="home-story-copy">
         <p className="home-kicker"><Sprout aria-hidden="true" />{ar ? "لماذا Ever Green؟" : "Why Ever Green?"}</p>
         <h2>{ar ? "خدمة تليق بحديقتك من بداية المسار إلى باب المنزل" : "Service your garden deserves, from browsing to doorstep"}</h2>
-        <div className="dg-value-grid" style={{ margin: "24px auto", paddingInline: 0 }}>
+        <div className="dg-value-grid">
           {items.map(({ Icon, title: t, body: b }) => (
             <div key={t} className="dg-value-card">
               <i><Icon aria-hidden="true" /></i>

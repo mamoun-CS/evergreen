@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, Boxes } from 'lucide-react';
@@ -16,35 +16,90 @@ type CategoryResponse = {
   productCount: number;
 };
 
+type CategoryRequest = {
+  controller: AbortController;
+  consumers: number;
+  promise: Promise<{ status: number; data?: CategoryResponse }>;
+};
+
+// Development Strict Mode briefly mounts, cleans up, then mounts again. Share
+// an in-flight request across those consumers instead of issuing it twice.
+const categoryRequests = new Map<string, CategoryRequest>();
+
+function acquireCategoryRequest(identifier: string) {
+  let request = categoryRequests.get(identifier);
+  if (!request) {
+    const controller = new AbortController();
+    request = {
+      controller,
+      consumers: 0,
+      promise: fetch(`/api/categories/${encodeURIComponent(identifier)}`, { signal: controller.signal })
+        .then(async (response) => ({
+          status: response.status,
+          data: response.ok ? await response.json() as CategoryResponse : undefined,
+        })),
+    };
+    categoryRequests.set(identifier, request);
+    void request.promise.then(
+      () => { if (categoryRequests.get(identifier) === request) categoryRequests.delete(identifier); },
+      () => { if (categoryRequests.get(identifier) === request) categoryRequests.delete(identifier); },
+    );
+  }
+  request.consumers += 1;
+  return request;
+}
+
+function releaseCategoryRequest(identifier: string, request: CategoryRequest) {
+  request.consumers -= 1;
+  // A microtask lets Strict Mode's immediate replacement subscribe to the same
+  // request; an actual route/category change still aborts an orphaned fetch.
+  queueMicrotask(() => {
+    if (request.consumers === 0 && categoryRequests.get(identifier) === request) {
+      request.controller.abort();
+      categoryRequests.delete(identifier);
+    }
+  });
+}
+
 export default function CategoryPageClient({ identifier }: { identifier: string }) {
   const { lang } = useLanguage();
   const ar = lang === 'ar';
   const Arrow = ar ? ArrowLeft : ArrowRight;
   const router = useRouter();
+  const routerRef = useRef(router);
   const [data, setData] = useState<CategoryResponse | null>(null);
   const [status, setStatus] = useState<'loading' | 'error' | 'not-found' | 'ready'>('loading');
 
+  // `useRouter()` is not part of the request identity. Keeping it in the
+  // effect dependencies allowed a new router reference to restart the fetch.
+  routerRef.current = router;
+
   useEffect(() => {
-    const controller = new AbortController();
-    void fetch(`/api/categories/${encodeURIComponent(identifier)}`, { signal: controller.signal })
-      .then(async (response) => {
-        if (response.status === 404) { setStatus('not-found'); return; }
-        if (!response.ok) throw new Error('Category request failed');
-        const json: CategoryResponse = await response.json();
+    let active = true;
+    const request = acquireCategoryRequest(identifier);
+    setStatus('loading');
+    void request.promise
+      .then(({ status: responseStatus, data: json }) => {
+        if (!active) return;
+        if (responseStatus === 404) { setStatus('not-found'); return; }
+        if (!json) throw new Error('Category request failed');
         // A leaf is already a real product type. Its exact category listing is
         // the useful next step; only actual parents get the type chooser.
         if (json.isLeaf) {
-          router.replace(`/shop?category=${encodeURIComponent(json.category.slug)}`);
+          routerRef.current.replace(`/shop?category=${encodeURIComponent(json.category.slug)}`);
           return;
         }
         setData(json);
         setStatus('ready');
       })
       .catch((error) => {
-        if (error.name !== 'AbortError') setStatus('error');
+        if (active && error.name !== 'AbortError') setStatus('error');
       });
-    return () => controller.abort();
-  }, [identifier, router]);
+    return () => {
+      active = false;
+      releaseCategoryRequest(identifier, request);
+    };
+  }, [identifier]);
 
   if (status === 'loading') return (
     <main className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6">

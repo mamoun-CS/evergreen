@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import useSWR from 'swr';
 import { useLanguage } from '@/components/layout/LanguageContext';
@@ -47,30 +47,35 @@ export default function ShopContent({ initialData }: ShopContentProps) {
   const { data: optionsData } = useSWR('/api/equipment-finder/options', fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
+    revalidateIfStale: false,
+    dedupingInterval: 300_000,
   });
   const categories = optionsData?.categories || [];
   const brands = optionsData?.brands || [];
   const applications = optionsData?.applications || [];
 
-  // Build query params
-  const params = new URLSearchParams();
-  params.set('page', page.toString());
-  params.set('limit', limit.toString());
-  if (appliedFilters.search) params.set('search', appliedFilters.search);
-  if (appliedFilters.category) params.set('category', appliedFilters.category);
-  if (appliedFilters.brand) params.set('brand', appliedFilters.brand);
-  if (appliedFilters.application) params.set('application', appliedFilters.application);
-  if (appliedFilters.sort !== 'newest') params.set('sort', appliedFilters.sort);
-  if (appliedFilters.discounted) params.set('discounted', 'true');
+  // Keep the SWR key and URL update tied only to applied filters.  Writing to
+  // browser history during render can trigger redundant render/navigation work.
+  const queryString = useMemo(() => {
+    const params = new URLSearchParams();
+    params.set('page', page.toString());
+    params.set('limit', limit.toString());
+    if (appliedFilters.search) params.set('search', appliedFilters.search);
+    if (appliedFilters.category) params.set('category', appliedFilters.category);
+    if (appliedFilters.brand) params.set('brand', appliedFilters.brand);
+    if (appliedFilters.application) params.set('application', appliedFilters.application);
+    if (appliedFilters.sort !== 'newest') params.set('sort', appliedFilters.sort);
+    if (appliedFilters.discounted) params.set('discounted', 'true');
+    return params.toString();
+  }, [page, appliedFilters]);
 
-  // Update URL silently
-  if (typeof window !== 'undefined') {
-    window.history.replaceState(null, '', `/shop?${params.toString()}`);
-  }
+  useEffect(() => {
+    window.history.replaceState(null, '', `/shop?${queryString}`);
+  }, [queryString]);
 
   // SWR with initialData as fallback - no loading state on first render!
   const { data, isLoading: loading, error } = useSWR(
-    `/api/products?${params.toString()}`,
+    `/api/products?${queryString}`,
     fetcher,
     {
       fallbackData: initialData,
