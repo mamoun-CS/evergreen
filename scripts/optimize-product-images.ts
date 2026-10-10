@@ -35,7 +35,7 @@ async function main() {
       await sharp(file, { limitInputPixels: 40_000_000 })
         .rotate()
         .resize({ width: maxDimension, height: maxDimension, fit: 'inside', withoutEnlargement: true })
-        .webp({ quality: 82, effort: 4 })
+        .webp({ quality: 90, effort: 4 })
         .toFile(output);
       converted++;
     } catch (error) {

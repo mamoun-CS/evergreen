@@ -228,6 +228,8 @@ export default function ProductDetailsClient({
               src={gallery[selectedImage]}
               alt={`${title} — ${product.brand?.name ?? ""} ${product.sku ? product.sku : ""}`.trim()}
               fill
+              sizes="(max-width: 767px) 100vw, (max-width: 1280px) 50vw, 640px"
+              quality={90}
               className="object-contain p-4"
               priority
             />

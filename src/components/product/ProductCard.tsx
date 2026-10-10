@@ -83,7 +83,7 @@ export default function ProductCard({ product, variant }: ProductCardProps) {
       <div className="eg-agri-product-image">
         {overlayButtons}
         <Link href={productHref} className="absolute inset-0">
-          <Image src={image} alt={title} fill sizes="(max-width: 760px) 50vw, 220px" className="object-contain p-3 transition-transform duration-300 group-hover:scale-105" />
+          <Image src={image} alt={title} fill sizes="(max-width: 760px) 50vw, 220px" quality={90} className="object-contain p-3 transition-transform duration-300 group-hover:scale-105" />
         </Link>
       </div>
       <div className="eg-product-body">
@@ -108,6 +108,7 @@ export default function ProductCard({ product, variant }: ProductCardProps) {
             alt={title}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
+            quality={90}
             className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
           />
           {product.brand && (

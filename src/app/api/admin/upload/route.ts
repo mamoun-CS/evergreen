@@ -13,7 +13,9 @@ export const dynamic = 'force-dynamic';
 // Large camera images are wasteful for product pages. This keeps enough detail
 // for the product gallery while sharply reducing storage and transfer size.
 const MAX_IMAGE_DIMENSION = 1600;
-const WEBP_QUALITY = 80;
+// Product images are examined closely in listing cards and the gallery. Keep
+// a high-quality source here; Next.js still supplies responsive derivatives.
+const WEBP_QUALITY = 90;
 
 export async function POST(request: NextRequest) {
   const contentLength = Number(request.headers.get('content-length') || 0);
