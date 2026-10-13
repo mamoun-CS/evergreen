@@ -4,6 +4,8 @@ import { validate } from '@/lib/admin-validation';
 import { IdSchema, ProductFormSchema } from '@/lib/validation';
 import { assertAdmin } from '@/lib/auth';
 import { prisma } from '@/lib/admin-prisma';
+import { prisma as db } from '@/lib/prisma';
+import { getClientIp } from '@/lib/auth-middleware';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { PurchaseMode } from '@prisma/client';
 import { removeUnusedImages, remove } from '@/lib/storage';
@@ -92,32 +94,43 @@ export async function updateProduct(id: string, data: ProductInput) {
   return updated;
 }
 
-export async function deleteProduct(id: string) {
-  await assertAdmin();
+export async function deleteProduct(id: string): Promise<{ ok: boolean; message?: string }> {
+  const user = await assertAdmin();
   await validate(IdSchema, id);
-  // Keep products with order history available for historical records.
-  const product = await prisma.product.findUnique({
+  const product = await db.product.findUnique({
     where: { id },
-    include: { _count: { select: { orderItems: true } } }
+    include: { _count: { select: { orderItems: true } } },
   });
-  
-  if (product && product._count.orderItems > 0) {
-    // Soft delete/archive logic (set isAvailable to false)
-    await prisma.product.update({
-      where: { id },
-      data: { isAvailable: false },
-    });
-  } else {
-    // Hard delete
-    try {
-      await prisma.product.delete({ where: { id } });
-    } catch (error) {
-      if ((error as { code?: string })?.code !== 'P2003') throw error;
-      await prisma.product.update({ where: { id }, data: { isAvailable: false } });
-    }
-    if (product) await Promise.all(product.images.map((url) => remove(url).catch(() => undefined)));
+  if (!product) return { ok: true };
+  if (product._count.orderItems > 0) {
+    return { ok: false, message: 'لا يمكن حذف هذا المنتج لأنه مرتبط بطلبات سابقة.' };
   }
+
+  // Related rows are removed with the product. The guarded admin client treats
+  // deleteMany on carts, quotes, and logs as separate resources and rejects them.
+  await db.$transaction([
+    db.cartItem.deleteMany({ where: { productId: id } }),
+    db.quoteRequestItem.deleteMany({ where: { productId: id } }),
+    db.inventoryAuditLog.deleteMany({ where: { productId: id } }),
+    db.adminAlert.deleteMany({ where: { productId: id } }),
+    db.product.delete({ where: { id } }),
+  ]);
+  await db.adminAuditLog.create({
+    data: {
+      userId: user.id,
+      action: 'delete',
+      resourceType: 'product',
+      resourceId: id,
+      oldData: { nameAr: product.nameAr, nameEn: product.nameEn, slug: product.slug },
+      ipAddress: getClientIp(),
+    },
+  });
+  await Promise.all(product.images.map((url) => remove(url).catch(() => undefined)));
+
   revalidatePath('/admin/products');
+  revalidatePath('/shop');
+  revalidatePath(`/products/${product.slug}`);
   revalidateTag('products');
   revalidateTag('categories');
+  return { ok: true };
 }

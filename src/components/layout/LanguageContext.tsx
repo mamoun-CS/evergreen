@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { Language, Direction, translations } from '@/lib/i18n';
 
 interface LanguageContextType {
@@ -13,9 +14,17 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+function applyLocalizedMeta(language: Language) {
+  const title = document.querySelector(`meta[name="x-title-${language}"]`)?.getAttribute('content');
+  const description = document.querySelector(`meta[name="x-description-${language}"]`)?.getAttribute('content');
+  if (title) document.title = title;
+  if (description) document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Language>('ar');
   const [dir, setDirState] = useState<Direction>('rtl');
+  const pathname = usePathname();
 
   useEffect(() => {
     const syncDocument = (language: Language) => {
@@ -23,6 +32,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       document.documentElement.dir = direction;
       document.documentElement.lang = language;
       document.documentElement.dataset.locale = language;
+      applyLocalizedMeta(language);
     };
     const savedLang = localStorage.getItem('evergreen_lang') as Language;
     if (savedLang === 'en' || savedLang === 'ar') {
@@ -32,7 +42,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     } else {
       syncDocument('ar');
     }
-  }, []);
+  }, [pathname]);
 
   const setLanguage = (newLang: Language) => {
     setLangState(newLang);
@@ -42,6 +52,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.dir = newDir;
     document.documentElement.lang = newLang;
     document.documentElement.dataset.locale = newLang;
+    applyLocalizedMeta(newLang);
   };
 
   const toggleLanguage = () => {

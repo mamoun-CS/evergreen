@@ -21,6 +21,7 @@ export default async function BannerFormPage({ params }: { params: { id?: string
           subtitleAr: formData.get('subtitleAr') as string || null,
           subtitleEn: formData.get('subtitleEn') as string || null,
           imageUrl: formData.get('imageUrl') as string,
+          mobileImageUrl: formData.get('mobileImageUrl') as string || null,
           ctaTextAr: formData.get('ctaTextAr') as string || null,
           ctaTextEn: formData.get('ctaTextEn') as string || null,
           ctaUrl: formData.get('ctaUrl') as string || null,
@@ -37,7 +38,8 @@ export default async function BannerFormPage({ params }: { params: { id?: string
           <div><label className="block text-sm font-medium">الوصف (عربي)</label><input name="subtitleAr" defaultValue={banner?.subtitleAr || ''} className="mt-1 block w-full rounded border-slate-300 text-sm" /></div>
           <div><label className="block text-sm font-medium">الوصف (إنجليزي)</label><input name="subtitleEn" defaultValue={banner?.subtitleEn || ''} className="mt-1 block w-full rounded border-slate-300 text-sm" /></div>
           
-          <div className="md:col-span-2"><label className="mb-2 block text-sm font-medium">صورة البنر / Banner image</label><ImageUploader name="imageUrl" defaultValue={banner?.imageUrl ? [banner.imageUrl] : []} maxFiles={1} category="banners" /></div>
+          <div className="md:col-span-2"><label className="mb-2 block text-sm font-medium">صورة البنر (كمبيوتر) / Desktop banner image</label><ImageUploader name="imageUrl" defaultValue={banner?.imageUrl ? [banner.imageUrl] : []} maxFiles={1} category="banners" /></div>
+          <div className="md:col-span-2"><label className="mb-2 block text-sm font-medium">صورة البنر (جوال) / Mobile banner image (اختياري)</label><ImageUploader name="mobileImageUrl" defaultValue={banner?.mobileImageUrl ? [banner.mobileImageUrl] : []} maxFiles={1} category="banners" /></div>
           
           <div><label className="block text-sm font-medium">نص الزر (عربي)</label><input name="ctaTextAr" defaultValue={banner?.ctaTextAr || ''} className="mt-1 block w-full rounded border-slate-300 text-sm" /></div>
           <div><label className="block text-sm font-medium">نص الزر (إنجليزي)</label><input name="ctaTextEn" defaultValue={banner?.ctaTextEn || ''} className="mt-1 block w-full rounded border-slate-300 text-sm" /></div>

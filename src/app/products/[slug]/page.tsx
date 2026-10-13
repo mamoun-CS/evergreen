@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import ProductDetailsClient from "./ProductDetailsClient";
 import { headers } from "next/headers";
 import { getProductBySlug, serializeCard } from "@/lib/storefront";
+import { bilingualMetadata } from "@/lib/seo";
 
 interface ProductPageProps {
   params: {
@@ -16,40 +17,22 @@ export async function generateMetadata({
 }: ProductPageProps): Promise<Metadata> {
   const product = await getProductBySlug(params.slug);
   if (!product) return {};
-  const title = `${product.nameEn} | Ever Green`;
-  const description =
-    product.descriptionEn ||
-    product.descriptionAr ||
-    `${product.nameEn} from Ever Green`;
-  const baseUrl = (
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    process.env.NEXT_PUBLIC_APP_URL ||
-    "http://localhost:3000"
-  ).replace(/\/$/, "");
-  return {
-    title,
-    description,
-    alternates: {
-      canonical: `/products/${params.slug}`,
-      languages: {
-        en: `/products/${params.slug}`,
-        ar: `/products/${params.slug}`,
-      },
-    },
-    openGraph: {
-      title,
-      description,
-      images: product.images.slice(0, 1),
-      locale: "en_US",
-      alternateLocale: ["ar_PS"],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: product.images.slice(0, 1),
-    },
-  };
+  
+  // Use custom SEO fields if provided, otherwise fall back to product name/description
+  const metaTitleEn = product.metaTitleEn || `${product.nameEn} | Ever Green`;
+  const metaTitleAr = product.metaTitleAr || `${product.nameAr} | Ever Green`;
+  const metaDescEn = product.metaDescEn || product.descriptionEn || product.descriptionAr || `${product.nameEn} from Ever Green`;
+  const metaDescAr = product.metaDescAr || product.descriptionAr || product.descriptionEn || `${product.nameAr} من Ever Green`;
+  const ogImage = product.ogImage || product.images[0];
+  
+  return bilingualMetadata({
+    path: `/products/${params.slug}`,
+    titleEn: metaTitleEn,
+    titleAr: metaTitleAr,
+    descriptionEn: metaDescEn,
+    descriptionAr: metaDescAr,
+    image: ogImage,
+  });
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {

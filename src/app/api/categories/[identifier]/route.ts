@@ -11,6 +11,12 @@ export async function GET(_request: NextRequest, { params }: { params: { identif
         slug: true,
         nameAr: true,
         nameEn: true,
+        imageUrl: true,
+        metaTitleAr: true,
+        metaTitleEn: true,
+        metaDescAr: true,
+        metaDescEn: true,
+        ogImage: true,
         _count: { select: { products: true } },
         children: {
           orderBy: { nameAr: 'asc' },
@@ -19,6 +25,7 @@ export async function GET(_request: NextRequest, { params }: { params: { identif
             slug: true,
             nameAr: true,
             nameEn: true,
+            imageUrl: true,
             _count: { select: { products: true } },
             products: {
               where: { isAvailable: true },
@@ -47,12 +54,24 @@ export async function GET(_request: NextRequest, { params }: { params: { identif
     }] : [];
 
     return NextResponse.json({
-      category: { id: category.id, slug: category.slug, nameAr: category.nameAr, nameEn: category.nameEn },
+      category: { 
+        id: category.id, 
+        slug: category.slug, 
+        nameAr: category.nameAr, 
+        nameEn: category.nameEn,
+        imageUrl: category.imageUrl,
+        metaTitleAr: category.metaTitleAr,
+        metaTitleEn: category.metaTitleEn,
+        metaDescAr: category.metaDescAr,
+        metaDescEn: category.metaDescEn,
+        ogImage: category.ogImage,
+      },
       isLeaf,
       productCount: category._count.products,
-      subcategories: [...category.children.map(({ products, ...child }) => ({
+      subcategories: [...category.children.map(({ products, imageUrl, ...child }) => ({
         ...child,
-        image: products[0]?.images?.[0] ? optimizeProductImagePath(products[0].images[0]) : null,
+        // Use category's own imageUrl first, fallback to first product's image
+        image: imageUrl ? optimizeProductImagePath(imageUrl) : (products[0]?.images?.[0] ? optimizeProductImagePath(products[0].images[0]) : null),
       })), ...directProductsType],
     });
   } catch (error) {

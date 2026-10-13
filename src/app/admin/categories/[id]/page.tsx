@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { requireAdmin } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { createCategory, updateCategory } from '../../actions/category-actions';
+import ImageUploader from '@/components/admin/ImageUploader';
 
 export default async function CategoryFormPage({ params }: { params: { id?: string } }) {
   await requireAdmin();
@@ -20,6 +21,7 @@ export default async function CategoryFormPage({ params }: { params: { id?: stri
       nameEn: formData.get('nameEn') as string,
       slug: formData.get('slug') as string,
       parentId: formData.get('parentId') as string || undefined,
+      imageUrl: formData.get('imageUrl') as string || null,
     };
     if (isEditing) {
       await updateCategory(params.id!, data);
@@ -56,6 +58,11 @@ export default async function CategoryFormPage({ params }: { params: { id?: stri
                 <option key={c.id} value={c.id}>{c.nameAr}</option>
               ))}
             </select>
+          </div>
+          <div className="sm:col-span-2">
+            <label className="mb-2 block text-sm font-medium text-slate-700">صورة العرض / Display image</label>
+            <p className="mb-2 text-xs text-slate-500">تظهر هذه الصورة في الصفحة الرئيسية وصفحة القسم، بشكل مستقل عن صور المنتجات.</p>
+            <ImageUploader name="imageUrl" defaultValue={category?.imageUrl ? [category.imageUrl] : []} maxFiles={1} category="categories" />
           </div>
         </div>
         <div className="flex justify-end gap-3 border-t border-slate-100 pt-4">

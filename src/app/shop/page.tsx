@@ -1,14 +1,28 @@
 import React, { Suspense } from 'react';
-import type { Metadata } from 'next';
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { productCardSelect, serializeCard } from '@/lib/storefront';
 import { prisma } from '@/lib/prisma';
 import ShopContent from './ShopContent';
+import { getSiteSettings } from '@/lib/storefront';
+import { bilingualMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'المتجر — كتالوج المنتجات | Ever Green',
-  description: 'تصفّح كتالوج Ever Green الكامل: أواني الزرع، الديكور، العشب الصناعي، أدوات احترافية، حصى الأنهار، خلطات الزراعة والمزيد — مع فلترة وبحث متقدم.',
-  alternates: { canonical: '/shop' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const [settings, page] = await Promise.all([
+    getSiteSettings(),
+    prisma.pageContent.findFirst({ where: { slug: 'shop', isActive: true }, select: { metaTitleAr: true, metaTitleEn: true, metaDescAr: true, metaDescEn: true, ogImage: true } }),
+  ]);
+  const storeNameEn = settings?.storeNameEn || 'Ever Green';
+  const storeNameAr = settings?.storeNameAr || 'Ever Green';
+  return bilingualMetadata({
+    path: '/shop',
+    titleEn: page?.metaTitleEn || `${storeNameEn} — Shop`,
+    titleAr: page?.metaTitleAr || `${storeNameAr} — متجر`,
+    descriptionEn: page?.metaDescEn || `Browse ${storeNameEn}'s complete catalog of garden ornaments, planters, outdoor decor, and more.`,
+    descriptionAr: page?.metaDescAr || `تصفح كتالوج ${storeNameAr} الكامل من تحف الحدائق والأصص والديكور الخارجي والمزيد.`,
+    image: page?.ogImage,
+  });
+}
 
 /**
  * Server Component - queries Prisma directly at request-time so the

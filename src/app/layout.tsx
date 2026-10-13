@@ -13,16 +13,28 @@ import WhatsAppFloatingButton from '@/components/layout/WhatsAppFloatingButton';
 import AccessibilityToolbar from '@/components/layout/AccessibilityToolbar';
 import CookieConsent from '@/components/layout/CookieConsent';
 import { headers } from 'next/headers';
-import { getSiteSettings } from '@/lib/storefront';
+import { getSiteSettings, getSocialLinks, getAnnouncementBar, getNavigationItems, getFooterNavigationItems, getRootCategories } from '@/lib/storefront';
 import { getCurrentUser } from '@/lib/auth';
 import { AuthProvider } from '@/components/auth/AuthContext';
 
-export const metadata: Metadata = {
-  title: 'Ever Green | تحف وديكورات الحدائق | Garden Ornaments & Outdoor Decor',
-  description: "اكتشف تشكيلة Ever Green من تحف وديكورات الحدائق، النوافير، التماثيل، الأصص، الإضاءة والإكسسوارات الخارجية. Discover Ever Green's collection of garden ornaments, outdoor decor, fountains, statues, planters, lighting and garden accessories.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
-  openGraph: { title: 'Ever Green | Garden Ornaments & Outdoor Decor', description: "Discover Ever Green's collection of garden ornaments, outdoor decor, fountains, statues, planters, lighting and garden accessories.", type:'website' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const titleEn = settings.storeNameEn || 'Ever Green';
+  const titleAr = settings.storeNameAr || 'Ever Green';
+  return {
+    title: { default: `${titleEn} | Garden Ornaments & Outdoor Decor`, template: `%s` },
+    description: settings.footerAboutEn || "Discover Ever Green's collection of garden ornaments, outdoor decor, fountains, statues, planters, lighting and garden accessories.",
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+    icons: settings.faviconUrl ? { icon: settings.faviconUrl, shortcut: settings.faviconUrl } : undefined,
+    openGraph: { title: titleEn, description: settings.footerAboutEn || undefined, type: 'website' },
+    other: {
+      'x-title-ar': `${titleAr} | تحف وديكورات الحدائق`,
+      'x-title-en': `${titleEn} | Garden Ornaments & Outdoor Decor`,
+      'x-description-ar': settings.footerAboutAr || '',
+      'x-description-en': settings.footerAboutEn || '',
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -30,6 +42,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const settings: any = await getSiteSettings();
+  const socialLinks: any = await getSocialLinks();
+  const announcementBars: any = await getAnnouncementBar();
+  const navigationItems: any = await getNavigationItems();
+  const footerNavigationItems: any = await getFooterNavigationItems();
+  const rootCategories: any = await getRootCategories();
   const nonce = headers().get('x-csp-nonce') || undefined;
   const user = await getCurrentUser();
   const isAuthenticated = !!user;
@@ -42,11 +59,11 @@ export default async function RootLayout({
             <CartProvider>
               <WishlistProvider>
                 <CompareProvider>
-                  <Header settings={settings} />
+                  <Header settings={settings} announcementBars={announcementBars} navigationItems={navigationItems} />
                   <main className="flex-1 w-full">
                     {children}
                   </main>
-                  <Footer settings={settings} />
+                  <Footer settings={settings} socialLinks={socialLinks} footerNavItems={footerNavigationItems} rootCategories={rootCategories} />
                   <CartDrawer />
                   <CompareBar />
                   <BackToTopButton />

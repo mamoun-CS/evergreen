@@ -6,7 +6,7 @@ import { assertAdmin } from '@/lib/auth';
 import { prisma } from '@/lib/admin-prisma';
 import { revalidatePath, revalidateTag } from 'next/cache';
 
-export async function createCategory(data: { nameEn: string; nameAr: string; slug: string; parentId?: string }) {
+export async function createCategory(data: { nameEn: string; nameAr: string; slug: string; parentId?: string; imageUrl?: string | null }) {
   await assertAdmin();
   data = await validate(CategoryFormSchema, data);
   await prisma.category.create({
@@ -15,13 +15,14 @@ export async function createCategory(data: { nameEn: string; nameAr: string; slu
       nameAr: data.nameAr,
       slug: data.slug,
       parentId: data.parentId || null,
+      imageUrl: data.imageUrl || null,
     },
   });
   revalidatePath('/admin/categories');
   revalidateTag('categories');
 }
 
-export async function updateCategory(id: string, data: { nameEn: string; nameAr: string; slug: string; parentId?: string }) {
+export async function updateCategory(id: string, data: { nameEn: string; nameAr: string; slug: string; parentId?: string; imageUrl?: string | null }) {
   await assertAdmin();
   data = await validate(CategoryFormSchema, data);
   await validate(IdSchema, id);
@@ -34,6 +35,7 @@ export async function updateCategory(id: string, data: { nameEn: string; nameAr:
       nameAr: data.nameAr,
       slug: data.slug,
       parentId: data.parentId || null,
+      imageUrl: data.imageUrl || null,
     },
   });
   revalidatePath('/admin/categories');

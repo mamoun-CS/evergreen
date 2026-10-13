@@ -3,64 +3,64 @@
   - Environments: .env
 
  ✓ Starting...
- ✓ Ready in 4.7s
- ○ Compiling /src/middleware ...
- ✓ Compiled /src/middleware in 1180ms (73 modules)
+ ✓ Ready in 3.6s
+ ✓ Compiled /src/middleware in 401ms
+ ✓ Compiled (73 modules)
  ○ Compiling /api/shipping/options ...
- ✓ Compiled /api/shipping/options in 621ms (56 modules)
- GET /api/shipping/options 200 in 2616ms
- GET /api/shipping/options 200 in 26ms
- ✓ Compiled /api/wishlist in 263ms (70 modules)
- POST /api/wishlist 201 in 1509ms
- POST /api/wishlist 201 in 43ms
- DELETE /api/wishlist?productId=cmuxyuda10004ai8pomk0llcb 200 in 57ms
- GET /api/wishlist 200 in 71ms
- ✓ Compiled /api/admin/upload in 460ms (80 modules)
- POST /api/admin/upload 201 in 735ms
- ✓ Compiled /uploads/[...path] in 73ms (82 modules)
- GET /uploads/integration/cc7c8e9d-5b71-47ed-afd4-4f9e1675929d.webp 200 in 552ms
- ○ Compiling /api/orders ...
- ✓ Compiled /api/orders in 585ms (144 modules)
- POST /api/orders 200 in 989ms
- ○ Compiling /api/admin/orders/[id]/confirm ...
- ✓ Compiled /api/admin/orders/[id]/confirm in 649ms (243 modules)
+ ✓ Compiled /api/shipping/options in 600ms (56 modules)
+ GET /api/shipping/options 200 in 2346ms
+ GET /api/shipping/options 200 in 31ms
+ ✓ Compiled /api/wishlist in 279ms (70 modules)
+ POST /api/wishlist 201 in 1440ms
+ POST /api/wishlist 201 in 31ms
+ DELETE /api/wishlist?productId=cmv2jxrte0004yc1dz5umdd3n 200 in 29ms
+ GET /api/wishlist 200 in 29ms
+ ✓ Compiled /api/admin/upload in 103ms (80 modules)
+ POST /api/admin/upload 201 in 247ms
+ ✓ Compiled /uploads/[...path] in 42ms (82 modules)
+ GET /uploads/integration/f88a5c91-9d6a-45eb-9c85-40353e609b9a.webp 200 in 405ms
+ ✓ Compiled /api/orders in 420ms (144 modules)
+ POST /api/orders 200 in 624ms
+ ✓ Compiled /api/admin/orders/[id]/confirm in 140ms (243 modules)
 Unauthorized admin access {
-  userId: 'cmuxyucye0002ai8povukwr4m',
+  userId: 'cmv2jxrlv0002yc1d8ltxv6o6',
   action: 'update',
   resource: 'order',
-  ip: 'test-80394955',
-  timestamp: '2026-10-07T10:29:54.102Z'
+  ip: 'test-04cac743',
+  timestamp: '2026-10-10T15:31:27.462Z'
 }
- POST /api/admin/orders/cmuxyugvt000613olj2ol17tu/confirm 403 in 1319ms
- POST /api/admin/orders/cmuxyugvt000613olj2ol17tu/confirm 200 in 101ms
- POST /api/admin/orders/cmuxyugvt000613olj2ol17tu/confirm 409 in 29ms
- POST /api/orders 200 in 51ms
- ✓ Compiled /api/admin/orders/[id]/reject in 110ms (245 modules)
- POST /api/admin/orders/cmuxyuiaa000i13olbjkyljxw/reject 200 in 679ms
- POST /api/orders 200 in 43ms
- POST /api/admin/orders/cmuxyuiv6000r13olm4quy9kw/confirm 409 in 34ms
- ✓ Compiled /api/payments/lahza/webhook in 148ms (251 modules)
- POST /api/payments/lahza/webhook 401 in 212ms
- POST /api/payments/lahza/webhook 401 in 18ms
- POST /api/payments/lahza/webhook 400 in 22ms
- POST /api/payments/lahza/webhook 200 in 68ms
- POST /api/payments/lahza/webhook 409 in 25ms
- ✓ Compiled /api/auth/register in 118ms (254 modules)
- POST /api/auth/register 201 in 558ms
- ✓ Compiled /api/auth/login in 152ms (257 modules)
- POST /api/auth/login 401 in 583ms
- POST /api/auth/login 429 in 27ms
- POST /api/auth/login 200 in 304ms
- ✓ Compiled /api/admin/audit-logs in 92ms (260 modules)
+ POST /api/admin/orders/cmv2jxud60006125d3fsuuu8b/confirm 403 in 743ms
+ POST /api/admin/orders/cmv2jxud60006125d3fsuuu8b/confirm 200 in 85ms
+ POST /api/admin/orders/cmv2jxud60006125d3fsuuu8b/confirm 409 in 22ms
+ POST /api/orders 200 in 37ms
+ ✓ Compiled /api/admin/orders/[id]/reject in 66ms (245 modules)
+ POST /api/admin/orders/cmv2jxv6g000i125dmg3jf1ut/reject 200 in 655ms
+ POST /api/orders 200 in 28ms
+ POST /api/admin/orders/cmv2jxvq2000r125ddoqtablv/confirm 409 in 23ms
+ ✓ Compiled /api/payments/lahza/webhook in 100ms (251 modules)
+ POST /api/payments/lahza/webhook 401 in 151ms
+ POST /api/payments/lahza/webhook 401 in 19ms
+ POST /api/payments/lahza/webhook 400 in 15ms
+ POST /api/payments/lahza/webhook 200 in 54ms
+ POST /api/payments/lahza/webhook 409 in 22ms
+ ✓ Compiled /api/auth/register in 82ms (254 modules)
+ POST /api/auth/register 201 in 455ms
+ ✓ Compiled /api/auth/login in 79ms (257 modules)
+ POST /api/auth/login 401 in 386ms
+ POST /api/auth/login 429 in 18ms
+ POST /api/auth/login 200 in 289ms
+ ✓ Compiled /api/admin/audit-logs in 72ms (260 modules)
 Unauthorized admin access {
-  userId: 'cmuxyucm00001ai8p34tcc34f',
+  userId: 'cmv2jxrdr0001yc1dzrqquhia',
   action: 'read',
   resource: 'auditLog',
-  ip: 'test-80394955',
-  timestamp: '2026-10-07T10:29:57.285Z'
+  ip: 'test-04cac743',
+  timestamp: '2026-10-10T15:31:30.031Z'
 }
- GET /api/admin/audit-logs 403 in 149ms
- GET /api/admin/audit-logs 200 in 27ms
+ GET /api/admin/audit-logs 403 in 104ms
+ GET /api/admin/audit-logs 200 in 31ms
  ○ Compiling /admin/orders ...
- ✓ Compiled /admin/orders in 5.7s (981 modules)
- ✓ Compiled in 957ms (359 modules)
+ ✓ Compiled /admin/orders in 3.8s (995 modules)
+ ✓ Compiled in 383ms (366 modules)
+ ✓ Compiled in 121ms (352 modules)
+ GET /admin/orders 200 in 4324ms

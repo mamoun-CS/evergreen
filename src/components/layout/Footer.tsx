@@ -3,44 +3,48 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from './LanguageContext';
-import { Phone, Mail, MapPin, ShieldCheck, Clock, MessageCircle, ExternalLink } from 'lucide-react';
+import { Phone, Mail, MapPin, ShieldCheck, Clock, MessageCircle, ExternalLink, Facebook, Instagram, Twitter, Youtube, Linkedin, Globe } from 'lucide-react';
 
 type Family = { label: string; href: string };
+type SocialLink = { platform: string; labelAr: string; labelEn: string; url: string; icon?: string | null };
+type FooterNavItem = { id: string; labelAr: string; labelEn: string; url: string; order: number; parentId: string | null };
+type RootCategory = { id: string; slug: string; nameAr: string; nameEn: string };
 
-export default function Footer({ settings = {} as any }: { settings?: any }) {
+const platformIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+  facebook: Facebook,
+  instagram: Instagram,
+  twitter: Twitter,
+  youtube: Youtube,
+  linkedin: Linkedin,
+  whatsapp: MessageCircle,
+};
+
+export default function Footer({ settings = {} as any, socialLinks = [] as SocialLink[], footerNavItems = [] as FooterNavItem[], rootCategories = [] as RootCategory[] }: { settings?: any; socialLinks?: SocialLink[]; footerNavItems?: FooterNavItem[]; rootCategories?: RootCategory[] }) {
   const { lang } = useLanguage();
   const ar = lang === 'ar';
   const phone = settings.contactPhone || '0559401774';
   const email = settings.contactEmail || 'info@evergreen.ps';
   const whatsapp = settings.contactWhatsApp || '';
 
-  const families: Family[] = ar
-    ? [
-        { label: 'العشب الصناعي', href: '/category/alashb-alsnaay' },
-        { label: 'أسوار البامبو', href: '/category/aswar-alkhyzran' },
-        { label: 'خلطات الزراعة', href: '/category/khltat-alzra' },
-        { label: 'الري الغزيرات', href: '/category/mntjat-alry-mn-altytanywm' },
-        { label: 'أدوات احترافية', href: '/category/aladwat-almhnya' },
-        { label: 'حصى الأنهار', href: '/category/hsa-alnhr' },
-        { label: 'التوف والأحجار', href: '/category/altwf-walahjar' },
-        { label: 'المدرجات', href: '/category/almdrjat' },
-        { label: 'أواني الزرع', href: '/category/planters' },
-        { label: 'الديكور', href: '/category/decoration' },
-      ]
-    : [
-        { label: 'Synthetic Grass', href: '/category/alashb-alsnaay' },
-        { label: 'Bamboo Fences', href: '/category/aswar-alkhyzran' },
-        { label: 'Planting Mixes', href: '/category/khltat-alzra' },
-        { label: 'Irrigation Products', href: '/category/mntjat-alry-mn-altytanywm' },
-        { label: 'Professional Tools', href: '/category/aladwat-almhnya' },
-        { label: 'River Pebbles', href: '/category/hsa-alnhr' },
-        { label: 'Tuff & Stepping Stones', href: '/category/altwf-walahjar' },
-        { label: 'Terraces', href: '/category/almdrjat' },
-        { label: 'Planters', href: '/category/planters' },
-        { label: 'Decoration', href: '/category/decoration' },
-      ];
+  // Build category links from root categories (dynamic from database)
+  const families = rootCategories.length > 0
+    ? rootCategories.map((cat) => ({
+        label: ar ? cat.nameAr : cat.nameEn,
+        href: `/category/${encodeURIComponent(cat.slug)}`,
+      }))
+    : [];
 
-  const info: Family[] = ar
+  // Build info links from footer navigation items (filter for non-category links)
+  // We'll use items that don't look like category URLs
+  const infoLinks = footerNavItems.filter((item) => 
+    !item.parentId && !item.url.startsWith('/category/') && item.url !== '#'
+  ).map((item) => ({
+    label: ar ? item.labelAr : item.labelEn,
+    href: item.url,
+  }));
+
+  // Default fallback info links if none configured
+  const defaultInfoLinks = ar
     ? [
         { label: 'من نحن', href: '/about' },
         { label: 'أفكار ومشاريع', href: '/projects' },
@@ -60,6 +64,13 @@ export default function Footer({ settings = {} as any }: { settings?: any }) {
         { label: 'Contact us', href: '/contact' },
       ];
 
+  const info = infoLinks.length > 0 ? infoLinks : defaultInfoLinks;
+
+  const getPlatformIcon = (platform: string) => {
+    const Icon = platformIcons[platform.toLowerCase()];
+    return Icon ? <Icon aria-hidden="true" className="h-4 w-4" /> : <Globe aria-hidden="true" className="h-4 w-4" />;
+  };
+
   return (
     <footer className="eg-footer dg-footer">
       <div className="dg-footer-in">
@@ -76,6 +87,15 @@ export default function Footer({ settings = {} as any }: { settings?: any }) {
             <a className="dg-footer-badge" href={`https://wa.me/${whatsapp.replace(/[^\d]/g, '')}`} target="_blank" rel="noopener noreferrer">
               <MessageCircle aria-hidden="true" /> {ar ? 'واتساب: فريق الشركة' : 'WhatsApp: our team'}
             </a>
+          )}
+          {socialLinks.length > 0 && (
+            <div className="flex gap-3 mt-3" aria-label={ar ? 'تواصل اجتماعي' : 'Social media'}>
+              {socialLinks.map((link) => (
+                <a key={link.platform} href={link.url} target="_blank" rel="noopener noreferrer" className="dg-footer-badge" aria-label={ar ? link.labelAr : link.labelEn}>
+                  {getPlatformIcon(link.platform)}
+                </a>
+              ))}
+            </div>
           )}
         </div>
 
@@ -94,6 +114,9 @@ export default function Footer({ settings = {} as any }: { settings?: any }) {
           <p className="dg-footer-small"><MapPin aria-hidden="true" />{ar ? settings.addressAr : settings.addressEn || settings.addressAr}</p>
           <a href={`tel:${phone.replace(/\s/g, '')}`}><Phone aria-hidden="true" /><span className="dg-footer-ltr">{phone}</span></a>
           <a href={`mailto:${email}`}><Mail aria-hidden="true" /><span className="dg-footer-ltr">{email}</span></a>
+          {settings.googleMapsUrl ? (
+            <a href={settings.googleMapsUrl} target="_blank" rel="noopener noreferrer"><MapPin aria-hidden="true" />{ar ? 'الموقع على الخريطة' : 'Open in Google Maps'}</a>
+          ) : null}
           {settings.businessHoursAr ? (
             <p className="dg-footer-small"><Clock aria-hidden="true" />{ar ? settings.businessHoursAr : settings.businessHoursEn || settings.businessHoursAr}</p>
           ) : null}

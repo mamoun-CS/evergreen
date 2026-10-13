@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { requireAdmin } from '@/lib/auth';
 import { Plus, Pencil, Eye, Check, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import DeleteProductButton from './DeleteProductButton';
 import { PurchaseMode } from '@prisma/client';
 
 export const dynamic = 'force-dynamic';
@@ -102,6 +103,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: { p
                     <div className="flex items-center justify-end gap-3">
                       <Link href={`/products/${product.slug}`} target="_blank" className="text-slate-400 hover:text-slate-600"><Eye className="h-4 w-4" /></Link>
                       <Link href={`/admin/products/${product.id}`} className="text-emerald-600 hover:text-emerald-900"><Pencil className="h-4 w-4" /></Link>
+                      <DeleteProductButton id={product.id} name={product.nameAr} />
                     </div>
                   </td>
                 </tr>

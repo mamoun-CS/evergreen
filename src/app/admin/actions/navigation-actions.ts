@@ -13,6 +13,14 @@ export async function createNavItem(data: any) {
   revalidatePath('/', 'layout');
 }
 
+export async function updateNavItem(id: string, data: any) {
+  await assertAdmin();
+  data = await validate(NavigationSchema, data);
+  await validate(IdSchema, id);
+  await prisma.navigationItem.update({ where: { id }, data });
+  revalidatePath('/', 'layout');
+}
+
 export async function deleteNavItem(id: string) {
   await assertAdmin();
   await validate(IdSchema, id);

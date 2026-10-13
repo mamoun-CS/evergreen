@@ -573,3 +573,29 @@ html.eg-a11y-noanim *, html.eg-a11y-noanim *::before, html.eg-a11y-noanim *::aft
   .home-category-card, .home-category-image, .home-category-overlay { transition: none; }
   .home-category-card:hover, .home-category-card:focus-visible { transform: none; }
 }
+
+/* Announcement bar */
+.dg-announcement-bar {
+  height: var(--eg-topbar-h);
+  display: flex;
+  align-items: center;
+  padding-inline: 16px;
+}
+.dg-announcement-bar-in {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  max-width: var(--eg-container);
+  margin-inline: auto;
+}
+.dg-announcement-bar svg { width: 14px; height: 14px; flex: none; }
+.dg-announcement-text { font-size: 12.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dg-announcement-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 800; text-decoration: underline; text-underline-offset: 2px; transition: opacity .15s; }
+.dg-announcement-link:hover { opacity: .8; }
+.dg-announcement-link svg { width: 13px; height: 13px; flex: none; }
+@media (max-width: 760px) {
+  .dg-announcement-bar { height: auto; padding: 8px 12px; }
+  .dg-announcement-text { text-align: center; }
+}

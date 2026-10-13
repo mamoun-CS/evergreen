@@ -82,6 +82,11 @@ model Product {
   warrantyInfoEn  String?
   warrantyInfoAr  String?
   countryOfOrigin String?
+  metaTitleAr     String?
+  metaTitleEn     String?
+  metaDescAr      String?
+  metaDescEn      String?
+  ogImage         String?
 
   brandId String?
   brand   Brand?  @relation(fields: [brandId], references: [id])
@@ -143,14 +148,20 @@ model Brand {
 }
 
 model Category {
-  id       String     @id @default(cuid())
-  nameEn   String
-  nameAr   String
-  slug     String     @unique
-  parentId String?
-  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
-  children Category[] @relation("CategoryHierarchy")
-  products Product[]  @relation("ProductCategories")
+  id          String     @id @default(cuid())
+  nameEn      String
+  nameAr      String
+  slug        String     @unique
+  parentId    String?
+  parent      Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryHierarchy")
+  products    Product[]  @relation("ProductCategories")
+  imageUrl    String?
+  metaTitleAr String?
+  metaTitleEn String?
+  metaDescAr  String?
+  metaDescEn  String?
+  ogImage     String?
 
   @@index([parentId])
 }
@@ -456,12 +467,14 @@ model SiteSettings {
 }
 
 model SocialLink {
-  id       String  @id @default(cuid())
-  platform String
-  url      String
-  icon     String?
-  isActive Boolean @default(true)
-  order    Int     @default(0)
+  id        String  @id @default(cuid())
+  platform  String
+  labelAr   String
+  labelEn   String
+  url       String
+  icon      String?
+  isActive  Boolean @default(true)
+  order     Int     @default(0)
 }
 
 model HomepageSection {
@@ -483,6 +496,23 @@ model HomepageSection {
   order      Int     @default(0)
 
   @@index([isActive])
+}
+
+model AnnouncementBar {
+  id          String   @id @default(cuid())
+  textAr      String
+  textEn      String
+  linkUrl     String?
+  linkTextAr  String?
+  linkTextEn  String?
+  backgroundColor String? @default("#0f5132")
+  textColor   String?  @default("#ffffff")
+  isActive    Boolean  @default(true)
+  startDate   DateTime?
+  endDate     DateTime?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Banner {
@@ -526,15 +556,20 @@ model NavigationItem {
 }
 
 model PageContent {
-  id        String   @id @default(cuid())
-  slug      String   @unique
-  titleAr   String
-  titleEn   String
-  contentAr String
-  contentEn String
-  images    String[]
-  isActive  Boolean  @default(true)
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  titleAr     String
+  titleEn     String
+  contentAr   String
+  contentEn   String
+  images      String[]
+  isActive    Boolean  @default(true)
+  metaTitleAr String?
+  metaTitleEn String?
+  metaDescAr  String?
+  metaDescEn  String?
+  ogImage     String?
+  updatedAt   DateTime @updatedAt
 }
 
 model WebhookLog {
