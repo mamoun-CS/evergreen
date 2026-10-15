@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight, Boxes, PackageOpen, Phone } from 'lucide-react';
 import ProductCard from '@/components/product/ProductCard';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { useLanguage } from '@/components/layout/LanguageContext';
-import { decorationCategorySlugs } from '@/lib/catalog-taxonomy';
+import { catalogCategories } from '@/lib/catalog-taxonomy';
 
 type Category = { id: string; slug: string; nameAr: string; nameEn: string };
 type Child = Category & { image: string | null; _count: { products: number } };
@@ -18,7 +18,7 @@ export default function CategoryHierarchyPage({ trail, subcategories: children, 
   const category = trail[trail.length - 1];
   const title = ar ? category.nameAr : category.nameEn;
   // Keep verified supplier types first; hide empty internal catch-all groups.
-  children = children.filter(child => child._count.products > 0 || decorationCategorySlugs.includes(child.slug));
+  children = children.filter(child => catalogCategories.some(node => node.slug === child.slug));
   const hrefFor = (slug?: string) => `/category/${[...trail.map((item) => encodeURIComponent(item.slug)), ...(slug ? [encodeURIComponent(slug)] : [])].join('/')}`;
   const crumbs = [
     { label: ar ? 'الرئيسية' : 'Home', href: '/' },

@@ -142,7 +142,7 @@ export const getRootCategories = unstable_cache(
       return { ...category, image: image ? optimizeProductImagePath(image) : null };
     });
   },
-  ['root-categories-v4'],
+  ['root-categories-v5'],
   { revalidate: 300, tags: ['categories'] },
 );
 

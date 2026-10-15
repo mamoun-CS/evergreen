@@ -1,5 +1,6 @@
 import { PrismaClient, PurchaseMode, Role } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import { applyCatalogCategories } from './catalog-categories';
 
 const prisma = new PrismaClient();
 
@@ -50,6 +51,8 @@ async function main() {
     const parent = 'parentSlug' in category ? { connect: { slug: category.parentSlug } } : undefined;
     await prisma.category.upsert({ where: { slug: category.slug }, update: { nameAr: category.nameAr, nameEn: category.nameEn, ...(parent ? { parent } : {}) }, create: { id: category.id, slug: category.slug, nameAr: category.nameAr, nameEn: category.nameEn, ...(parent ? { parent } : {}) } });
   }
+
+  await applyCatalogCategories(prisma);
 
   // Demo stock is opt-in so a routine seed cannot repopulate the live catalogue.
   for (const product of process.env.SEED_DEMO_PRODUCTS === 'true' ? products : []) {

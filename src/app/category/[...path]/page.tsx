@@ -1,4 +1,4 @@
-import { decorationCategorySlugs, orderCategories } from '@/lib/catalog-taxonomy';
+import { categoryChildren, orderCategories } from '@/lib/catalog-taxonomy';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
@@ -106,7 +106,7 @@ export default async function CategoryPage({ params }: { params: { path: string[
 
   return <CategoryHierarchyPage
     trail={trail!}
-    subcategories={orderCategories(childSummaries, category.slug === 'decoration' ? decorationCategorySlugs : []).map(({ products: childProducts, imageUrl, ...child }) => ({
+    subcategories={orderCategories(childSummaries, categoryChildren[category.slug] || []).map(({ products: childProducts, imageUrl, ...child }) => ({
       ...child,
       image: imageUrl ? optimizeProductImagePath(imageUrl) : (childProducts[0]?.images[0] ? optimizeProductImagePath(childProducts[0].images[0]) : null),
     }))}
