@@ -22,7 +22,10 @@ function runPrisma(args) {
   });
   if (result.error) throw result.error;
   if (result.status !== 0) {
-    throw new Error(`prisma ${args.join(' ')} failed. Build stopped. Check database connectivity and migration history; see deploy/README.md.`);
+    const hint = args[0] === 'generate'
+      ? 'Client generation failed. On Windows, stop the local dev server if the Prisma engine file is locked (EPERM).'
+      : 'Check database connectivity and migration history; see deploy/README.md.';
+    throw new Error(`prisma ${args.join(' ')} failed. Build stopped. ${hint}`);
   }
 }
 

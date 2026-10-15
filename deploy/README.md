@@ -55,4 +55,19 @@ npm run db:deploy
 لا تسجّل تحديثات كأنها مطبّقة دون مطابقة البنية، ولا تستخدم `migrate reset`
 أو `db push --accept-data-loss` على قاعدة السيرفر.
 
+### تحديث التصنيفات القديم وعمود imageUrl
+
+الملف `20261015110000_complete_content_metadata` يضيف حقول الصور وSEO
+والمحتوى التي كانت ناقصة من سجل التحديثات، ويعمل قبل تحديث التصنيفات.
+إذا فشل `20261015120000_restore_source_category_catalog` سابقًا تحديدًا بسبب
+عمود `Category.imageUrl` المفقود، وتأكدت أن المحاولة توقفت وتراجعت معاملتها، نفّذ:
+
+```bash
+npx prisma migrate resolve --rolled-back 20261015120000_restore_source_category_catalog
+npm run build
+```
+
+لا تحتاج هذه الخطوة إذا كانت حالة قاعدة البيانات محدثة أو سبق إصلاح سجل الفشل.
+يجب رفع التحديث الجديد وملفات package.json وpackage-lock.json قبل إعادة نشر Vercel.
+
 مرجع Prisma: https://www.prisma.io/docs/orm/prisma-migrate/workflows/baselining
