@@ -14,12 +14,14 @@ export default async function ProductEditPage({ params }: { params: { id?: strin
     include: {
       categories: { select: { id: true } },
       applications: { select: { id: true } },
+      accessories: { select: { id: true } },
       variants: true,
       specifications: true,
     }
   }) : null;
 
   const categories = await prisma.category.findMany({ orderBy: { nameAr: 'asc' } });
+  const products = await prisma.product.findMany({ select: { id: true, nameAr: true }, orderBy: { nameAr: 'asc' } });
   const brands = await prisma.brand.findMany({ orderBy: { name: 'asc' } });
   const applications = await prisma.application.findMany({ orderBy: { nameAr: 'asc' } });
 
@@ -32,6 +34,7 @@ export default async function ProductEditPage({ params }: { params: { id?: strin
     heightCm: product.heightCm ? Number(product.heightCm) : undefined,
     weightKg: product.weightKg ? Number(product.weightKg) : undefined,
     categoryIds: product.categories.map(c => c.id),
+    accessoryIds: product.accessories.map(c => c.id),
     applicationIds: product.applications.map(c => c.id),
     variants: product.variants.map(v => ({ ...v, price: v.price ? Number(v.price) : undefined })),
     specifications: product.specifications,
@@ -43,6 +46,8 @@ export default async function ProductEditPage({ params }: { params: { id?: strin
         <h1 className="text-2xl font-extrabold text-slate-900">{isEditing ? 'تعديل المنتج' : 'إضافة منتج جديد'}</h1>
       </div>
       <ProductForm 
+        products={products}
+        key={product?.updatedAt.toISOString() || "new"}
         product={plainProduct} 
         categories={categories} 
         brands={brands} 

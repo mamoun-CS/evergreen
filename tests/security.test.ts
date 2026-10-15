@@ -91,7 +91,7 @@ test('admin route resources are explicit and preserve role boundaries',()=>{
  assert.equal(canAccess({role:'MANAGER'},'read','order'),true);
  assert.equal(canAccess({role:'SUPER_ADMIN'},'update','content'),true);
 });
-const product={nameEn:'Planter',nameAr:'أصيص',slug:'planter',purchaseMode:'PURCHASABLE',basePrice:0,currency:'ILS',isAvailable:true,isFeatured:false,stockQuantity:3,images:[],categories:[],applications:[]};
+const product={nameEn:'Planter',nameAr:'أصيص',slug:'planter',purchaseMode:'PURCHASABLE',basePrice:0,currency:'ILS',isAvailable:true,isFeatured:false,stockQuantity:3,images:[],categories:["category-planters"],applications:[]};
 test('product schema rejects corrupt prices, stock, oversized text, HTML and mass assignment',()=>{
  assert.equal(ProductFormSchema.safeParse(product).success,true);
  for(const change of [{basePrice:-1},{basePrice:Infinity},{stockQuantity:1.5},{nameEn:'x'.repeat(201)},{nameAr:'<script>alert(1)</script>'},{slug:'bad slug'},{discountPrice:1}])assert.equal(ProductFormSchema.safeParse({...product,...change}).success,false);
@@ -107,3 +107,12 @@ test('coupon, category, URLs, admin roles and existing CMS payloads validate',()
  assert.equal(AdminUserSchema.safeParse({name:'A',email:'a@example.test',password:'longpassword123',role:'CUSTOMER'}).success,false);
 });
 test('CSV neutralizes spreadsheet formulas',()=>{assert.equal(csvCell('=CMD()'),'"\'=CMD()"');assert.equal(csvCell('a"b'),'"a""b"');});
+
+test('product edits require a category and preserve optional editable metadata', () => {
+ assert.equal(ProductFormSchema.safeParse({...product,categories:[]}).success,false);
+ const result = ProductFormSchema.parse({...product,color:'????',metaTitleAr:'????',sourceUrl:'/source',accessories:['other-product'],basePrice:0});
+ assert.equal(result.color,'????');
+ assert.equal(result.metaTitleAr,'????');
+ assert.deepEqual(result.accessories,['other-product']);
+ assert.equal(result.basePrice,0);
+});

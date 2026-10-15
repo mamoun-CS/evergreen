@@ -1,4 +1,5 @@
-﻿import { Metadata } from "next";
+﻿import StorefrontProductEditor from '@/components/product/StorefrontProductEditor';
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import ProductDetailsClient from "./ProductDetailsClient";
@@ -212,6 +213,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
         }}
       />
+      <StorefrontProductEditor id={product.id} />
       <ProductDetailsClient product={serializedProduct as any} />
     </>
   );

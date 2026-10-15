@@ -1,5 +1,6 @@
 "use client";
 
+import { featuredCategorySlugs, orderCategories } from '@/lib/catalog-taxonomy';
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -35,6 +36,28 @@ type Product = { id: string; slug: string; sku?: string | null; nameEn: string; 
 type Brand = { id: string; name: string; logoUrl: string };
 type Banner = { id: string; titleAr?: string | null; titleEn?: string | null; subtitleAr?: string | null; subtitleEn?: string | null; imageUrl: string; mobileImageUrl?: string | null; ctaTextAr?: string | null; ctaTextEn?: string | null; ctaUrl?: string | null };
 
+type FeaturedCategory = Category & { imageSrc: string; displayName: string };
+
+const categoryShelfAssets = [
+  { imageSrc: "/image%20catagory/%D8%A7%D9%88%D8%A7%D9%86%D9%8A.png", nameAr: "الأواني", nameEn: "Pots", aliases: ["اواني", "الأواني", "أواني الزرع", "planters", "alawany"] },
+  { imageSrc: "/image%20catagory/%D8%B2%D8%AE%D8%B1%D9%81.png", nameAr: "زخرف", nameEn: "Decor", aliases: ["زخرف", "ديكور", "decor", "ornaments"] },
+  { imageSrc: "/image%20catagory/%D8%B9%D8%B4%D8%A8%20%D8%B5%D9%86%D8%A7%D8%B9%D9%8A.png", nameAr: "عشب صناعي", nameEn: "Synthetic Grass", aliases: ["عشب صناعي", "العشب الصناعي", "synthetic grass", "alashb-alsnaay", "artificial greenery"] },
+  { imageSrc: "/image%20catagory/%D8%AA%D9%8A%D8%B1%D8%A7%D8%B3.png", nameAr: "تيراس-بن", nameEn: "Terrace Ben", aliases: ["تيراس", "تيراس بن", "terrace", "ben"] },
+  { imageSrc: "/image%20catagory/%D8%A7%D8%AF%D9%88%D8%A7%D8%AA%20%D8%A7%D8%AD%D8%AA%D8%B1%D8%A7%D9%81%D9%8A%D9%87.png", nameAr: "أدوات احترافية", nameEn: "Professional Tools", aliases: ["ادوات احترافيه", "أدوات احترافية", "professional tools", "aladwat-almhnya"] },
+  { imageSrc: "/image%20catagory/%D8%AD%D8%B5%D9%89.png", nameAr: "حصى", nameEn: "Gravel", aliases: ["حصى", "حصى الأنهار", "gravel", "river pebbles", "hsa-alnhr"] },
+  { imageSrc: "/image%20catagory/%D8%B2%D8%B1%D8%A7%D8%B9%D8%A9%20%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D8%B1.png", nameAr: "زراعة المحار", nameEn: "Oyster Farming", aliases: ["زراعه المحار", "زراعة المحار", "oyster farming", "planting mixes", "khltat-alzra"] },
+  { imageSrc: "/image%20catagory/%D8%A7%D8%B3%D9%88%D8%A7%D8%B1.png", nameAr: "أسوار من الخيزران", nameEn: "Bamboo Fences", aliases: ["اسوار", "أسوار", "خيزران", "bamboo", "fences"] },
+] as const;
+
+const normalizeCategory = (value: string) => value
+  .toLowerCase()
+  .replace(/[\u064B-\u065F\u0670]/g, "")
+  .replace(/[أإآ]/g, "ا")
+  .replace(/ة/g, "ه")
+  .replace(/ى/g, "ي")
+  .replace(/[^\p{L}\p{N}]+/gu, " ")
+  .trim();
+
 export default function HomeView({ categories, content, brands, banners = [] }: { categories: Category[]; content: Record<string, CmsSection>; products: { featured: Product[]; latest: Product[] }; brands: Brand[]; banners?: Banner[] }) {
   const { lang } = useLanguage();
   const ar = lang === "ar";
@@ -53,7 +76,7 @@ export default function HomeView({ categories, content, brands, banners = [] }: 
         description: heroSection?.contentAr || "منتجات حدائق مختارة بعناية: أواني الزرع، الديكور، العشب الصناعي، الأدوات الاحترافية والمزيد — لمساحة خارجية تليق بكم.",
         shop: "تصفّح المتجر",
         explore: "استكشف الأقسام",
-        categories: "الأقسام الرئيسية",
+        categories: "أهم الفئات",
         categoriesSub: "رؤوايا عائلات منتجنا كاملة بخطوة واحدة.",
         all: "عرض الكل",
         brands: "علاماتنا التجارية",
@@ -75,12 +98,23 @@ export default function HomeView({ categories, content, brands, banners = [] }: 
       };
   const Arrow = ar ? ArrowLeft : ArrowRight;
   
-  // Keep the pots hub visible in the limited homepage category shelf. It is a
-  // parent category, so opening it leads shoppers to every pot collection.
-  const featuredCategories = [...categories].sort((first, second) => {
-    const priority = (category: Category) => category.slug === "alawany" ? 0 : 1;
-    return priority(first) - priority(second);
-  }).slice(0, 8);
+  // The home shelf is the first hierarchy level only. A card always opens its
+  // root category; visitors then select a child (for example Pots → EDA Pots)
+  // before they reach individual products.
+  const featuredCategories = orderCategories(categories.filter(category => featuredCategorySlugs.includes(category.slug)), featuredCategorySlugs).map<FeaturedCategory>((category) => {
+    const shelfItem = categoryShelfAssets.find((item) => {
+      const values = [category.nameAr, category.nameEn, category.slug].map(normalizeCategory);
+      return item.aliases.some((alias) => {
+        const normalizedAlias = normalizeCategory(alias);
+        return values.some((value) => value === normalizedAlias || value.includes(normalizedAlias) || normalizedAlias.includes(value));
+      });
+    });
+    return {
+      ...category,
+      imageSrc: category.image || shelfItem?.imageSrc || "/images/background.png",
+      displayName: ar ? category.nameAr : category.nameEn,
+    };
+  });
 
   const sectionsToRender = managed ? activeSections : [
     { key: 'hero', type: 'HERO', isActive: true, order: 0 },
@@ -119,21 +153,18 @@ export default function HomeView({ categories, content, brands, banners = [] }: 
           case 'CATEGORIES':
             return (
               <section key={section.key} id="categories" className="home-section">
-                <header className="home-heading">
-                  <h2>{ar ? section.titleAr : section.titleEn}</h2>
-                  <p>{ar ? section.subtitleAr : section.subtitleEn}</p>
+                <header className="home-heading home-category-heading">
+                  <h2>{ar ? section.titleAr || copy.categories : section.titleEn || copy.categories}</h2>
                 </header>
-                {categories.length ? (
+                {featuredCategories.length ? (
                   <div className="home-category-grid">
                     {featuredCategories.map((category) => (
-                      <Link key={category.id} href={`/category/${encodeURIComponent(category.slug)}`} className="home-category-card" title={ar ? category.nameAr : category.nameEn}>
+                      <Link key={category.id} href={`/category/${encodeURIComponent(category.slug)}`} className="home-category-card" title={category.displayName}>
                         <span className="home-category-image">
-                          <Image src={category.image || "/images/background.png"} alt="" fill sizes="(max-width: 760px) 50vw, (max-width: 1100px) 33vw, 25vw" className="object-cover" />
+                          <Image src={category.imageSrc} alt={category.displayName} fill sizes="(max-width: 760px) 50vw, 25vw" className="object-contain" />
                         </span>
-                        <span className="home-category-overlay" />
                         <span className="home-category-copy">
-                          <strong>{ar ? category.nameAr : category.nameEn}</strong>
-                          <small>{copy.all}<Arrow aria-hidden="true" /></small>
+                          <strong>{category.displayName}</strong>
                         </span>
                       </Link>
                     ))}

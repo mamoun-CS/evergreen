@@ -51,7 +51,8 @@ async function main() {
     await prisma.category.upsert({ where: { slug: category.slug }, update: { nameAr: category.nameAr, nameEn: category.nameEn, ...(parent ? { parent } : {}) }, create: { id: category.id, slug: category.slug, nameAr: category.nameAr, nameEn: category.nameEn, ...(parent ? { parent } : {}) } });
   }
 
-  for (const product of products) {
+  // Demo stock is opt-in so a routine seed cannot repopulate the live catalogue.
+  for (const product of process.env.SEED_DEMO_PRODUCTS === 'true' ? products : []) {
     const data = {
       nameAr: product.nameAr, nameEn: product.nameEn, descriptionAr: product.descriptionAr, descriptionEn: product.descriptionEn,
       purchaseMode: PurchaseMode.PURCHASABLE, basePrice: product.price, discountPrice: product.discount || null, currency: 'ILS', isAvailable: true, isFeatured: product.featured, stockQuantity: 20,
@@ -60,7 +61,7 @@ async function main() {
     };
     await prisma.product.upsert({ where: { slug: product.slug }, update: data, create: { id: `product-${product.slug}`, slug: product.slug, ...data } });
   }
-  console.log(`Upserted ${categories.length} categories and ${products.length} garden decor products without deleting existing data.`);
+  console.log(`Upserted ${categories.length} categories. Demo products: ${process.env.SEED_DEMO_PRODUCTS === 'true' ? products.length : 0}.`);
 
   const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
   const adminPassword = process.env.ADMIN_PASSWORD;

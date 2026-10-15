@@ -12,7 +12,22 @@ export default async function CategoryFormPage({ params }: { params: { id?: stri
   if (isEditing && !category) redirect('/admin/categories');
 
   const allCategories = await prisma.category.findMany({ orderBy: { nameAr: 'asc' } });
-  const validParents = isEditing ? allCategories.filter(c => c.id !== category?.id && c.parentId !== category?.id) : allCategories;
+  // A category cannot be moved under any of its descendants: that would make
+  // the hierarchy cyclic and impossible to browse.
+  const descendantIds = new Set<string>();
+  if (category) {
+    const pending = [category.id];
+    while (pending.length) {
+      const parentId = pending.pop()!;
+      for (const child of allCategories.filter((item) => item.parentId === parentId)) {
+        if (!descendantIds.has(child.id)) {
+          descendantIds.add(child.id);
+          pending.push(child.id);
+        }
+      }
+    }
+  }
+  const validParents = allCategories.filter((item) => item.id !== category?.id && !descendantIds.has(item.id));
 
   async function submit(formData: FormData) {
     'use server';

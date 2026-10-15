@@ -1,0 +1,130 @@
+[
+  {
+    "name": "כדים",
+    "url": "https://as-titanum.com/category/garden-pots-and-planters/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/רקע-כדים-4.png",
+    "slug": "alawany",
+    "parent": null,
+    "localImage": "/categories/alawany.png"
+  },
+  {
+    "name": "דקורציה",
+    "url": "https://as-titanum.com/category/דקורציה/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/דקורציה-2-מזרקות.png",
+    "slug": "decoration",
+    "parent": null,
+    "localImage": "/categories/decoration.png"
+  },
+  {
+    "name": "דשא סינטטי",
+    "url": "https://as-titanum.com/category/דשא-סינטטי/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/דשא-רקע-1.png",
+    "slug": "alashb-alsnaay",
+    "parent": null,
+    "localImage": "/categories/alashb-alsnaay.png"
+  },
+  {
+    "name": "TERRACE-IT",
+    "url": "https://as-titanum.com/category/terrace-it/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/רקע-TERRACE-IT.png",
+    "slug": "terrace-it",
+    "parent": null,
+    "localImage": "/categories/terrace-it.png"
+  },
+  {
+    "name": "כלי עבודה מקצועיים",
+    "url": "https://as-titanum.com/category/כלי-עבודה-מקצועיים/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/כלי-עבודה-רקע-2.png",
+    "slug": "aladwat-almhnya",
+    "parent": null,
+    "localImage": "/categories/aladwat-almhnya.png"
+  },
+  {
+    "name": "חלוקי נחל",
+    "url": "https://as-titanum.com/category/חלוקי-נחל/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/חלוקי-נחל-רקע-1.png",
+    "slug": "hsa-alnhr",
+    "parent": null,
+    "localImage": "/categories/hsa-alnhr.png"
+  },
+  {
+    "name": "תערובות שתילה",
+    "url": "https://as-titanum.com/category/professional-potting-mixtures-israel/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/רקע-אדמה-איכותי.png",
+    "slug": "khltat-alzra",
+    "parent": null,
+    "localImage": "/categories/khltat-alzra.png"
+  },
+  {
+    "name": "גדרות במבוק",
+    "url": "https://as-titanum.com/category/bamboo-fencing-solutions/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/רקע-במבוק-שקוף-עם-השתקפות-1.png",
+    "slug": "aswar-alkhyzran",
+    "parent": null,
+    "localImage": "/categories/aswar-alkhyzran.png"
+  },
+  {
+    "name": "מזרקות",
+    "url": "https://as-titanum.com/category/דקורציה/מזרקות/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/מזרקות-רקע-איכותי.png",
+    "slug": "fountains-water-features",
+    "parent": "decoration",
+    "localImage": "/categories/fountains-water-features.png"
+  },
+  {
+    "name": "עמודים רומיים",
+    "url": "https://as-titanum.com/category/דקורציה/roman-columns/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/08/עמודים-רומיים-1024x1024.png",
+    "slug": "alaamda-alrwmanya",
+    "parent": "decoration",
+    "localImage": "/categories/alaamda-alrwmanya.png"
+  },
+  {
+    "name": "פסלים – גמדים חיות ופטריות",
+    "url": "https://as-titanum.com/category/דקורציה/גמדים-חיות-ופטריות/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/פסלים-רקע-1.png",
+    "slug": "altmathyl-altmathyl-walhywanat-walftr",
+    "parent": "decoration",
+    "localImage": "/categories/altmathyl-altmathyl-walhywanat-walftr.png"
+  },
+  {
+    "name": "פסלים – דמויות",
+    "url": "https://as-titanum.com/category/דקורציה/garden-statues-figures/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/פסלים-דמויות-רקע-שוף.png",
+    "slug": "tmathyl-arqam",
+    "parent": "decoration",
+    "localImage": "/categories/tmathyl-arqam.png"
+  },
+  {
+    "name": "פסלים – חיות לשתילה",
+    "url": "https://as-titanum.com/category/דקורציה/חיות-לשתילה/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/רקע-חיות-2.png",
+    "slug": "tmathyl-hywanat-qabla-llzraaa",
+    "parent": "decoration",
+    "localImage": "/categories/tmathyl-hywanat-qabla-llzraaa.png"
+  },
+  {
+    "name": "פסלים – חיות פלסטיק",
+    "url": "https://as-titanum.com/category/דקורציה/plastic-garden-animals/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/רקע-חיות-1-1.png",
+    "slug": "tmathyl-hywanat-blastykya",
+    "parent": "decoration",
+    "localImage": "/categories/tmathyl-hywanat-blastykya.png"
+  },
+  {
+    "name": "צמחיה מלאכותית",
+    "url": "https://as-titanum.com/category/דקורציה/צמחיה-מלאכותית/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/צמחיה-רקע.png",
+    "slug": "nbatat-astnaaya",
+    "parent": "decoration",
+    "localImage": "/categories/nbatat-astnaaya.png"
+  },
+  {
+    "name": "קיר ירוק",
+    "url": "https://as-titanum.com/category/דקורציה/קיר-ירוק/",
+    "image": "https://as-titanum.com/wp-content/uploads/2026/02/קיר-ירוק-רקע-2.png",
+    "slug": "aljdar-alakhdr",
+    "parent": "decoration",
+    "localImage": "/categories/aljdar-alakhdr.png"
+  }
+]

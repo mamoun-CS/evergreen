@@ -1,4 +1,6 @@
 import { PrismaClient } from '@prisma/client';
+import { existsSync, readFileSync } from 'node:fs';
+import { sourceCategoryLabels } from '../src/lib/catalog-taxonomy';
 
 const prisma = new PrismaClient();
 
@@ -14,12 +16,17 @@ type CategoryGroup = {
  */
 const groups: CategoryGroup[] = [
   {
+    parent: { slug: 'decoration', nameAr: 'الديكور', nameEn: 'Decoration' },
+    children: ['statues-ornaments', 'fountains-water-features', 'outdoor-decor', 'garden-lighting', 'garden-accessories'],
+  },
+  {
     parent: { slug: 'alawany', nameAr: 'الأواني', nameEn: 'Pots' },
     children: [
       'alawany-alblastykya', 'alawany-altaylandya', 'alawany-alzjajya', 'alawany-almadnya',
       'alawany-khmr', 'alawany-walmzarawn-almtlya-balkhshb-altbyay', 'alsghyra-walmtwsta',
       'alqdwr-albrazylya', 'alkwws-walawaya-waljrar-alzkhrfya', 'awany-eda', 'awany-kwrtn',
       'tyrakwta-aytalya', 'pots-planters', 'floor-planters', 'mntjat-alkhws-wjwz-alhnd',
+      'planters',
     ],
   },
   {
@@ -90,6 +97,25 @@ async function main() {
       data: { nameAr: correction.nameAr, nameEn: correction.nameEn },
     });
   }
+
+  // Supplier card images and direct navigation match the verified source.
+  // Existing secondary groups and product relations remain intact.
+  const manifestPath = 'data/catalog-category-assets.json';
+  if (existsSync(manifestPath)) {
+    const assets: { slug: string; localImage: string; parent: string | null }[] = JSON.parse(readFileSync(manifestPath, 'utf8'));
+    for (const asset of assets) {
+      const labels = sourceCategoryLabels[asset.slug];
+      if (!labels || !existsSync(`public${asset.localImage}`)) throw new Error(`Missing category asset: ${asset.slug}`);
+      const parent = asset.parent ? await prisma.category.findUniqueOrThrow({ where: { slug: asset.parent } }) : null;
+      await prisma.category.upsert({
+        where: { slug: asset.slug },
+        create: { slug: asset.slug, nameAr: labels[0], nameEn: labels[1], imageUrl: asset.localImage, parentId: parent?.id ?? null },
+        update: { nameAr: labels[0], nameEn: labels[1], imageUrl: asset.localImage, parentId: parent?.id ?? null },
+      });
+    }
+    console.log(`Restored ${assets.length} verified source category cards`);
+  }
+
 }
 
 main()

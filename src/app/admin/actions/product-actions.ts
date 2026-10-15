@@ -11,6 +11,16 @@ import { PurchaseMode } from '@prisma/client';
 import { removeUnusedImages, remove } from '@/lib/storage';
 
 export type ProductInput = {
+  externalId?: string;
+  sourceUrl?: string;
+  externalSize?: string;
+  importDetails?: string;
+  metaTitleAr?: string;
+  metaTitleEn?: string;
+  metaDescAr?: string;
+  metaDescEn?: string;
+  ogImage?: string;
+  accessories?: string[];
   nameEn: string;
   nameAr: string;
   slug: string;
@@ -46,11 +56,13 @@ export type ProductInput = {
 export async function createProduct(data: ProductInput) {
   await assertAdmin();
   data = await validate(ProductFormSchema, data);
-  const { categories, applications, ...productData } = data;
+  const { categories, applications, accessories, ...productData } = data;
   
   const created = await prisma.product.create({
     data: {
       ...productData,
+      ...Object.fromEntries(Object.entries(productData).filter(([key, value]) => value === '' && !['nameAr', 'nameEn', 'slug', 'currency'].includes(key)).map(([key]) => [key, null])),
+      accessories: accessories ? { connect: accessories.map(id => ({ id })) } : undefined,
       categories: { connect: categories.map((id) => ({ id })) },
       applications: { connect: applications.map((id) => ({ id })) },
     },
@@ -67,7 +79,7 @@ export async function updateProduct(id: string, data: ProductInput) {
   await assertAdmin();
   data = await validate(ProductFormSchema, data);
   await validate(IdSchema, id);
-  const { categories, applications, ...productData } = data;
+  const { categories, applications, accessories, ...productData } = data;
   
   const oldProduct = await prisma.product.findUnique({ where: { id } });
   
@@ -75,11 +87,19 @@ export async function updateProduct(id: string, data: ProductInput) {
     where: { id },
     data: {
       ...productData,
+      ...Object.fromEntries(Object.entries(productData).filter(([key, value]) => value === '' && !['nameAr', 'nameEn', 'slug', 'currency'].includes(key)).map(([key]) => [key, null])),
+      ...Object.fromEntries(['basePrice', 'discountPrice', 'lengthCm', 'widthCm', 'heightCm', 'weightKg', 'brandId'].filter(key => Object.prototype.hasOwnProperty.call(productData, key) && (productData as any)[key] === undefined).map(key => [key, null])),
+      productImages: { deleteMany: {}, create: data.images.map((path, sortOrder) => ({ path, sortOrder, isMain: sortOrder === 0 })) },
+      accessories: accessories ? { set: accessories.filter(value => value !== id).map(id => ({ id })) } : undefined,
       categories: { set: categories.map((id) => ({ id })) },
       applications: { set: applications.map((id) => ({ id })) },
     },
   });
 
+  revalidatePath('/shop');
+  revalidatePath('/category', 'layout');
+  revalidatePath(`/products/${updated.slug}`);
+  if (oldProduct) revalidatePath(`/products/${oldProduct.slug}`);
   if (oldProduct) await removeUnusedImages(oldProduct.images, data.images);
 
   if (oldProduct && oldProduct.stockQuantity !== data.stockQuantity) {

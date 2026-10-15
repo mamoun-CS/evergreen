@@ -1,3 +1,4 @@
+import { featuredCategorySlugs, orderCategories } from './catalog-taxonomy';
 import { cache } from 'react';
 import { unstable_cache } from 'next/cache';
 import fs from 'fs';
@@ -134,14 +135,14 @@ export const getRootCategories = unstable_cache(
         },
       },
     });
-    return categories.map(({ products, children, imageUrl, ...category }) => {
+    return orderCategories(categories, featuredCategorySlugs).map(({ products, children, imageUrl, ...category }) => {
       // Use category's own imageUrl first, fallback to first product's image
       const productImage = products[0]?.images?.[0] || children.flatMap((child) => child.products)[0]?.images?.[0] || null;
       const image = imageUrl || productImage;
       return { ...category, image: image ? optimizeProductImagePath(image) : null };
     });
   },
-  ['root-categories-v2'],
+  ['root-categories-v4'],
   { revalidate: 300, tags: ['categories'] },
 );
 

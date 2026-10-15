@@ -27,6 +27,27 @@ export async function updateCategory(id: string, data: { nameEn: string; nameAr:
   data = await validate(CategoryFormSchema, data);
   await validate(IdSchema, id);
   if (data.parentId === id) throw new Error('Cannot set category as its own parent');
+  if (data.parentId) {
+    // Validate on the server as well as in the form. A malformed request must
+    // never be able to create a parent/child cycle.
+    const categories = await prisma.category.findMany({ select: { id: true, parentId: true } });
+    const childrenByParent = new Map<string, string[]>();
+    for (const category of categories) {
+      if (category.parentId) childrenByParent.set(category.parentId, [...(childrenByParent.get(category.parentId) || []), category.id]);
+    }
+    const descendants = new Set<string>();
+    const pending = [id];
+    while (pending.length) {
+      const current = pending.pop()!;
+      for (const childId of childrenByParent.get(current) || []) {
+        if (!descendants.has(childId)) {
+          descendants.add(childId);
+          pending.push(childId);
+        }
+      }
+    }
+    if (descendants.has(data.parentId)) throw new Error('Cannot move a category under one of its descendants');
+  }
   
   await prisma.category.update({
     where: { id },
