@@ -11,7 +11,9 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "node scripts/prepare-build.mjs && next build",
+    "db:deploy": "prisma migrate deploy",
+    "build:check": "node scripts/prepare-build.mjs --check",
     "start": "next start",
     "lint": "next lint",
     "prisma:generate": "prisma generate",
@@ -25,7 +27,7 @@
     "products:optimize-images": "tsx scripts/optimize-product-images.ts",
     "products:export-texts": "tsx scripts/export-product-texts.ts",
     "products:import-texts": "tsx scripts/import-product-texts.ts",
-    "test": "tsx --test tests/*.test.ts",
+    "test": "tsx --test tests/*.test.ts && node --test tests/*.test.mjs",
     "test:integration": "node tests/integration.mjs"
   },
   "dependencies": {
