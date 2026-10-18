@@ -1,0 +1,91 @@
+{
+  "mobileViewport": {
+    "width": 390,
+    "height": 844
+  },
+  "metrics": {
+    "shop": [
+      {
+        "lcp": 968,
+        "cls": 0.4271478916028679,
+        "shifts": [
+          {
+            "value": 0.4271478916028679,
+            "sources": [
+              {
+                "tag": "FOOTER",
+                "class": "eg-footer dg-footer",
+                "previousY": 474,
+                "currentY": 0
+              }
+            ]
+          }
+        ],
+        "ttfb": 300.09999999403954,
+        "title": "Ever Green — متجر",
+        "canonical": "http://localhost:3000/shop",
+        "productLinks": 90
+      },
+      {
+        "lcp": 124,
+        "cls": 0.4271478916028679,
+        "shifts": [
+          {
+            "value": 0.4271478916028679,
+            "sources": [
+              {
+                "tag": "FOOTER",
+                "class": "eg-footer dg-footer",
+                "previousY": 474,
+                "currentY": 0
+              }
+            ]
+          }
+        ],
+        "ttfb": 27.5,
+        "title": "Ever Green — متجر",
+        "canonical": "http://localhost:3000/shop",
+        "productLinks": 90
+      },
+      {
+        "lcp": 112,
+        "cls": 0.4271478916028679,
+        "shifts": [
+          {
+            "value": 0.4271478916028679,
+            "sources": [
+              {
+                "tag": "FOOTER",
+                "class": "eg-footer dg-footer",
+                "previousY": 474,
+                "currentY": 0
+              }
+            ]
+          }
+        ],
+        "ttfb": 26.30000001192093,
+        "title": "Ever Green — متجر",
+        "canonical": "http://localhost:3000/shop",
+        "productLinks": 90
+      }
+    ]
+  },
+  "checks": [],
+  "pageErrors": [],
+  "productButtons": [
+    "",
+    "EN",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "حسناً، موافق",
+    "إغلاق"
+  ]
+}

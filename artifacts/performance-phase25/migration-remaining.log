@@ -1,0 +1,24 @@
+Environment variables loaded from .env
+Prisma schema loaded from ..\..\..\AppData\Local\Temp\evergreen-phase25-migrations-RFhk03\schema.prisma
+Datasource "db": PostgreSQL database "evergreen_test_phase25_5b02fbb12e6e", schema "public" at "localhost:5432"
+
+25 migrations found in prisma/migrations
+
+Applying migration `20261015110000_complete_content_metadata`
+Applying migration `20261015120000_restore_source_category_catalog`
+Applying migration `20261015130000_approved_catalog_taxonomy`
+Applying migration `20261015150000_order_claim_tokens`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 20261015110000_complete_content_metadata/
+    └─ migration.sql
+  └─ 20261015120000_restore_source_category_catalog/
+    └─ migration.sql
+  └─ 20261015130000_approved_catalog_taxonomy/
+    └─ migration.sql
+  └─ 20261015150000_order_claim_tokens/
+    └─ migration.sql
+      
+All migrations have been successfully applied.

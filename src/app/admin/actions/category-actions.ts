@@ -20,6 +20,7 @@ export async function createCategory(data: { nameEn: string; nameAr: string; slu
   });
   revalidatePath('/admin/categories');
   revalidateTag('categories');
+  revalidateTag('products');
 }
 
 export async function updateCategory(id: string, data: { nameEn: string; nameAr: string; slug: string; parentId?: string; imageUrl?: string | null }) {
@@ -61,6 +62,7 @@ export async function updateCategory(id: string, data: { nameEn: string; nameAr:
   });
   revalidatePath('/admin/categories');
   revalidateTag('categories');
+  revalidateTag('products');
 }
 
 export async function deleteCategory(id: string) {
@@ -74,4 +76,5 @@ export async function deleteCategory(id: string) {
   });
   revalidatePath('/admin/categories');
   revalidateTag('categories');
+  revalidateTag('products');
 }

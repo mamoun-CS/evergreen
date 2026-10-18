@@ -1,6 +1,7 @@
 import 'server-only';
 
 import crypto from 'node:crypto';
+import { cache } from 'react';
 import { cookies } from 'next/headers';
 import { Role } from '@prisma/client';
 import { prisma } from './prisma';
@@ -44,7 +45,10 @@ export function clearSessionCookie() {
 }
 
 export function getSessionPayload(): SessionPayload | null {
-  const value = cookies().get(COOKIE_NAME)?.value;
+  return parseSession(cookies().get(COOKIE_NAME)?.value);
+}
+
+function parseSession(value: string | undefined): SessionPayload | null {
   if (!value) return null;
   const [payload, signature] = value.split('.');
   if (!payload || !signature) return null;
@@ -59,8 +63,10 @@ export function getSessionPayload(): SessionPayload | null {
   }
 }
 
-export async function getCurrentUser() {
-  const payload = getSessionPayload();
+// React's cache lasts only for the current server render. Key by the cookie so
+// login/logout within one request cannot reuse the previous session's result.
+const readCurrentUser = cache(async (value: string | undefined) => {
+  const payload = parseSession(value);
   if (!payload) return null;
   const user = await prisma.user.findUnique({
     where: { id: payload.userId },
@@ -68,6 +74,10 @@ export async function getCurrentUser() {
   });
   if (!user || !user.isActive) return null;
   return user;
+});
+
+export function getCurrentUser() {
+  return readCurrentUser(cookies().get(COOKIE_NAME)?.value);
 }
 
 export async function requireUser() {

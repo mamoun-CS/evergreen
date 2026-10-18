@@ -9,8 +9,9 @@ import { useWishlist, WishlistProduct } from '@/components/wishlist/WishlistCont
 import { ArrowLeftRight } from 'lucide-react';
 import { useCompare } from '@/components/compare/CompareContext';
 
-interface ProductCardProps {
+export interface ProductCardProps {
   variant?: 'featured';
+  imageSizes?: string;
   product: {
     id: string;
     slug: string;
@@ -33,7 +34,7 @@ interface ProductCardProps {
   };
 }
 
-export default function ProductCard({ product, variant }: ProductCardProps) {
+export default function ProductCard({ product, variant, imageSizes }: ProductCardProps) {
   const { lang } = useLanguage();
   const wishlist = useWishlist();
   const compare = useCompare();
@@ -107,7 +108,7 @@ export default function ProductCard({ product, variant }: ProductCardProps) {
             src={image}
             alt={title}
             fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
+            sizes={imageSizes || "(max-width: 639px) calc(100vw - 32px), (max-width: 1279px) 33vw, 405px"}
             quality={90}
             className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
           />

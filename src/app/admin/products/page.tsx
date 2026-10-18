@@ -73,7 +73,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: { p
                     <div className="flex items-center">
                       {product.images[0] && (
                         <div className="h-10 w-10 flex-shrink-0 ml-3">
-                          <img className="h-10 w-10 rounded object-cover" src={product.images[0]} alt="" />
+                          <img className="h-10 w-10 rounded object-cover" src={product.images[0]} alt="" width={40} height={40} loading="lazy" decoding="async" />
                         </div>
                       )}
                       <div>

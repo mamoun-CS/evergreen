@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Limit static-generation workers: each worker owns its own Prisma pool.
+  // The CPU-derived default exhausted this project's local PostgreSQL budget.
+  experimental: { cpus: 2 },
   async headers() {
     return [{ source: '/:path*', headers: [
       { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains' },

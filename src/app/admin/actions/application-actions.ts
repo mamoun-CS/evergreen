@@ -4,7 +4,7 @@ import { validate } from '@/lib/admin-validation';
 import { IdSchema, ApplicationFormSchema } from '@/lib/validation';
 import { assertAdmin } from '@/lib/auth';
 import { prisma } from '@/lib/admin-prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function createApplication(data: { nameEn: string; nameAr: string; slug: string }) {
   await assertAdmin();
@@ -13,6 +13,7 @@ export async function createApplication(data: { nameEn: string; nameAr: string; 
     data,
   });
   revalidatePath('/admin/applications');
+  revalidateTag('products');
 }
 
 export async function updateApplication(id: string, data: { nameEn: string; nameAr: string; slug: string }) {
@@ -24,6 +25,7 @@ export async function updateApplication(id: string, data: { nameEn: string; name
     data,
   });
   revalidatePath('/admin/applications');
+  revalidateTag('products');
 }
 
 export async function deleteApplication(id: string) {
@@ -33,4 +35,5 @@ export async function deleteApplication(id: string) {
     where: { id },
   });
   revalidatePath('/admin/applications');
+  revalidateTag('products');
 }

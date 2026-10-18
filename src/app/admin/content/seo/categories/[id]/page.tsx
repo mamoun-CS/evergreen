@@ -7,6 +7,7 @@ import ImageUploader from '@/components/admin/ImageUploader';
 import { getClientIp, requirePermission } from '@/lib/auth-middleware';
 import { CategoryFormSchema, IdSchema, PageSchema, validate } from '@/lib/validation';
 import { Prisma } from '@prisma/client';
+import { revalidateTag } from 'next/cache';
 
 export default async function CategorySEOFormPage({ params, searchParams }: { params: { id?: string }; searchParams?: { error?: string } }) {
   await requireAdmin();
@@ -86,6 +87,8 @@ export default async function CategorySEOFormPage({ params, searchParams }: { pa
         // Next redirects throw; keep both redirects outside the error handler.
         // Do not replay the transaction or any side effects automatically.
         if (transactionConflict) redirect(`/admin/content/seo/categories/${encodeURIComponent(id ?? 'new')}?error=transaction-conflict`);
+        revalidateTag('categories');
+        revalidateTag('products');
         redirect('/admin/content/seo/categories');
       }} className="space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

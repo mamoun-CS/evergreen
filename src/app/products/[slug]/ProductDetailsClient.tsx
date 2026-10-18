@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useLanguage } from "@/components/layout/LanguageContext";
 import { useCart } from "@/components/cart/CartContext";
 import ProductCard from "@/components/product/ProductCard";
+import type { ProductCardProps } from "@/components/product/ProductCard";
 import ProductReviews from "@/components/product/ProductReviews";
 import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import {
@@ -35,7 +36,7 @@ interface Specification {
   groupAr?: string | null;
 }
 
-interface ProductDetailsClientProps {
+export interface ProductDetailsClientProps {
   product: {
     id: string;
     stockQuantity: number;
@@ -59,8 +60,6 @@ interface ProductDetailsClientProps {
     discountPrice?: number | null;
     currency?: string;
     images: string[];
-    datasheetUrl?: string | null;
-    manualUrl?: string | null;
     warrantyInfoEn?: string | null;
     warrantyInfoAr?: string | null;
     countryOfOrigin?: string | null;
@@ -73,10 +72,9 @@ interface ProductDetailsClientProps {
     weightKg?: number | null;
     brand?: { name: string } | null;
     categories: { nameEn: string; nameAr: string; slug: string }[];
-    applications: { nameEn: string; nameAr: string; slug: string }[];
     specifications: Specification[];
-    accessories: any[];
-    relatedProducts: any[];
+    accessories: ProductCardProps['product'][];
+    relatedProducts: ProductCardProps['product'][];
   };
 }
 
@@ -261,7 +259,7 @@ export default function ProductDetailsClient({
                       : "border-gray-200"
                   }`}
                 >
-                  <Image src={img} alt="" fill className="object-contain p-1" />
+                  <Image src={img} alt="" fill sizes="64px" className="object-contain p-1" />
                 </button>
               ))}
             </div>

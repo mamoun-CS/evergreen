@@ -232,7 +232,7 @@ function BannerStrip({ banners, ar, arrow: Arrow }: { banners: Banner[]; ar: boo
             <article key={banner.id} className="relative overflow-hidden rounded-2xl min-h-[220px] md:min-h-[360px]">
               <picture>
                 {banner.mobileImageUrl ? <source media="(max-width: 760px)" srcSet={banner.mobileImageUrl} /> : null}
-                <img src={banner.imageUrl} alt={title || ''} className="absolute inset-0 h-full w-full object-cover" />
+                <img src={banner.imageUrl} alt={title || ''} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
               </picture>
               <div className="relative z-10 flex min-h-[220px] flex-col justify-end bg-gradient-to-t from-black/70 to-transparent p-6 text-white md:min-h-[360px] md:p-10">
                 {title ? <h2 className="text-2xl font-extrabold md:text-4xl">{title}</h2> : null}

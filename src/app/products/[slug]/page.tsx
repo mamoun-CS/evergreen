@@ -2,7 +2,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import ProductDetailsClient from "./ProductDetailsClient";
+import ProductDetailsClient, { type ProductDetailsClientProps } from "./ProductDetailsClient";
 import { headers } from "next/headers";
 import { getProductBySlug, serializeCard } from "@/lib/storefront";
 import { bilingualMetadata } from "@/lib/seo";
@@ -95,8 +95,29 @@ export default async function ProductPage({ params }: ProductPageProps) {
   ]);
 
   // Convert Decimal fields to simple numbers for client props
-  const serializedProduct = {
-    ...product,
+  const serializedProduct: ProductDetailsClientProps['product'] = {
+    id: product.id,
+    slug: product.slug,
+    sku: product.sku,
+    nameEn: product.nameEn,
+    nameAr: product.nameAr,
+    descriptionEn: product.descriptionEn,
+    descriptionAr: product.descriptionAr,
+    importDetails: product.importDetails,
+    purchaseMode: product.purchaseMode,
+    stockQuantity: product.stockQuantity,
+    isAvailable: product.isAvailable,
+    currency: product.currency,
+    images: product.images,
+    warrantyInfoEn: product.warrantyInfoEn,
+    warrantyInfoAr: product.warrantyInfoAr,
+    countryOfOrigin: product.countryOfOrigin,
+    material: product.material,
+    color: product.color,
+    style: product.style,
+    brand: product.brand ? { name: product.brand.name } : null,
+    categories: product.categories.map(({ nameEn, nameAr, slug }) => ({ nameEn, nameAr, slug })),
+    specifications: product.specifications.map(({ id, keyEn, keyAr, valueEn, valueAr, groupEn, groupAr }) => ({ id, keyEn, keyAr, valueEn, valueAr, groupEn, groupAr })),
     basePrice: product.basePrice ? Number(product.basePrice) : null,
     discountPrice: product.discountPrice ? Number(product.discountPrice) : null,
     lengthCm: product.lengthCm ? Number(product.lengthCm) : null,
@@ -104,7 +125,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
     heightCm: product.heightCm ? Number(product.heightCm) : null,
     weightKg: product.weightKg ? Number(product.weightKg) : null,
     variants: product.variants.map((variant) => ({
-      ...variant,
+      id: variant.id,
+      titleEn: variant.titleEn,
+      titleAr: variant.titleAr,
+      stock: variant.stock,
       price: variant.price ? Number(variant.price) : null,
     })),
     accessories: product.accessories.map((acc) => serializeCard(acc)),
@@ -214,7 +238,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         }}
       />
       <StorefrontProductEditor id={product.id} />
-      <ProductDetailsClient product={serializedProduct as any} />
+      <ProductDetailsClient product={serializedProduct} />
     </>
   );
 }

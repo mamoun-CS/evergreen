@@ -115,6 +115,7 @@ export async function upsertPageContent(slug: string, data: any) {
   });
   if (previous) await removeUnusedImages(previous.images, data.images);
   revalidatePath(`/${slug}`);
+  revalidateTag('content');
 }
 
 export async function upsertStorePolicy(slug: string, data: any) {

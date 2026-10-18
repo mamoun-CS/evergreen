@@ -4,7 +4,7 @@ import { validate } from '@/lib/admin-validation';
 import { IdSchema, BrandFormSchema } from '@/lib/validation';
 import { assertAdmin } from '@/lib/auth';
 import { prisma } from '@/lib/admin-prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function createBrand(data: { name: string; description?: string; logoUrl?: string }) {
   await assertAdmin();
@@ -13,6 +13,7 @@ export async function createBrand(data: { name: string; description?: string; lo
     data,
   });
   revalidatePath('/admin/brands');
+  revalidateTag('products');
 }
 
 export async function updateBrand(id: string, data: { name: string; description?: string; logoUrl?: string }) {
@@ -24,6 +25,7 @@ export async function updateBrand(id: string, data: { name: string; description?
     data,
   });
   revalidatePath('/admin/brands');
+  revalidateTag('products');
 }
 
 export async function deleteBrand(id: string) {
@@ -36,4 +38,5 @@ export async function deleteBrand(id: string) {
     where: { id },
   });
   revalidatePath('/admin/brands');
+  revalidateTag('products');
 }

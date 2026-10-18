@@ -18,7 +18,7 @@ export async function logInventoryChange(
   });
 
   // Check low stock threshold after update
-  const product = await prisma.product.findUnique({ where: { id: productId } });
+  const product = await prisma.product.findUnique({ where: { id: productId }, select: { stockQuantity: true, isAvailable: true } });
   if (product && product.stockQuantity <= 5 && product.isAvailable) {
     // Generate low stock alert
     const existingAlert = await prisma.adminAlert.findFirst({
@@ -27,7 +27,8 @@ export async function logInventoryChange(
         type: 'LOW_STOCK',
         dismissedAt: null,
         createdAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) } // don't spam if alerted in last 24h
-      }
+      },
+      select: { id: true }
     });
 
     if (!existingAlert) {

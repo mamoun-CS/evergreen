@@ -1,0 +1,10 @@
+PASS wishlist ownership isolation across customer accounts
+PASS admin image upload, UUID path, WebP re-encode and safe fallback serving
+PASS security headers
+PASS COD checkout, stock unchanged, customer and admin SMTP delivery
+PASS role enforcement and idempotent COD confirmation
+PASS rejection and insufficient stock rollback
+PASS webhook signature, JSON validation, verified payment and replay protection
+PASS login throttling, bcrypt verification and session cookie flags
+PASS RBAC pages, audit API, mutation audit and delivery logs
+All integration checks passed.

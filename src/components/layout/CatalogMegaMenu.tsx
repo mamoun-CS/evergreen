@@ -2,23 +2,16 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import useSWR from 'swr';
 import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react';
 import { useLanguage } from './LanguageContext';
 
 export type MegaCategory = { id: string; slug: string; nameAr: string; nameEn: string; image?: string | null };
 
-export default function CatalogMegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
+export default function CatalogMegaMenu({ open, onClose, categories }: { open: boolean; onClose: () => void; categories: MegaCategory[] }) {
   const { lang } = useLanguage();
   const ar = lang === 'ar';
   const Arrow = ar ? ArrowLeft : ArrowRight;
-  const { data } = useSWR<{ categories: MegaCategory[] }>(
-    '/api/categories',
-    (url: string) => fetch(url).then((res) => (res.ok ? res.json() : { categories: [] })),
-    { revalidateOnFocus: false, revalidateIfStale: false, dedupingInterval: 300_000 }
-  );
   if (!open) return null;
-  const categories = data?.categories ?? [];
 
   return (
     <div className="dg-megamenu" onMouseLeave={onClose}>

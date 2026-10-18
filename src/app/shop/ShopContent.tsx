@@ -8,7 +8,11 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import ProductCard from '@/components/product/ProductCard';
 import { Filter, Search, RotateCcw, PackageCheck, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const fetcher = (url: string) => fetch(url).then(res => res.json());
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Products could not be loaded');
+  return res.json();
+};
 
 interface ProductData {
   products: any[];
@@ -20,9 +24,10 @@ interface ProductData {
 
 interface ShopContentProps {
   initialData: ProductData;
+  filterOptions: { categories: any[]; brands: any[]; applications: any[] };
 }
 
-export default function ShopContent({ initialData }: ShopContentProps) {
+export default function ShopContent({ initialData, filterOptions }: ShopContentProps) {
   const { lang, t } = useLanguage();
   const searchParams = useSearchParams();
 
@@ -38,21 +43,21 @@ export default function ShopContent({ initialData }: ShopContentProps) {
     application: searchParams.get('application') || '',
     sort: searchParams.get('sort') || 'newest',
     discounted: searchParams.get('discounted') === 'true',
+    featured: searchParams.get('featured') === 'true',
+    slug: searchParams.get('slug') || '',
+    purchaseMode: searchParams.get('purchaseMode') || '',
+    availability: searchParams.get('availability') || '',
+    minPrice: searchParams.get('minPrice') || '',
+    maxPrice: searchParams.get('maxPrice') || '',
+
   });
 
   // Draft filters (used for UI state before clicking Search)
   const [draftFilters, setDraftFilters] = useState(appliedFilters);
 
-  // Fetch filter options
-  const { data: optionsData } = useSWR('/api/equipment-finder/options', fetcher, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    revalidateIfStale: false,
-    dedupingInterval: 300_000,
-  });
-  const categories = optionsData?.categories || [];
-  const brands = optionsData?.brands || [];
-  const applications = optionsData?.applications || [];
+  // Public filter options arrive with the server-rendered catalog; no extra
+  // browser request or filter-layout shift is needed on initial load.
+  const { categories, brands, applications } = filterOptions;
 
   // Keep the SWR key and URL update tied only to applied filters.  Writing to
   // browser history during render can trigger redundant render/navigation work.
@@ -66,6 +71,13 @@ export default function ShopContent({ initialData }: ShopContentProps) {
     if (appliedFilters.application) params.set('application', appliedFilters.application);
     if (appliedFilters.sort !== 'newest') params.set('sort', appliedFilters.sort);
     if (appliedFilters.discounted) params.set('discounted', 'true');
+    if (appliedFilters.featured) params.set('featured', 'true');
+    if (appliedFilters.slug) params.set('slug', appliedFilters.slug);
+    if (appliedFilters.purchaseMode) params.set('purchaseMode', appliedFilters.purchaseMode);
+    if (appliedFilters.availability) params.set('availability', appliedFilters.availability);
+    if (appliedFilters.minPrice) params.set('minPrice', appliedFilters.minPrice);
+    if (appliedFilters.maxPrice) params.set('maxPrice', appliedFilters.maxPrice);
+
     return params.toString();
   }, [page, appliedFilters]);
 
@@ -115,6 +127,13 @@ export default function ShopContent({ initialData }: ShopContentProps) {
       application: '',
       sort: 'newest',
       discounted: false,
+      featured: false,
+      slug: '',
+      purchaseMode: '',
+      availability: '',
+      minPrice: '',
+      maxPrice: '',
+
     };
     setDraftFilters(defaultFilters);
     setAppliedFilters(defaultFilters);
@@ -318,7 +337,7 @@ export default function ShopContent({ initialData }: ShopContentProps) {
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {products.map((product: any) => (
-                  <ProductCard key={product.id} product={product} />
+                  <ProductCard key={product.id} product={product} imageSizes="(max-width: 639px) calc(100vw - 32px), (max-width: 767px) calc((100vw - 56px) / 2), (max-width: 1023px) 35vw, (max-width: 1279px) 23vw, 285px" />
                 ))}
               </div>
 

@@ -7,7 +7,7 @@ import { CompareProvider } from '@/components/compare/CompareContext';
 import CompareBar from '@/components/compare/CompareBar';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import CartDrawer from '@/components/cart/CartDrawer';
+import CartDrawer from '@/components/cart/CartDrawerLoader';
 import BackToTopButton from '@/components/layout/BackToTopButton';
 import WhatsAppFloatingButton from '@/components/layout/WhatsAppFloatingButton';
 import AccessibilityToolbar from '@/components/layout/AccessibilityToolbar';
@@ -41,14 +41,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const settings: any = await getSiteSettings();
-  const socialLinks: any = await getSocialLinks();
-  const announcementBars: any = await getAnnouncementBar();
-  const navigationItems: any = await getNavigationItems();
-  const footerNavigationItems: any = await getFooterNavigationItems();
-  const rootCategories: any = await getRootCategories();
+  // Independent public reads and the private session read can overlap. The
+  // session remains request-scoped and never enters the shared content cache.
+  const [settings, socialLinks, announcementBars, navigationItems, footerNavigationItems, rootCategories, user] = await Promise.all([
+    getSiteSettings(), getSocialLinks(), getAnnouncementBar(), getNavigationItems(),
+    getFooterNavigationItems(), getRootCategories(), getCurrentUser(),
+  ]);
   const nonce = headers().get('x-csp-nonce') || undefined;
-  const user = await getCurrentUser();
   const isAuthenticated = !!user;
   return (
     <html lang="ar" dir="rtl">
@@ -59,7 +58,7 @@ export default async function RootLayout({
             <CartProvider>
               <WishlistProvider>
                 <CompareProvider>
-                  <Header settings={settings} announcementBars={announcementBars} navigationItems={navigationItems} />
+                  <Header rootCategories={rootCategories} settings={settings} announcementBars={announcementBars} navigationItems={navigationItems} />
                   <main className="flex-1 w-full">
                     {children}
                   </main>

@@ -1,14 +1,18 @@
 import { categoryChildren, orderCategories } from '@/lib/catalog-taxonomy';
 import { Metadata } from 'next';
+import { cache } from 'react';
+import { descendantCategoryIds, summarizeChildren } from '@/lib/category-summaries';
+import { CATEGORY_PAGE_SIZE, categoryPage } from '@/lib/category-pagination';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { bilingualMetadata } from '@/lib/seo';
-import { optimizeProductImagePath, productCardSelect, serializeCard } from '@/lib/storefront';
+import { getCategoryMetadata, optimizeProductImagePath, productCardSelect, serializeCard } from '@/lib/storefront';
 import CategoryHierarchyPage from './CategoryHierarchyPage';
 
 type TrailCategory = { id: string; slug: string; nameAr: string; nameEn: string; parentId: string | null };
 
-async function findTrail(path: string[]): Promise<TrailCategory[] | null> {
+const findTrail = cache(async (pathKey: string): Promise<TrailCategory[] | null> => {
+  const path = JSON.parse(pathKey) as string[];
   // Keep links created by older menus working. They used /category/<leaf-slug>
   // even when that leaf has a parent. Resolve it and reconstruct its full
   // breadcrumb instead of returning a misleading 404.
@@ -43,16 +47,13 @@ async function findTrail(path: string[]): Promise<TrailCategory[] | null> {
     parentId = category.id;
   }
   return trail;
-}
+});
 
 export async function generateMetadata({ params }: { params: { path: string[] } }): Promise<Metadata> {
-  const trail = await findTrail(params.path);
+  const trail = await findTrail(JSON.stringify(params.path));
   const category = trail?.at(-1);
   if (!category) return {};
-  const details = await prisma.category.findUnique({
-    where: { id: category.id },
-    select: { metaTitleAr: true, metaTitleEn: true, metaDescAr: true, metaDescEn: true, ogImage: true, imageUrl: true },
-  });
+  const details = await getCategoryMetadata(category.id);
   return bilingualMetadata({
     path: `/category/${params.path.map(encodeURIComponent).join('/')}`,
     titleEn: details?.metaTitleEn || `${category.nameEn} | Ever Green`,
@@ -63,46 +64,39 @@ export async function generateMetadata({ params }: { params: { path: string[] } 
   });
 }
 
-export default async function CategoryPage({ params }: { params: { path: string[] } }) {
-  const trail = await findTrail(params.path);
+export default async function CategoryPage({ params, searchParams }: { params: { path: string[] }; searchParams?: { page?: string | string[] } }) {
+  const trail = await findTrail(JSON.stringify(params.path));
   const category = trail?.at(-1);
   if (!category) notFound();
 
-  const [children, products] = await Promise.all([
+  const where = { isAvailable: true, categories: { some: { id: category.id } } };
+  const [children, total, hierarchy] = await Promise.all([
     prisma.category.findMany({
       where: { parentId: category.id }, orderBy: { nameAr: 'asc' },
       select: {
         id: true, slug: true, nameAr: true, nameEn: true, imageUrl: true,
-        _count: { select: { products: { where: { isAvailable: true } } } },
-        products: { where: { isAvailable: true }, orderBy: { updatedAt: 'desc' }, take: 1, select: { images: true } },
       },
     }),
-    prisma.product.findMany({
-      where: { isAvailable: true, categories: { some: { id: category.id } } },
-      select: productCardSelect, orderBy: [{ isFeatured: 'desc' }, { updatedAt: 'desc' }],
-    }),
+    prisma.product.count({ where }),
+    prisma.category.findMany({ select: { id: true, parentId: true } }),
   ]);
 
-  // Counts and preview images must include nested types, not only products
-  // assigned directly to the immediate child.
-  const hierarchy = await prisma.category.findMany({ select: { id: true, parentId: true } });
-  const descendantIds = (id: string): string[] => {
-    const ids = new Set([id]);
-    let changed = true;
-    while (changed) {
-      changed = false;
-      for (const item of hierarchy) if (item.parentId && ids.has(item.parentId) && !ids.has(item.id)) { ids.add(item.id); changed = true; }
-    }
-    return [...ids];
-  };
-  const childSummaries = await Promise.all(children.map(async child => {
-    const where = { isAvailable: true, categories: { some: { id: { in: descendantIds(child.id) } } } };
-    const [count, preview] = await Promise.all([
-      prisma.product.count({ where }),
-      prisma.product.findFirst({ where, orderBy: { updatedAt: 'desc' }, select: { images: true } }),
-    ]);
-    return { ...child, _count: { products: count }, products: preview ? [preview] : [] };
-  }));
+  // One batched product read replaces two reads per immediate child.
+  const subtreeIds = [...new Set(children.flatMap(child => [...descendantCategoryIds(child.id, hierarchy)]))];
+  const pagination = categoryPage(searchParams?.page, total);
+  const [products, previews] = await Promise.all([
+    prisma.product.findMany({
+      where, select: productCardSelect,
+      orderBy: [{ isFeatured: 'desc' }, { updatedAt: 'desc' }, { id: 'asc' }],
+      skip: pagination.skip, take: CATEGORY_PAGE_SIZE,
+    }),
+    subtreeIds.length ? prisma.product.findMany({
+      where: { isAvailable: true, categories: { some: { id: { in: subtreeIds } } } },
+      orderBy: { updatedAt: 'desc' },
+      select: { id: true, images: true, categories: { select: { id: true } } },
+    }) : Promise.resolve([]),
+  ]);
+  const childSummaries = summarizeChildren(children, hierarchy, previews);
 
   return <CategoryHierarchyPage
     trail={trail!}
@@ -111,5 +105,6 @@ export default async function CategoryPage({ params }: { params: { path: string[
       image: imageUrl ? optimizeProductImagePath(imageUrl) : (childProducts[0]?.images[0] ? optimizeProductImagePath(childProducts[0].images[0]) : null),
     }))}
     products={products.map(serializeCard)}
+    pagination={pagination}
   />;
 }

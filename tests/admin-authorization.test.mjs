@@ -23,6 +23,7 @@ function harness(kind, id = kind === 'category' ? 'category-1' : 'product-1', fa
   let writes = [];
   let audits = [];
   let transactionCalls = 0;
+  const invalidations = [];
   let categories = [
     { id: 'category-1', nameAr: 'قسم', nameEn: 'Category', slug: 'category', parentId: null,
       imageUrl: '/old.jpg', metaTitleAr: 'عنوان سابق', metaTitleEn: 'Old title',
@@ -95,6 +96,7 @@ function harness(kind, id = kind === 'category' ? 'category-1' : 'product-1', fa
       module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true,
     } }).outputText;
     function isolatedRequire(specifier) {
+      if (specifier === 'next/cache') return { revalidateTag: tag => invalidations.push(tag) };
       if (specifier === 'server-only') return {};
       if (specifier === 'next/headers') return { headers: () => new Headers() };
       if (specifier === 'next/navigation') return { redirect: url => { throw new Error(`REDIRECT:${url}`); } };
@@ -126,6 +128,7 @@ function harness(kind, id = kind === 'category' ? 'category-1' : 'product-1', fa
     setRole: role => { user = role ? { id: 'staff-1', role } : null; },
     writes: () => writes, audits: () => audits,
     transactionCalls: () => transactionCalls,
+    invalidations: () => invalidations,
   };
 }
 
@@ -140,6 +143,7 @@ test('category: audit records all previous form fields, including nulls, and exc
   });
   assert.equal(h.audits()[0].newData.imageUrl, null);
   assert.equal(h.audits()[0].newData.ogImage, null);
+  assert.deepEqual(h.invalidations(), ['categories', 'products']);
 });
 
 for (const id of ['category-1', 'new']) {
@@ -150,6 +154,7 @@ for (const id of ['category-1', 'new']) {
     assert.equal(h.transactionCalls(), 1);
     assert.equal(h.writes().length, 0);
     assert.equal(h.audits().length, 0);
+    assert.equal(h.invalidations().length, 0);
     const tree = await h.renderTree({ error: 'transaction-conflict' });
     assert.match(JSON.stringify(tree), /A concurrent update prevented saving/);
   });

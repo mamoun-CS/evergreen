@@ -1,4 +1,5 @@
 import { featuredCategorySlugs, orderCategories } from './catalog-taxonomy';
+import type { Prisma } from '@prisma/client';
 import { cache } from 'react';
 import { unstable_cache } from 'next/cache';
 import fs from 'fs';
@@ -17,7 +18,11 @@ export const productCardSelect = {
   discountPrice: true,
   currency: true,
   images: true,
-  productImages: { select: { path: true, isMain: true, sortOrder: true } },
+  productImages: {
+    orderBy: [{ isMain: 'desc' }, { sortOrder: 'asc' }],
+    take: 1,
+    select: { path: true, isMain: true, sortOrder: true },
+  },
   isAvailable: true,
   stockQuantity: true,
   warrantyInfoEn: true,
@@ -25,7 +30,7 @@ export const productCardSelect = {
   ratingAvg: true,
   ratingCount: true,
   brand: { select: { name: true } },
-} as const;
+} satisfies Prisma.ProductSelect;
 
 function money(value: { toNumber?: () => number } | number | null | undefined) {
   if (value == null) return null;
@@ -59,8 +64,9 @@ export function optimizeProductImagePath(imagePath: string) {
 
 export function serializeCard<T extends { basePrice?: unknown; discountPrice?: unknown; images?: string[]; productImages?: Array<{ path: string; isMain: boolean; sortOrder: number }> }>(product: T) {
   const importedImages = product.productImages?.slice().sort((a, b) => Number(b.isMain) - Number(a.isMain) || a.sortOrder - b.sortOrder).map((image) => image.path) || [];
+  const { productImages: _imageRecords, ...card } = product;
   return {
-    ...product,
+    ...card,
     basePrice: money(product.basePrice as never),
     discountPrice: money(product.discountPrice as never),
     images: (importedImages.length ? importedImages : product.images || []).slice(0, 1).map(img => optimizeProductImagePath(img.startsWith('/uploads/products/evg-product-') ? img.replace('/uploads/products/', '/products/') : img)),
@@ -146,9 +152,9 @@ export const getRootCategories = unstable_cache(
   { revalidate: 300, tags: ['categories'] },
 );
 
-/** A small, cacheable catalogue slice for the homepage. Keep this selection in
+/** A small request-memoized catalogue slice for the homepage. Keep this selection in
  * sync with ProductCard so the landing page never needs a second product shape. */
-export const getHomepageProducts = unstable_cache(
+export const getHomepageProducts = cache(
   async () => {
     const available = { isAvailable: true, stockQuantity: { gt: 0 } };
     const [featured, latest] = await Promise.all([
@@ -173,9 +179,22 @@ export const getHomepageProducts = unstable_cache(
       latest: latest.map(serializeCard),
     };
   },
-  ['homepage-products-v2'],
-  { revalidate: 120, tags: ['products'] },
 );
+
+// One public cache entry for existing category metadata, never one entry per
+// arbitrary URL. Category mutations invalidate the existing categories tag.
+async function readCategoryMetadata() {
+  const items = await prisma.category.findMany({ select: {
+    id: true, metaTitleAr: true, metaTitleEn: true, metaDescAr: true, metaDescEn: true, ogImage: true, imageUrl: true,
+  } });
+  return { items, measuredAt: Date.now() };
+}
+const cachedCategoryMetadata = unstable_cache(readCategoryMetadata, ['category-metadata-v1'], { revalidate: 300, tags: ['categories'] });
+export const getCategoryMetadata = cache(async (id: string) => {
+  let snapshot = await cachedCategoryMetadata();
+  if (Date.now() - snapshot.measuredAt >= 300_000) snapshot = await readCategoryMetadata();
+  return snapshot.items.find(item => item.id === id) || null;
+});
 
 /** Brand marks are optional editorial content. Only serve local, uploaded
  * assets—never third-party logo URLs—and hide this section when none exist. */

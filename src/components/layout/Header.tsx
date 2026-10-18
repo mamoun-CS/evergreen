@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import useSWR from 'swr';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from './LanguageContext';
 import { useCart } from '../cart/CartContext';
@@ -13,13 +12,11 @@ import CatalogMegaMenu from './CatalogMegaMenu';
 import type { MegaCategory } from './CatalogMegaMenu';
 import { Phone, Menu, X, UserRound, Truck, Heart, ShoppingCart, ChevronDown, Megaphone, X as XIcon } from 'lucide-react';
 
-const fetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : { categories: [] }));
-
 type NavItem = { id: string; labelAr: string; labelEn: string; url: string; order: number; children?: Array<{ id: string; labelAr: string; labelEn: string; url: string; order: number }> };
 type TransformedNavItem = { id: string; label: string; href: string; children?: Array<{ label: string; href: string }> };
 type AnnouncementBar = { textAr: string; textEn: string; linkUrl?: string | null; linkTextAr?: string | null; linkTextEn?: string | null; backgroundColor?: string | null; textColor?: string | null };
 
-export default function Header({ settings = {} as any, announcementBars = [] as AnnouncementBar[], navigationItems = [] as NavItem[] }: { settings?: any; announcementBars?: AnnouncementBar[]; navigationItems?: NavItem[] }) {
+export default function Header({ settings = {} as any, announcementBars = [] as AnnouncementBar[], navigationItems = [] as NavItem[], rootCategories = [] as MegaCategory[] }: { settings?: any; announcementBars?: AnnouncementBar[]; navigationItems?: NavItem[]; rootCategories?: MegaCategory[] }) {
   const pathname = usePathname();
   const { lang, toggleLanguage } = useLanguage();
   const { cart, setIsCartOpen } = useCart();
@@ -39,8 +36,7 @@ export default function Header({ settings = {} as any, announcementBars = [] as 
   const announcementBgColor = activeAnnouncement?.backgroundColor || '#0f5132';
   const announcementTextColor = activeAnnouncement?.textColor || '#ffffff';
 
-  const { data } = useSWR<{ categories: MegaCategory[] }>(drawerOpen ? '/api/categories' : null, fetcher, { revalidateOnFocus: false });
-  const drawerCategories: MegaCategory[] = data?.categories ?? [];
+  const drawerCategories = rootCategories;
 
   // Use database navigation items, with fallbacks for required structural items
   const dbNavItems = navigationItems.length > 0 ? navigationItems : [
@@ -174,7 +170,7 @@ export default function Header({ settings = {} as any, announcementBars = [] as 
                   {categoriesItem.label} <ChevronDown aria-hidden="true" style={megaOpen ? { transform: 'rotate(180deg)', transition: 'transform .18s' } : { transition: 'transform .18s' }} />
                 </button>
                 <span id="dg-catalog-mega">
-                  {megaOpen && <CatalogMegaMenu open onClose={() => setMegaOpen(false)} />}
+                  {megaOpen && <CatalogMegaMenu categories={rootCategories} open onClose={() => setMegaOpen(false)} />}
                 </span>
               </li>
             )}

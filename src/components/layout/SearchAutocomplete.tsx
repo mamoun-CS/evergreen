@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useLanguage } from './LanguageContext';
 
 type Suggestion = { id: string; slug: string; sku?: string | null; nameEn: string; nameAr: string; images: string[] };
@@ -14,28 +15,29 @@ export function productImageSrc(image?: string | null) {
 
 export default function SearchAutocomplete({ autoFocusFlag = false, compact = false }: { autoFocusFlag?: boolean; compact?: boolean }) {
   const { lang } = useLanguage();
+  const router = useRouter();
   const ar = lang === 'ar';
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<Suggestion[]>([]);
   const [activeIndex, setActiveIndex] = useState(-1);
   const boxRef = useRef<HTMLDivElement>(null);
-  const abortRef = useRef<AbortController | null>(null);
   const inputId = React.useId();
 
   useEffect(() => {
     const term = query.trim();
+    const controller = new AbortController();
     if (term.length < 2) { setItems([]); setOpen(false); return; }
     const timer = setTimeout(() => {
-      abortRef.current?.abort();
-      const controller = new AbortController();
-      abortRef.current = controller;
-      fetch(`/api/products?search=${encodeURIComponent(term)}&limit=6`, { signal: controller.signal })
+      fetch(`/api/products?search=${encodeURIComponent(term)}&limit=6&view=suggestions`, { signal: controller.signal })
         .then((res) => (res.ok ? res.json() : { products: [] }))
-        .then((data) => { setItems((data.products || []) as Suggestion[]); setOpen(true); setActiveIndex(-1); })
+        .then((data) => {
+          if (controller.signal.aborted) return;
+          setItems((data.products || []) as Suggestion[]); setOpen(true); setActiveIndex(-1);
+        })
         .catch(() => { /* canceled or network error: keep silent */ });
     }, 250);
-    return () => clearTimeout(timer);
+    return () => { clearTimeout(timer); controller.abort(); };
   }, [query]);
 
   useEffect(() => {
@@ -49,7 +51,7 @@ export default function SearchAutocomplete({ autoFocusFlag = false, compact = fa
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
     const term = query.trim();
-    if (term) { setOpen(false); window.location.href = `/shop?search=${encodeURIComponent(term)}`; }
+    if (term) { setOpen(false); router.push(`/shop?search=${encodeURIComponent(term)}`); }
   };
 
   const onKeyDown = (event: React.KeyboardEvent) => {

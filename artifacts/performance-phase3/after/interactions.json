@@ -1,0 +1,113 @@
+{
+  "checks": [
+    {
+      "name": "mobile menu",
+      "ok": true
+    },
+    {
+      "name": "language",
+      "ok": true
+    },
+    {
+      "name": "sort filter",
+      "ok": true
+    },
+    {
+      "name": "open product",
+      "ok": true
+    },
+    {
+      "name": "wishlist guest",
+      "ok": true
+    },
+    {
+      "name": "reviews visible",
+      "ok": true
+    },
+    {
+      "name": "gallery",
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "failedRequests": [
+    {
+      "url": "/category/alawany",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/category/decoration",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/account",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/category/artificial-greenery",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/category/outdoor-surfaces",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/policies/privacy",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/shop",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/projects",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/shop",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/_next/image",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/account/wishlist",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/account",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/category/alawany",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/category/decoration",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/category/artificial-greenery",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/products/solar-lantern",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/products/imported-1687",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/products/imported-1687",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "/shop",
+      "error": "net::ERR_ABORTED"
+    }
+  ],
+  "variantControls": 0,
+  "galleryButtons": 2
+}
