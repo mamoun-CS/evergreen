@@ -4,6 +4,9 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 import ImageUploader from '@/components/admin/ImageUploader';
+import { requirePermission } from '@/lib/auth-middleware';
+import { IdSchema, PageSchema, validate } from '@/lib/validation';
+import { prisma as adminPrisma } from '@/lib/admin-prisma';
 
 export default async function ProductSEOFormPage({ params }: { params: { id?: string } }) {
   await requireAdmin();
@@ -18,14 +21,16 @@ export default async function ProductSEOFormPage({ params }: { params: { id?: st
       </div>
       <form action={async (formData) => {
         'use server';
-        const data = {
+        await requirePermission('update', 'content');
+        const id = validate(IdSchema, params.id);
+        const data = validate(PageSchema.pick({ metaTitleAr: true, metaTitleEn: true, metaDescAr: true, metaDescEn: true, ogImage: true }), {
           metaTitleAr: formData.get('metaTitleAr') as string || null,
           metaTitleEn: formData.get('metaTitleEn') as string || null,
           metaDescAr: formData.get('metaDescAr') as string || null,
           metaDescEn: formData.get('metaDescEn') as string || null,
           ogImage: formData.get('ogImage') as string || null,
-        };
-        await prisma.product.update({ where: { id: params.id }, data });
+        });
+        await adminPrisma.product.update({ where: { id }, data });
         redirect('/admin/content/seo/products');
       }} className="space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="bg-slate-50 p-4 rounded-lg">

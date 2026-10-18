@@ -259,6 +259,7 @@ model ContactInquiry {
 }
 
 model Order {
+  claimTokens               OrderClaimToken[]
   adminConfirmedAt          DateTime?
   paymentVerifiedAt         DateTime?
   requiresAdminConfirmation Boolean     @default(false)
@@ -376,6 +377,7 @@ enum Role {
 }
 
 model User {
+  orderClaimTokens OrderClaimToken[]
   language     String    @default("ar")
   id           String    @id @default(cuid())
   name         String
@@ -392,6 +394,24 @@ model User {
   reviews     Review[]
   wishlistItems WishlistItem[]
   resetTokens PasswordResetToken[]
+}
+
+model OrderClaimToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  orderId   String
+  order     Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  email     String
+  purpose   String    @default("ORDER_CLAIM")
+  expiresAt DateTime
+  usedAt    DateTime?
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([orderId, userId])
+  @@index([expiresAt])
 }
 
 model PasswordResetToken {

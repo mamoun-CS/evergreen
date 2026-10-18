@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
-import { getSessionPayload } from '@/lib/auth';
+import { getCurrentUser } from '@/lib/auth';
+import OrderClaimForm from '@/components/account/OrderClaimForm';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { Package, ExternalLink } from 'lucide-react';
@@ -7,20 +8,11 @@ import { Package, ExternalLink } from 'lucide-react';
 export const dynamic = 'force-dynamic';
 
 export default async function AccountOrdersPage() {
-  const session = await getSessionPayload();
-  if (!session) redirect('/login');
-
-  const user = await prisma.user.findUnique({ where: { id: session.userId } });
+  const user = await getCurrentUser();
   if (!user) redirect('/login');
 
-  // Auto-link guest orders
-  await prisma.order.updateMany({
-    where: { email: { equals: user.email, mode: 'insensitive' }, userId: null },
-    data: { userId: user.id }
-  });
-
   const orders = await prisma.order.findMany({
-    where: { userId: session.userId },
+    where: { userId: user.id },
     orderBy: { createdAt: 'desc' },
     include: { payments: true }
   });
@@ -28,6 +20,7 @@ export default async function AccountOrdersPage() {
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
       <h1 className="text-2xl font-extrabold text-slate-900 mb-6">طلباتي</h1>
+      {user.role === 'CUSTOMER' && <OrderClaimForm />}
       
       {orders.length === 0 ? (
         <div className="text-center py-10 text-slate-500 flex flex-col items-center">

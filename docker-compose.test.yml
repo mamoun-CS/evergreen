@@ -1,0 +1,37 @@
+services:
+  postgres-test:
+    image: postgres:16-alpine
+    container_name: evergreen-postgres-test
+    environment:
+      POSTGRES_DB: evergreen_test
+      POSTGRES_USER: evergreen_test
+      POSTGRES_PASSWORD: test-only-do-not-use-in-production
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - evergreen-test-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U evergreen_test -d evergreen_test"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    networks:
+      - evergreen-test
+    restart: unless-stopped
+
+  mailcatcher:
+    image: sj26/mailcatcher
+    container_name: evergreen-mailcatcher-test
+    ports:
+      - "127.0.0.1:1025:1025"
+      - "127.0.0.1:1080:1080"
+    networks:
+      - evergreen-test
+    restart: unless-stopped
+
+volumes:
+  evergreen-test-data:
+
+networks:
+  evergreen-test:
+    driver: bridge

@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
-import { requirePermission } from '@/lib/auth-middleware';
+import { getClientIp, requirePermission } from '@/lib/auth-middleware';
+import { IdSchema, validate } from '@/lib/validation';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
@@ -39,7 +40,17 @@ export default async function AdminAlertsPage() {
               <div>
                 <form action={async () => {
                   'use server';
-                  await prisma.adminAlert.update({ where: { id: alert.id }, data: { dismissedAt: new Date() } });
+                  const user = await requirePermission('update', 'alert');
+                  const id = validate(IdSchema, alert.id);
+                  await prisma.$transaction(async (tx) => {
+                    const previous = await tx.adminAlert.findUniqueOrThrow({ where: { id } });
+                    const updated = await tx.adminAlert.update({ where: { id }, data: { dismissedAt: new Date() } });
+                    await tx.adminAuditLog.create({ data: {
+                      userId: user.id, action: 'update', resourceType: 'adminAlert', resourceId: id,
+                      oldData: { dismissedAt: previous.dismissedAt?.toISOString() ?? null },
+                      newData: { dismissedAt: updated.dismissedAt!.toISOString() }, ipAddress: getClientIp(),
+                    } });
+                  });
                 }}>
                   <button type="submit" className="text-sm bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded text-gray-700 font-medium">
                     Dismiss

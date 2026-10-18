@@ -4,8 +4,11 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 import ImageUploader from '@/components/admin/ImageUploader';
+import { getClientIp, requirePermission } from '@/lib/auth-middleware';
+import { CategoryFormSchema, IdSchema, PageSchema, validate } from '@/lib/validation';
+import { Prisma } from '@prisma/client';
 
-export default async function CategorySEOFormPage({ params }: { params: { id?: string } }) {
+export default async function CategorySEOFormPage({ params, searchParams }: { params: { id?: string }; searchParams?: { error?: string } }) {
   await requireAdmin();
   const isEditing = params.id && params.id !== 'new';
   const category = isEditing ? await prisma.category.findUnique({ where: { id: params.id }, include: { parent: true, children: true } }) : null;
@@ -19,25 +22,70 @@ export default async function CategorySEOFormPage({ params }: { params: { id?: s
         <Link href="/admin/content/seo/categories" className="text-slate-500 hover:text-slate-700"><ChevronLeft className="h-5 w-5" /></Link>
         <h1 className="text-2xl font-extrabold text-slate-900">{isEditing ? 'تعديل SEO للقسم' : 'إضافة قسم جديد'}</h1>
       </div>
+      {searchParams?.error === 'transaction-conflict' && (
+        <p role="alert" className="rounded border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">
+          تعذر حفظ القسم بسبب تعديل متزامن. يرجى مراجعة البيانات وإعادة إدخال تغييراتك ثم الحفظ مجددًا.
+          {' / '}A concurrent update prevented saving. Review the current data, re-enter your changes, and save again.
+        </p>
+      )}
       <form action={async (formData) => {
         'use server';
-        const data = {
+        const user = await requirePermission('update', 'content');
+        await requirePermission(isEditing ? 'update' : 'create', 'category');
+        const id = isEditing ? validate(IdSchema, params.id) : undefined;
+        const data = validate(CategoryFormSchema.extend(PageSchema.pick({ metaTitleAr: true, metaTitleEn: true, metaDescAr: true, metaDescEn: true, ogImage: true }).shape), {
           nameAr: formData.get('nameAr') as string,
           nameEn: formData.get('nameEn') as string,
           slug: formData.get('slug') as string,
-          parentId: formData.get('parentId') as string || null,
+          parentId: formData.get('parentId') || undefined,
           imageUrl: formData.get('imageUrl') as string || null,
           metaTitleAr: formData.get('metaTitleAr') as string || null,
           metaTitleEn: formData.get('metaTitleEn') as string || null,
           metaDescAr: formData.get('metaDescAr') as string || null,
           metaDescEn: formData.get('metaDescEn') as string || null,
           ogImage: formData.get('ogImage') as string || null,
-        };
-        if (isEditing) {
-          await prisma.category.update({ where: { id: params.id }, data });
-        } else {
-          await prisma.category.create({ data });
+        });
+        if (data.parentId) validate(IdSchema, data.parentId);
+        // Existing category actions omit SEO fields. Keep the entire form and
+        // hierarchy check atomic here, including concurrent parent changes.
+        let transactionConflict = false;
+        try {
+          await prisma.$transaction(async (tx) => {
+            const previous = id ? await tx.category.findUniqueOrThrow({ where: { id } }) : null;
+            if (id && data.slug !== previous!.slug) throw new Error('Cannot change an existing category slug');
+            if (data.parentId) {
+              const categories = await tx.category.findMany({ select: { id: true, parentId: true } });
+              const parents = new Map(categories.map((entry) => [entry.id, entry.parentId]));
+              const visited = new Set<string>();
+              let parent: string | null = data.parentId;
+              while (parent) {
+                if (parent === id || visited.has(parent)) throw new Error('Cannot create a circular category hierarchy');
+                if (!parents.has(parent)) throw new Error('Parent category not found');
+                visited.add(parent);
+                parent = parents.get(parent) ?? null;
+              }
+            }
+            const values = { ...data, parentId: data.parentId || null };
+            const updated = id
+              ? await tx.category.update({ where: { id }, data: values })
+              : await tx.category.create({ data: values });
+            await tx.adminAuditLog.create({ data: {
+              userId: user.id, action: id ? 'update' : 'create', resourceType: 'category', resourceId: updated.id,
+              oldData: previous ? {
+                nameAr: previous.nameAr, nameEn: previous.nameEn, slug: previous.slug, parentId: previous.parentId,
+                imageUrl: previous.imageUrl, metaTitleAr: previous.metaTitleAr, metaTitleEn: previous.metaTitleEn,
+                metaDescAr: previous.metaDescAr, metaDescEn: previous.metaDescEn, ogImage: previous.ogImage,
+              } : undefined,
+              newData: values, ipAddress: getClientIp(),
+            } });
+          }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+        } catch (error) {
+          if (typeof error !== 'object' || error === null || !('code' in error) || error.code !== 'P2034') throw error;
+          transactionConflict = true;
         }
+        // Next redirects throw; keep both redirects outside the error handler.
+        // Do not replay the transaction or any side effects automatically.
+        if (transactionConflict) redirect(`/admin/content/seo/categories/${encodeURIComponent(id ?? 'new')}?error=transaction-conflict`);
         redirect('/admin/content/seo/categories');
       }} className="space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

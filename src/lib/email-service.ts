@@ -4,7 +4,8 @@ import { prisma } from './prisma';
 import { orderConfirmation, EmailOrder } from './email-templates/order-confirmation';
 import { adminNotification } from './email-templates/admin-notification';
 import { escapeHtml, frame } from './email-templates/utils';
-export async function sendEmail(recipient: string, subject: string, html: string, orderId?: string) {
+import { orderClaimEmail } from './email-templates/order-claim';
+export async function sendEmail(recipient: string, subject: string, html: string, orderId?: string, sensitive = false) {
  let error = 'SMTP is not configured', attempts = 0;
  const configured = process.env.SMTP_HOST && process.env.SMTP_FROM;
  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)) error = 'Invalid email address';
@@ -13,12 +14,15 @@ export async function sendEmail(recipient: string, subject: string, html: string
   const client = nodemailer.createTransport({host:process.env.SMTP_HOST,port,secure:port===465,auth:process.env.SMTP_USER ? {user:process.env.SMTP_USER,pass:process.env.SMTP_PASSWORD} : undefined,connectionTimeout:5000,greetingTimeout:5000,socketTimeout:10000});
   for (attempts=1; attempts<=3; attempts++) {
    try { await client.sendMail({from:process.env.SMTP_FROM,to:recipient,subject,html}); error=''; break; }
-   catch (e) { error=e instanceof Error ? e.message : 'Delivery failed'; if (attempts<3) await new Promise(r=>setTimeout(r,attempts*250)); }
+   catch (e) { error=sensitive ? 'Delivery failed' : e instanceof Error ? e.message : 'Delivery failed'; if (attempts<3) await new Promise(r=>setTimeout(r,attempts*250)); }
   }
  }
  await prisma.emailLog.create({data:{recipient,subject,orderId,status:error?'FAILED':'SENT',attempts:Math.min(attempts,3),error:error ? error.slice(0,1000) : null}}).catch(()=>console.error('Email log unavailable'));
  if (error) console.error('Email delivery failed',{orderId,error});
  return !error;
+}
+export function sendOrderClaimEmail(email: string, orderNumber: string, token: string) {
+ return sendEmail(email, 'Evergreen — تأكيد ملكية الطلب / Confirm ownership', orderClaimEmail(orderNumber, token), undefined, true);
 }
 export function sendOrderConfirmation(email: string, order: EmailOrder) { return sendEmail(email,`Evergreen — ${order.orderNumber}`,orderConfirmation(order),order.id); }
 export function sendAdminNotification(order: EmailOrder) { return sendEmail(process.env.ADMIN_EMAIL || '',`New order ${order.orderNumber}`,adminNotification(order),order.id); }

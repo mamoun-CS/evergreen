@@ -27,6 +27,8 @@ function positiveInteger(value: string | undefined, fallback: number) {
 
 /** Environment-configurable defaults. Values are deliberately conservative per scope. */
 export const rateLimitConfig = {
+ orderClaim: { maximum: 5, windowMs: 60 * 60 * 1000 },
+ orderClaimConfirm: { maximum: 20, windowMs: 15 * 60 * 1000 },
  auth: { maximum: positiveInteger(process.env.RATE_LIMIT_AUTH_MAX, 20), windowMs: positiveInteger(process.env.RATE_LIMIT_AUTH_WINDOW_SECONDS, 900) * 1000 },
  registration: { maximum: positiveInteger(process.env.RATE_LIMIT_REGISTRATION_MAX, 5), windowMs: positiveInteger(process.env.RATE_LIMIT_REGISTRATION_WINDOW_SECONDS, 3600) * 1000 },
  passwordReset: { maximum: positiveInteger(process.env.RATE_LIMIT_PASSWORD_RESET_MAX, 5), windowMs: positiveInteger(process.env.RATE_LIMIT_PASSWORD_RESET_WINDOW_SECONDS, 3600) * 1000 },
