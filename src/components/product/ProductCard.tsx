@@ -84,7 +84,7 @@ export default function ProductCard({ product, variant, imageSizes }: ProductCar
       <div className="eg-agri-product-image">
         {overlayButtons}
         <Link href={productHref} className="absolute inset-0">
-          <Image src={image} alt={title} fill sizes="(max-width: 760px) 50vw, 220px" quality={90} className="object-contain p-3 transition-transform duration-300 group-hover:scale-105" />
+          <Image src={image} alt={title} fill sizes="(max-width: 760px) 50vw, 220px" quality={80} className="object-contain p-3 transition-transform duration-300 group-hover:scale-105" />
         </Link>
       </div>
       <div className="eg-product-body">
@@ -109,7 +109,7 @@ export default function ProductCard({ product, variant, imageSizes }: ProductCar
             alt={title}
             fill
             sizes={imageSizes || "(max-width: 639px) calc(100vw - 32px), (max-width: 1279px) 33vw, 405px"}
-            quality={90}
+            quality={80}
             className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
           />
           {product.brand && (

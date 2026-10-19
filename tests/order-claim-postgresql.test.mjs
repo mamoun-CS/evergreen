@@ -1,6 +1,9 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
+import net from 'node:net';
+import { createRequire, registerHooks } from 'node:module';
+import { register } from 'tsx/cjs/api';
 
 // ---------------------------------------------------------------------------
 // STEP 1: Activate the fail-closed test guard BEFORE importing any app module.
@@ -16,13 +19,56 @@ import {
 activateTestGuard();
 
 // ---------------------------------------------------------------------------
-// STEP 2: Import the REAL application modules. They will read DATABASE_URL
-// from process.env, which now points to the isolated test database.
+// STEP 2: Only this Node test process maps Next's server-only marker to its
+// empty server implementation. The application modules and their business
+// logic remain real. Register the TypeScript loader after the guard, then use
+// runtime imports: static ESM imports run before activateTestGuard().
 // ---------------------------------------------------------------------------
-import { requestOrderClaim, confirmOrderClaim } from '../src/lib/order-claim.ts';
-import { consumeRateLimit } from '../src/lib/rate-limit.ts';
+registerHooks({
+  resolve(specifier, context, nextResolve) {
+    if (specifier === 'server-only') {
+      return { url: new URL('../node_modules/next/dist/compiled/server-only/empty.js', import.meta.url).href, shortCircuit: true };
+    }
+    return nextResolve(specifier, context);
+  },
+});
+register();
+const require = createRequire(import.meta.url);
+const { requestOrderClaim, confirmOrderClaim } = require('../src/lib/order-claim.ts');
+const { consumeRateLimit } = require('../src/lib/rate-limit.ts');
 
 let prisma;
+let smtp;
+const smtpNames = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASSWORD', 'SMTP_FROM'];
+const originalSmtp = Object.fromEntries(smtpNames.map((name) => [name, process.env[name]]));
+
+async function startTestSmtp() {
+  smtp = net.createServer((socket) => {
+    socket.setEncoding('utf8');
+    socket.write('220 localhost ESMTP\r\n');
+    let buffer = '', inData = false;
+    socket.on('data', (chunk) => {
+      buffer += chunk;
+      let end;
+      while ((end = buffer.indexOf('\r\n')) >= 0) {
+        const line = buffer.slice(0, end);
+        buffer = buffer.slice(end + 2);
+        if (inData) {
+          if (line === '.') { inData = false; socket.write('250 accepted\r\n'); }
+        } else if (/^(EHLO|HELO)/i.test(line)) socket.write('250 localhost\r\n');
+        else if (/^DATA/i.test(line)) { inData = true; socket.write('354 continue\r\n'); }
+        else if (/^QUIT/i.test(line)) socket.end('221 bye\r\n');
+        else socket.write('250 OK\r\n');
+      }
+    });
+  });
+  await new Promise((resolve, reject) => { smtp.once('error', reject); smtp.listen(0, '127.0.0.1', resolve); });
+  process.env.SMTP_HOST = '127.0.0.1';
+  process.env.SMTP_PORT = String(smtp.address().port);
+  process.env.SMTP_FROM = 'test@example.test';
+  delete process.env.SMTP_USER;
+  delete process.env.SMTP_PASSWORD;
+}
 
 /**
  * Create synthetic test user + unowned order (guest checkout pattern).
@@ -141,6 +187,7 @@ describe('Order Claim — PostgreSQL Integration Tests', () => {
     const dbName = result[0].db_name;
     assert.ok(dbName.startsWith('evergreen_test'), `Expected test database, got: ${dbName}`);
     assert.ok(prisma !== null);
+    await startTestSmtp();
   });
 
   describe('Concurrent token issuance', () => {
@@ -148,13 +195,9 @@ describe('Order Claim — PostgreSQL Integration Tests', () => {
       const { user, order, userId, orderNumber } = await createFixture();
       try {
         // Fire 10 concurrent issuance requests for the same order/user
-        const results = await Promise.all(
+        await Promise.all(
           Array.from({ length: 10 }, () => requestOrderClaim(orderNumber, userId))
         );
-
-        // Some may return null (ineligible after first), some may return { tokenId, email }
-        const succeeded = results.filter((r) => r !== null);
-        assert.ok(succeeded.length >= 1, 'At least one issuance should succeed');
 
         // CRITICAL: Exactly one active token must remain in the database
         const activeCount = await countActiveTokens(order.id, userId);
@@ -168,7 +211,7 @@ describe('Order Claim — PostgreSQL Integration Tests', () => {
         const revokedCount = await prisma.orderClaimToken.count({
           where: { orderId: order.id, userId, revokedAt: { not: null } },
         });
-        assert.ok(revokedCount >= succeeded.length - 1, 'Competing tokens should be revoked');
+        assert.equal(revokedCount, 9, 'The nine previous tokens must be revoked');
       } finally {
         await cleanupFixture(userId, order.id, orderNumber);
       }
@@ -178,13 +221,10 @@ describe('Order Claim — PostgreSQL Integration Tests', () => {
       const { user: user1, order: order1, userId: userId1, orderNumber: orderNumber1 } = await createFixture();
       const { user: user2, order: order2, userId: userId2, orderNumber: orderNumber2 } = await createFixture();
       try {
-        const results = await Promise.all([
+        await Promise.all([
           requestOrderClaim(orderNumber1, userId1),
           requestOrderClaim(orderNumber2, userId2),
         ]);
-
-        assert.equal(results[0] !== null, true);
-        assert.equal(results[1] !== null, true);
 
         const active1 = await countActiveTokens(order1.id, userId1);
         const active2 = await countActiveTokens(order2.id, userId2);
@@ -217,6 +257,7 @@ describe('Order Claim — PostgreSQL Integration Tests', () => {
           where: { tokenHash: crypto.createHash('sha256').update(rawToken).digest('hex') },
         });
         assert.ok(token.usedAt !== null, 'Token should be consumed');
+        const updatedOrder = await prisma.order.findUnique({ where: { id: order.id } });
         assert.equal(updatedOrder.userId, userId);
       } finally {
         await cleanupFixture(userId, order.id, orderNumber);
@@ -263,14 +304,15 @@ describe('Order Claim — PostgreSQL Integration Tests', () => {
   });
 
   describe('Transaction rollback', () => {
-    test('failed ownership update rolls back token consumption', async (t) => {
+    test('an already owned order rejects the claim without consuming the token', async (t) => {
       const { user, order, userId, orderNumber, email } = await createFixture();
       const { rawToken } = await createActiveToken(order.id, userId, email);
+      const other = await prisma.user.create({ data: { name: 'Other test buyer', email: `other-${crypto.randomUUID()}@example.test`, passwordHash: 'test-only', role: 'CUSTOMER' } });
 
       // Pre-claim the order with a different user (simulating ownership during confirmation)
       await prisma.order.update({
         where: { id: order.id },
-        data: { userId: 'other-user-id' },
+        data: { userId: other.id },
       });
 
       try {
@@ -286,6 +328,7 @@ describe('Order Claim — PostgreSQL Integration Tests', () => {
         // Restore order ownership for cleanup
         await prisma.order.update({ where: { id: order.id }, data: { userId: null } });
         await cleanupFixture(userId, order.id, orderNumber);
+        await prisma.user.delete({ where: { id: other.id } });
       }
     });
   });
@@ -431,7 +474,7 @@ describe('Order Claim — PostgreSQL Integration Tests', () => {
     });
 
     test('nonexistent order returns false without error', async (t) => {
-      const { user, userId } = await createFixture();
+      const { user, userId, order } = await createFixture();
       try {
         const result = await confirmOrderClaim('ORD-NONEXISTENT-999', userId, crypto.randomBytes(32).toString('base64url'));
         assert.equal(result, false, 'Nonexistent order should return false');
@@ -498,7 +541,7 @@ describe('Order Claim — PostgreSQL Integration Tests', () => {
         assert.equal(after.paymentMethod, before.paymentMethod);
         assert.equal(after.paymentAccessToken, before.paymentAccessToken);
         assert.equal(after.inventoryReserved, before.inventoryReserved);
-        assert.equal(after.reservationExpiresAt, null || after.reservationExpiresAt, null);
+        assert.deepEqual(after.reservationExpiresAt, before.reservationExpiresAt);
 
         // userId should have changed from null to the claiming user
         assert.equal(after.userId, userId);
@@ -517,6 +560,11 @@ describe('Teardown', () => {
   test('disconnect test database and deactivate guard', async () => {
     if (prisma) {
       await prisma.$disconnect();
+    }
+    if (smtp) await new Promise((resolve) => smtp.close(resolve));
+    for (const name of smtpNames) {
+      if (originalSmtp[name] === undefined) delete process.env[name];
+      else process.env[name] = originalSmtp[name];
     }
     await deactivateTestGuard();
   });
