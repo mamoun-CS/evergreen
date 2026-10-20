@@ -3,10 +3,18 @@ import { headers } from 'next/headers';
 import { getCurrentUser } from './auth';
 import { canAccess } from './rbac';
 import { prisma } from './prisma';
-export function getClientIp(h: Pick<Headers, 'get'> = headers()) {
+export function getClientIp(h?: Pick<Headers, 'get'>) {
+  let resolvedHeaders = h;
+  if (!resolvedHeaders) {
+    try {
+      resolvedHeaders = headers();
+    } catch {
+      return 'unknown';
+    }
+  }
   // Enable only behind a proxy that overwrites this header; never trust arbitrary forwarded chains.
   const header = process.env.TRUSTED_IP_HEADER;
-  return header ? (h.get(header)?.split(',')[0].trim().slice(0, 100) || 'unknown') : 'unknown';
+  return header ? (resolvedHeaders.get(header)?.split(',')[0].trim().slice(0, 100) || 'unknown') : 'unknown';
 }
 export async function requirePermission(action: string, resource: string) {
   const user = await getCurrentUser();

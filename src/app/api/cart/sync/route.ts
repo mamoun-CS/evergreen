@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/auth';
+import { Prisma } from '@prisma/client';
 
 export async function POST(req: NextRequest) {
   try {
@@ -28,10 +29,18 @@ export async function POST(req: NextRequest) {
     });
 
     if (!dbCart) {
-      dbCart = await prisma.cart.create({
-        data: { sessionId: user.id },
-        include: { items: cartItemSelect },
-      }) as any;
+      try {
+        dbCart = await prisma.cart.create({
+          data: { sessionId: user.id },
+          include: { items: cartItemSelect },
+        });
+      } catch (error) {
+        // Another request may have created this user's cart after our read.
+        const target = error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002' ? error.meta?.target : undefined;
+        if (!Array.isArray(target) || !target.includes('sessionId')) throw error;
+        dbCart = await prisma.cart.findUnique({ where: { sessionId: user.id }, include: { items: cartItemSelect } });
+        if (!dbCart) throw error;
+      }
     }
 
     const dbItemMap = new Map(dbCart!.items.map(i => [`${i.productId}:${i.variantId || ''}`, i]));

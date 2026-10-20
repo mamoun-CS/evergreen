@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/components/layout/LanguageContext';
@@ -25,6 +25,10 @@ export default function CheckoutPage() {
   const [error, setError] = useState('');
   const [createAccount, setCreateAccount] = useState(false);
   const [password, setPassword] = useState('');
+  const submitting = useRef(false);
+  const [hasAttempt, setHasAttempt] = useState(false);
+
+  useEffect(() => { setHasAttempt(Boolean(sessionStorage.getItem('evergreen.checkout.attempt'))); }, []);
 
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const selectedShipping = useMemo(() => shippingOptions.find((option) => option.code === shippingOptionCode), [shippingOptions, shippingOptionCode]);
@@ -40,13 +44,19 @@ export default function CheckoutPage() {
 
   const handleOrderSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitting.current) return;
+    submitting.current = true;
     setLoading(true);
     setError('');
 
     try {
+      let key = sessionStorage.getItem('evergreen.checkout.attempt');
+      if (!key) { key = crypto.randomUUID(); sessionStorage.setItem('evergreen.checkout.attempt', key); setHasAttempt(true); }
+      let guestSecret = sessionStorage.getItem('evergreen.checkout.owner');
+      if (!guestSecret) { guestSecret = crypto.randomUUID(); sessionStorage.setItem('evergreen.checkout.owner', guestSecret); }
       const res = await fetch('/api/orders', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Idempotency-Key': key, 'Checkout-Guest-Secret': guestSecret },
         body: JSON.stringify({
           language: lang,
           customerName,
@@ -71,12 +81,15 @@ export default function CheckoutPage() {
         return;
       } else {
         const data = await res.json().catch(() => ({}));
-        setError(data.error || (lang === 'ar' ? 'تعذر تأكيد الطلب. يرجى المحاولة مرة أخرى.' : 'We could not confirm your order. Please try again.'));
+        if (data.code === 'CHECKOUT_CONFLICT') setError(lang === 'ar' ? 'بيانات الطلب أو الحساب تغيرت بعد بدء المحاولة. استعد البيانات السابقة، أو ابدأ شراءً جديدًا بعد التأكد من حالة الطلب.' : 'The checkout details or account changed. Restore the original details, or start a new purchase after checking the order status.');
+        else if (data.code === 'CHECKOUT_PENDING') setError(lang === 'ar' ? 'الطلب قيد المعالجة. أعد المحاولة بالمعلومات نفسها.' : 'Your order is being processed. Retry with the same details.');
+        else setError(data.error || (lang === 'ar' ? 'تعذر تأكيد الطلب. يرجى المحاولة مرة أخرى.' : 'We could not confirm your order. Please try again.'));
       }
     } catch (err) {
       console.error(err);
       setError(lang === 'ar' ? 'تعذر الاتصال بالخدمة. يرجى المحاولة مرة أخرى.' : 'We could not reach the service. Please try again.');
     } finally {
+      submitting.current = false;
       setLoading(false);
     }
   };
@@ -236,6 +249,7 @@ export default function CheckoutPage() {
               {lang === 'ar' ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
             </button>
             {error && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">{error}</p>}
+            {hasAttempt && <button type="button" disabled={loading} onClick={() => { if (window.confirm(lang === 'ar' ? 'بدء شراء جديد قد ينشئ طلبًا إضافيًا إذا نجحت المحاولة السابقة. هل تريد المتابعة؟' : 'Starting a new purchase can create another order if the previous attempt succeeded. Continue?')) { sessionStorage.removeItem('evergreen.checkout.attempt'); setHasAttempt(false); setError(''); } }} className="text-xs underline">{lang === 'ar' ? 'بدء شراء جديد' : 'Start a new purchase'}</button>}
           </form>
 
           {/* Cart Summary Column */}
