@@ -259,6 +259,8 @@ model ContactInquiry {
 }
 
 model Order {
+  checkoutAttempt           CheckoutAttempt?
+  notifications             NotificationOutbox[]
   claimTokens               OrderClaimToken[]
   adminConfirmedAt          DateTime?
   paymentVerifiedAt         DateTime?
@@ -295,6 +297,46 @@ model Order {
   @@index([status])
   @@index([createdAt])
   @@index([userId, createdAt])
+}
+
+model CheckoutAttempt {
+  keyHash          String   @id
+  ownerId          String?
+  fingerprint      String
+  orderId          String?  @unique
+  order            Order?   @relation(fields: [orderId], references: [id], onDelete: Restrict)
+  paymentInitState String
+  authorizationUrl String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model NotificationOutbox {
+  id             String    @id @default(cuid())
+  dedupKey       String    @unique
+  orderId        String?
+  order          Order?    @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  eventType      String
+  recipientRole  String
+  recipient      String
+  subject        String
+  htmlContent    String
+  payload        Json?
+  status         String    @default("PENDING")
+  attempts       Int       @default(0)
+  maxAttempts    Int       @default(5)
+  lastError      String?
+  lockedAt       DateTime?
+  lockedBy       String?
+  leaseExpiresAt DateTime?
+  nextAttemptAt  DateTime  @default(now())
+  sentAt         DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([status, nextAttemptAt])
+  @@index([orderId])
+  @@index([createdAt])
 }
 
 model Review {

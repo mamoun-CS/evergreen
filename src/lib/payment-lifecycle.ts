@@ -4,9 +4,12 @@ import { PaymentStatus, Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import { fromMinorUnits, toMinorUnits } from '@/lib/money';
 import { LahzaTransaction, verifyLahzaTransaction } from '@/lib/lahza';
+import { paymentGatewaySnapshot } from '@/lib/payment-gateway-snapshot';
+import { frame, escapeHtml } from '@/lib/email-templates/utils';
+import { enqueueNotification, processNotificationOutbox } from '@/lib/notification-outbox';
 
 function safeGatewayResponse(transaction: LahzaTransaction): Prisma.InputJsonValue {
-  return JSON.parse(JSON.stringify(transaction)) as Prisma.InputJsonValue;
+  return JSON.parse(JSON.stringify(paymentGatewaySnapshot(transaction))) as Prisma.InputJsonValue;
 }
 
 function dateOrNow(value: string | null | undefined) {
@@ -55,7 +58,7 @@ export async function verifyAndFinalizePayment(reference: string) {
  * races idempotent; stock was atomically reserved during initialization.
  */
 export async function finalizeSuccessfulPayment(paymentId: string, transaction: LahzaTransaction) {
-  return prisma.$transaction(async (tx) => {
+  const result = await prisma.$transaction(async (tx) => {
     const payment = await tx.payment.findUnique({ where: { id: paymentId }, include: { order: { include: { items: true } } } });
     if (!payment) return { found: false, status: 'UNKNOWN' as const };
     if (payment.status === PaymentStatus.PAID) return { found: true, status: PaymentStatus.PAID };
@@ -113,8 +116,25 @@ export async function finalizeSuccessfulPayment(paymentId: string, transaction: 
       },
     });
     if (fulfillmentNeedsReview) console.error('Verified Lahza payment requires fulfillment review: inventory was no longer available', { paymentId: payment.id, orderId: payment.orderId });
+
+    await enqueueNotification(tx, {
+      orderId: payment.orderId,
+      eventType: 'PAYMENT_SETTLED',
+      recipientRole: 'CUSTOMER',
+      recipient: payment.order.email,
+      subject: `Evergreen — تم استلام الدفعة / Payment received — ${payment.order.orderNumber}`,
+      htmlContent: frame(
+        `<h2>${escapeHtml(payment.order.orderNumber)}</h2><p>${payment.order.language === 'ar' ? 'تم استلام وتأكيد دفعتك بنجاح. طلبك قيد التجهيز.' : 'Your payment has been successfully confirmed. Your order is being processed.'}</p>`,
+        payment.order.language
+      ),
+    });
+
     return { found: true, status: PaymentStatus.PAID };
   }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+  if (result.status === PaymentStatus.PAID) {
+    await processNotificationOutbox({ limit: 5 }).catch(() => {});
+  }
+  return result;
 }
 
 /** Releases a Lahza stock hold exactly once after a terminal non-payment state. */

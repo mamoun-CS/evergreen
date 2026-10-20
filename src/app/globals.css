@@ -247,6 +247,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .dg-quick a, .dg-quick button { position: relative; display: inline-flex; align-items: center; gap: 6px; color: var(--color-primary); font-size: 12.5px; font-weight: 700; }
 .dg-quick a:hover, .dg-quick button:hover { color: var(--color-primary-hover); }
 .dg-quick svg { width: 19px; height: 19px; }
+.dg-quick .dg-account-signed-in { color: #16803c; fill: #dcfce7; }
 .dg-quick i { position: absolute; inset-block-start: -9px; inset-inline-end: -10px; min-width: 17px; height: 17px; padding-inline: 3px; display: grid; place-items: center; background: var(--eg-terra); color: #fff; border-radius: var(--eg-r-pill); font-size: 9px; font-style: normal; }
 .dg-quick .dg-quick-label { display: inline; }
 .dg-logo { justify-self: center; display: grid; place-items: center; }

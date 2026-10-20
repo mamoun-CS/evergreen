@@ -2,10 +2,11 @@ import 'server-only';
 import { Prisma } from '@prisma/client';
 import { prisma } from './prisma';
 import { requirePermission, getClientIp } from './auth-middleware';
-import { sendOrderUpdate } from './email-service';
+import { frame, escapeHtml } from './email-templates/utils';
+import { enqueueNotification, processNotificationOutbox } from './notification-outbox';
 import { IdSchema, validate } from './validation';
-export async function reviewCodOrder(id: string, action: 'confirm'|'reject'|'hold', reason = '') {
- const user=await requirePermission('update','order'); validate(IdSchema,id);
+export async function reviewCodOrder(id: string, action: 'confirm'|'reject'|'hold', reason = '', actor?: { id: string }) {
+ const user = actor || await requirePermission('update','order'); validate(IdSchema,id);
  if(action==='reject' && (!reason.trim() || reason.length>1000)) throw new Error('A rejection reason is required (maximum 1000 characters)');
   const order=await prisma.$transaction(async tx=>{
   const old=await tx.order.findUnique({where:{id},include:{items:true}});
@@ -30,8 +31,21 @@ export async function reviewCodOrder(id: string, action: 'confirm'|'reject'|'hol
   }
   const order=await tx.order.findUniqueOrThrow({where:{id}});
   await tx.adminAuditLog.create({data:{userId:user.id,action:`COD_${action.toUpperCase()}`,resourceType:'order',resourceId:id,oldData:{status:old.status},newData:{status:order.status,reason},ipAddress:getClientIp()}});
+  if(action!=='hold') {
+    const msg = action==='confirm'
+      ? (order.language==='ar'?'تم تأكيد طلبك، سنتواصل معك لتفاصيل الدفع.':"Your order has been confirmed. We'll follow up with payment details.")
+      : (order.language==='ar'?`تم إلغاء الطلب: ${reason}`:`Your order was cancelled: ${reason}`);
+    await enqueueNotification(tx, {
+      orderId: id,
+      eventType: action === 'confirm' ? 'ORDER_CONFIRMED' : 'ORDER_CANCELLED',
+      recipientRole: 'CUSTOMER',
+      recipient: order.email,
+      subject: `Evergreen — ${order.orderNumber}`,
+      htmlContent: frame(`<h2>${escapeHtml(order.orderNumber)}</h2><p>${escapeHtml(msg)}</p>`, order.language),
+    });
+  }
   return order;
  },{isolationLevel:Prisma.TransactionIsolationLevel.Serializable});
- if(action!=='hold') await sendOrderUpdate(id,action==='confirm'?(order.language==='ar'?'تم تأكيد طلبك، سنتواصل معك لتفاصيل الدفع.':"Your order has been confirmed. We'll follow up with payment details."):(order.language==='ar'?`تم إلغاء الطلب: ${reason}`:`Your order was cancelled: ${reason}`));
+ if(action!=='hold') await processNotificationOutbox({ limit: 5 }).catch(() => {});
  return order;
 }

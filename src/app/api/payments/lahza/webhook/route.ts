@@ -4,9 +4,11 @@ import { applyLahzaRefundEvent, verifyAndFinalizePayment } from '@/lib/payment-l
 import { verifyLahzaSignature } from '@/lib/payment-utils';
 import { prisma } from '@/lib/prisma';
 import { getClientIp } from '@/lib/auth-middleware';
+import { readBoundedBody } from '@/lib/request-body';
 export const dynamic = 'force-dynamic';
 export async function POST(req: NextRequest) {
- const raw=Buffer.from(await req.arrayBuffer());
+ const raw=await readBoundedBody(req, 256 * 1024);
+ if (!raw) return NextResponse.json({error:'Webhook body too large'},{status:413});
  const valid=verifyLahzaSignature(raw,req.headers.get('x-lahza-signature') || '',process.env.LAHZA_SECRET_KEY || '');
  const ipAddress=getClientIp(req.headers);
  const key=crypto.createHash('sha256').update(raw).digest('hex');

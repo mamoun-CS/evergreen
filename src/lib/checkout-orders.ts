@@ -1,10 +1,13 @@
 import 'server-only';
 
-import { notifyOrderCreated } from './email-service';
+import { orderConfirmation } from './email-templates/order-confirmation';
+import { adminNotification } from './email-templates/admin-notification';
+import { enqueueNotification, processNotificationOutbox } from './notification-outbox';
 import crypto from 'node:crypto';
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import { sumLineItems } from '@/lib/money';
+import { checkoutFingerprint, normalizeCheckoutItems } from '@/lib/checkout-fingerprint';
 
 export type SubmittedItem = { productId?: unknown; variantId?: unknown; quantity?: unknown };
 export type CheckoutDetails = { customerName: string; email: string; phone: string; shippingAddress: string; shippingOptionCode: string; couponCode?: string; language?: 'ar' | 'en'; items: SubmittedItem[]; createAccount?: { password: string } };
@@ -28,37 +31,48 @@ export function parseCheckout(body: unknown): CheckoutDetails | null {
   };
 }
 
-export async function createReservedOrder(details: CheckoutDetails, paymentMethod: 'CASH_ON_DELIVERY' | 'LAHZA', userId?: string) {
-  const requested = new Map<string, { productId: string; variantId?: string; quantity: number }>();
-  for (const item of details.items) {
-    if (typeof item.productId !== 'string' || !/^[a-zA-Z0-9_-]{8,100}$/.test(item.productId)) throw new Error('INVALID_PRODUCT');
-    const quantity = Number(item.quantity);
-    if (!Number.isInteger(quantity) || quantity < 1 || quantity > 100) throw new Error('INVALID_PRODUCT');
-    if (item.variantId !== undefined && (typeof item.variantId !== 'string' || !/^[a-zA-Z0-9_-]{8,100}$/.test(item.variantId))) throw new Error('INVALID_PRODUCT');
-    const key = `${item.productId}:${item.variantId || ''}`;
-    const existing = requested.get(key);
-    requested.set(key, { productId: item.productId, variantId: item.variantId as string | undefined, quantity: (existing?.quantity || 0) + quantity });
-    if ((existing?.quantity || 0) + quantity > 100) throw new Error('INVALID_PRODUCT');
-  }
-  if ([...requested.values()].some((item) => item.quantity > 100)) throw new Error('INVALID_PRODUCT');
-  const productIds = [...new Set([...requested.values()].map((item) => item.productId))];
-  const products = await prisma.product.findMany({ where: { id: { in: productIds } }, include: { variants: true } });
-  if (products.length !== productIds.length) throw new Error('UNAVAILABLE_PRODUCT');
-  const items = [...requested.values()].map((requestedItem) => {
-    const product = products.find((entry) => entry.id === requestedItem.productId)!;
-    const variant = requestedItem.variantId ? product.variants.find((entry) => entry.id === requestedItem.variantId) : null;
-    const price = variant?.price ?? product.discountPrice ?? product.basePrice;
-    const stock = variant ? variant.stock : product.stockQuantity;
-    if (product.purchaseMode !== 'PURCHASABLE' || !product.isAvailable || !price || stock < requestedItem.quantity || (product.variants.length > 0 && !variant) || (!product.variants.length && requestedItem.variantId)) throw new Error('UNAVAILABLE_PRODUCT');
-    return { productId: product.id, variantId: variant?.id, quantity: requestedItem.quantity, price };
-  });
-  const currency = products[0]?.currency || 'ILS';
-  if (products.some((product) => product.currency !== currency)) throw new Error('CURRENCY_MISMATCH');
-  const itemsSubtotal = sumLineItems(items);
+export type CheckoutIdentity = { key: string; guestSecret?: string };
+export function validCheckoutKey(key: string | null): key is string {
+  return !!key && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(key);
+}
+
+export async function createReservedOrder(details: CheckoutDetails, paymentMethod: 'CASH_ON_DELIVERY' | 'LAHZA', userId?: string, identity?: CheckoutIdentity) {
+  const keyHash = identity && crypto.createHash('sha256').update(identity.key.toLowerCase()).digest('hex');
+  const fingerprint = identity && checkoutFingerprint(details, paymentMethod);
+  const owner = userId ? `user:${userId}` : identity?.guestSecret ? `guest:${crypto.createHash('sha256').update(identity.guestSecret.toLowerCase()).digest('hex')}` : null;
+  const findAttempt = async () => {
+    if (!keyHash) return null;
+    const attempt = await prisma.checkoutAttempt.findUnique({ where: { keyHash }, include: { order: true } });
+    if (!attempt) return null;
+    if (attempt.ownerId !== owner) throw new Error('CHECKOUT_CONFLICT');
+    if (attempt.fingerprint !== fingerprint) throw new Error('CHECKOUT_CONFLICT');
+    if (!attempt.order) throw new Error('CHECKOUT_PENDING');
+    return { ...attempt.order, replayed: true, keyHash, paymentInitState: attempt.paymentInitState, authorizationUrl: attempt.authorizationUrl };
+  };
+  const existing = await findAttempt();
+  if (existing) return existing;
+  const requested = normalizeCheckoutItems(details.items);
   const isLahza = paymentMethod === 'LAHZA';
   const reservationExpiresAt = isLahza ? new Date(Date.now() + 20 * 60 * 1000) : undefined;
   const preference = userId ? await prisma.user.findUnique({where:{id:userId},select:{language:true}}) : null;
-  const order = await prisma.$transaction(async (tx) => {
+  let order;
+  try {
+  order = await prisma.$transaction(async (tx) => {
+    if (keyHash && fingerprint) await tx.checkoutAttempt.create({ data: { keyHash, fingerprint, ownerId: owner, paymentInitState: isLahza ? 'INITIALIZING' : 'COD' } });
+    const productIds = [...new Set(requested.map((item) => item.productId))];
+    const products = await tx.product.findMany({ where: { id: { in: productIds } }, include: { variants: true } });
+    if (products.length !== productIds.length) throw new Error('UNAVAILABLE_PRODUCT');
+    const items = requested.map((requestedItem) => {
+      const product = products.find((entry) => entry.id === requestedItem.productId)!;
+      const variant = requestedItem.variantId ? product.variants.find((entry) => entry.id === requestedItem.variantId) : null;
+      const price = variant?.price ?? product.discountPrice ?? product.basePrice;
+      const stock = variant ? variant.stock : product.stockQuantity;
+      if (product.purchaseMode !== 'PURCHASABLE' || !product.isAvailable || !price || stock < requestedItem.quantity || (product.variants.length > 0 && !variant) || (!product.variants.length && requestedItem.variantId)) throw new Error('UNAVAILABLE_PRODUCT');
+      return { productId: product.id, variantId: variant?.id, quantity: requestedItem.quantity, price };
+    });
+    const currency = products[0]?.currency || 'ILS';
+    if (products.some((product) => product.currency !== currency)) throw new Error('CURRENCY_MISMATCH');
+    const itemsSubtotal = sumLineItems(items);
     const shipping = await tx.shippingOption.findFirst({ where: { code: details.shippingOptionCode, isActive: true } });
     if (!shipping) throw new Error('INVALID_SHIPPING_OPTION');
     let discountAmount = new Prisma.Decimal(0);
@@ -101,11 +115,52 @@ export async function createReservedOrder(details: CheckoutDetails, paymentMetho
         reservationExpiresAt,
         items: { create: items.map(({ productId, variantId, quantity, price }) => ({ productId, variantId, quantity, price })) },
       },
-      select: { id: true, orderNumber: true, totalAmount: true, currency: true, paymentAccessToken: true },
+      include: { items: { include: { product: true } } },
     });
     if (isLahza) await tx.inventoryAuditLog.createMany({ data: items.map((item) => ({ productId: item.productId, quantityChange: -item.quantity, reason: 'ORDER_RESERVED', orderId: createdOrder.id })) });
-    return createdOrder;
-  }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+    if (keyHash) {
+      await tx.checkoutAttempt.update({ where: { keyHash }, data: { orderId: createdOrder.id } });
+      if (isLahza) await tx.payment.create({ data: { orderId: createdOrder.id, reference: `PAY-${createdOrder.orderNumber}-${crypto.randomUUID().replace(/-/g, '').slice(0, 12)}`, amount: createdOrder.totalAmount, currency: createdOrder.currency } });
+    }
+
+    if (!isLahza) {
+      await enqueueNotification(tx, {
+        orderId: createdOrder.id,
+        eventType: 'ORDER_CREATED',
+        recipientRole: 'CUSTOMER',
+        recipient: createdOrder.email,
+        subject: `Evergreen — ${createdOrder.orderNumber}`,
+        htmlContent: orderConfirmation(createdOrder),
+      });
+      await enqueueNotification(tx, {
+        orderId: createdOrder.id,
+        eventType: 'ORDER_CREATED',
+        recipientRole: 'ADMIN',
+        recipient: process.env.ADMIN_EMAIL || 'admin@example.test',
+        subject: `New order ${createdOrder.orderNumber}`,
+        htmlContent: adminNotification(createdOrder),
+      });
+    } else {
+      await enqueueNotification(tx, {
+        orderId: createdOrder.id,
+        eventType: 'ORDER_CREATED',
+        recipientRole: 'CUSTOMER',
+        recipient: createdOrder.email,
+        subject: `Evergreen — ${createdOrder.orderNumber}`,
+        htmlContent: orderConfirmation(createdOrder),
+      });
+    }
+
+    return { ...createdOrder, replayed: false, keyHash, paymentInitState: isLahza ? 'INITIALIZING' : 'COD', authorizationUrl: null };
+  }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable, timeout: 15000, maxWait: 15000 });
+  } catch (error) {
+    if (keyHash && error instanceof Prisma.PrismaClientKnownRequestError && (error.code === 'P2034' || (error.code === 'P2002' && Array.isArray(error.meta?.target) && error.meta.target.includes('keyHash')))) {
+      const winner = await findAttempt();
+      if (winner) return winner;
+      throw new Error('CHECKOUT_PENDING');
+    }
+    throw error;
+  }
 
   if (details.createAccount && !userId) {
     try {
@@ -126,6 +181,8 @@ export async function createReservedOrder(details: CheckoutDetails, paymentMetho
     }
   }
 
-  await notifyOrderCreated(order.id);
+  // Safe post-commit outbox dispatch. Transaction is already committed.
+  // Delivery failures remain retryable in the outbox table.
+  await processNotificationOutbox({ limit: 10 }).catch(() => {});
   return order;
 }

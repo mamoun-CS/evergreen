@@ -32,7 +32,6 @@ type CmsSection = {
   isActive?: boolean;
   order?: number;
 };
-type Product = { id: string; slug: string; sku?: string | null; nameEn: string; nameAr: string; purchaseMode: "PURCHASABLE" | "CONTACT_FOR_PRICE"; basePrice?: number | null; discountPrice?: number | null; currency?: string; images: string[]; brand?: { name: string } | null; isAvailable?: boolean; stockQuantity?: number; warrantyInfoEn?: string | null; warrantyInfoAr?: string | null; ratingAvg?: number | null; ratingCount?: number };
 type Brand = { id: string; name: string; logoUrl: string };
 type Banner = { id: string; titleAr?: string | null; titleEn?: string | null; subtitleAr?: string | null; subtitleEn?: string | null; imageUrl: string; mobileImageUrl?: string | null; ctaTextAr?: string | null; ctaTextEn?: string | null; ctaUrl?: string | null };
 
@@ -58,7 +57,7 @@ const normalizeCategory = (value: string) => value
   .replace(/[^\p{L}\p{N}]+/gu, " ")
   .trim();
 
-export default function HomeView({ categories, content, brands, banners = [] }: { categories: Category[]; content: Record<string, CmsSection>; products: { featured: Product[]; latest: Product[] }; brands: Brand[]; banners?: Banner[] }) {
+export default function HomeView({ categories, content, brands, banners = [] }: { categories: Category[]; content: Record<string, CmsSection>; brands: Brand[]; banners?: Banner[] }) {
   const { lang } = useLanguage();
   const ar = lang === "ar";
   const cms = content || {};

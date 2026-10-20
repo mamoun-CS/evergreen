@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import { getSiteSettings } from "@/lib/storefront";
 import HomeView from "@/components/home/HomeView";
-import { getActiveBanners, getHomepageBrands, getHomepageContent, getHomepageProducts, getRootCategories } from "@/lib/storefront";
+import { getActiveBanners, getHomepageBrands, getHomepageContent, getRootCategories } from "@/lib/storefront";
 import { bilingualMetadata } from "@/lib/seo";
 
 export const revalidate = 120;
@@ -25,12 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const [categories, content, products, brands, banners] = await Promise.all([
+  const [categories, content, brands, banners] = await Promise.all([
     getRootCategories().catch(() => []),
     getHomepageContent().catch(() => ({})),
-    getHomepageProducts().catch(() => ({ featured: [], latest: [] })),
     getHomepageBrands().catch(() => []),
     getActiveBanners().catch(() => []),
   ]);
-  return <HomeView categories={categories} content={content} products={products} brands={brands} banners={banners} />;
+  return <HomeView categories={categories} content={content} brands={brands} banners={banners} />;
 }

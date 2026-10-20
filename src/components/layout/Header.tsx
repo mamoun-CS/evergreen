@@ -7,10 +7,11 @@ import { usePathname } from 'next/navigation';
 import { useLanguage } from './LanguageContext';
 import { useCart } from '../cart/CartContext';
 import { useWishlist } from '@/components/wishlist/WishlistContext';
+import { useAuth } from '@/components/auth/AuthContext';
 import SearchAutocomplete from './SearchAutocomplete';
 import CatalogMegaMenu from './CatalogMegaMenu';
 import type { MegaCategory } from './CatalogMegaMenu';
-import { Phone, Menu, X, UserRound, Truck, Heart, ShoppingCart, ChevronDown, Megaphone, X as XIcon } from 'lucide-react';
+import { Phone, Menu, X, UserRound, BadgeCheck, Truck, Heart, ShoppingCart, ChevronDown, Megaphone, X as XIcon } from 'lucide-react';
 
 type NavItem = { id: string; labelAr: string; labelEn: string; url: string; order: number; children?: Array<{ id: string; labelAr: string; labelEn: string; url: string; order: number }> };
 type TransformedNavItem = { id: string; label: string; href: string; children?: Array<{ label: string; href: string }> };
@@ -21,6 +22,7 @@ export default function Header({ settings = {} as any, announcementBars = [] as 
   const { lang, toggleLanguage } = useLanguage();
   const { cart, setIsCartOpen } = useCart();
   const wishlist = useWishlist();
+  const isAuthenticated = useAuth();
   const [megaOpen, setMegaOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [catsOpen, setCatsOpen] = useState(false);
@@ -132,8 +134,9 @@ export default function Header({ settings = {} as any, announcementBars = [] as 
       <div className="dg-masthead">
         <div className="dg-container dg-masthead-in">
           <div className="dg-quick">
-            <Link href="/account" aria-label={ar ? 'حسابي' : 'My account'}>
-              <UserRound aria-hidden="true" /><span className="dg-quick-label">{ar ? 'حسابي' : 'Account'}</span>
+            <Link href="/account" aria-label={ar ? (isAuthenticated ? 'حسابي، تم تسجيل الدخول' : 'حسابي') : (isAuthenticated ? 'My account, signed in' : 'My account')} title={ar ? (isAuthenticated ? 'تم تسجيل الدخول' : 'حسابي') : (isAuthenticated ? 'Signed in' : 'My account')}>
+              {isAuthenticated ? <BadgeCheck className="dg-account-signed-in" aria-hidden="true" /> : <UserRound aria-hidden="true" />}
+              <span className="dg-quick-label">{ar ? 'حسابي' : 'Account'}</span>
             </Link>
             <Link href="/account/wishlist" aria-label={ar ? 'قائمة الرغبات' : 'Wishlist'}>
               <Heart aria-hidden="true" /><span className="dg-quick-label">{ar ? 'المفضلة' : 'Wishlist'}</span>
