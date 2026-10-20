@@ -1,0 +1,1326 @@
+{
+  "generatedAt": "2026-10-14T17:06:35.006Z",
+  "execute": true,
+  "changes": [
+    {
+      "id": "product-decorative-garden-birdbath",
+      "nameAr": "حوض طيور ديكوري",
+      "target": "planters",
+      "oldCategoryIds": []
+    },
+    {
+      "id": "product-outdoor-wall-decor",
+      "nameAr": "ديكور جداري خارجي",
+      "target": "outdoor-decor",
+      "oldCategoryIds": []
+    },
+    {
+      "id": "product-modern-cascade-fountain",
+      "nameAr": "نافورة شلال عصرية",
+      "target": "fountains-water-features",
+      "oldCategoryIds": []
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "cmumkx2pm00c9kq9dniajfq7y",
+      "nameAr": "مجموعة من 2 مخروطي الشكل مع FS Bamanze",
+      "nameEn": "Set of 2 Conical with"
+    },
+    {
+      "id": "cmumkx33z00d6kq9d1tkvehfv",
+      "nameAr": "مجموعة من 2 مخروطي مزدوج",
+      "nameEn": "Set of 2 Conical Double"
+    },
+    {
+      "id": "cmumkx7xp013tkq9dzvbaalf5",
+      "nameAr": "تحديث مجموعة Agrimix 40-40-20 آدما كلة مهارة المهنية لادن في الهواء الطلق",
+      "nameEn": "Agrimix 40-40-20 Professional Outdoor"
+    },
+    {
+      "id": "cmumkx3xw00gekq9d6wzke1cs",
+      "nameAr": "طقم 2 دائري 37*45 27*36 اللون اخضر",
+      "nameEn": "2 Round 37*45 27*36 Color Green"
+    },
+    {
+      "id": "cmumkx5ip00r2kq9dcp54f7jl",
+      "nameAr": "منتج 109-604",
+      "nameEn": "Green Model Green 1X1 m (100X100 cm)"
+    },
+    {
+      "id": "cmuo3qylr0005vj0gfd50l6tj",
+      "nameAr": "أرجواني",
+      "nameEn": "Product arjwany"
+    },
+    {
+      "id": "cmuo3qymc0006vj0ghdnjzmoe",
+      "nameAr": "شخصيات الحديقة – سلحفاة، ضفدع، حلزون",
+      "nameEn": "Product shkhsyat-alhdyqa-slhfaa-dfda-hlzwn"
+    },
+    {
+      "id": "cmuo3qynw0008vj0gqdpm90p6",
+      "nameAr": "قاتل الصرصور",
+      "nameEn": "Product qatl-alsrswr"
+    },
+    {
+      "id": "cmuo3qyx7000fvj0g62pg93sw",
+      "nameAr": "توسكانا 25 + القاع",
+      "nameEn": "Product twskana-25-alqaa"
+    },
+    {
+      "id": "cmuo3qz67000kvj0gggm5c4nd",
+      "nameAr": "مضاد",
+      "nameEn": "Product mdad"
+    },
+    {
+      "id": "cmuo3qzjr000xvj0gnijryebg",
+      "nameAr": "خنفساء ونحلة للتعليق",
+      "nameEn": "Product khnfsa-wnhla-lltalyq"
+    },
+    {
+      "id": "cmuo3qzn70010vj0gzg2uq77t",
+      "nameAr": "عدن 50 سم",
+      "nameEn": "Product adn-50-sm"
+    },
+    {
+      "id": "cmuo3qzop0011vj0gwv7wms5z",
+      "nameAr": "عدن 60 سم",
+      "nameEn": "Product adn-60-sm"
+    },
+    {
+      "id": "cmumkx2jo00b5kq9dx52j15mj",
+      "nameAr": "مجموعة من 4 سلات مربعة الشكل بمقابض",
+      "nameEn": "Set of 4 Baskets Straw Square with Handles"
+    },
+    {
+      "id": "cmumkx2jk00b4kq9djhttbek4",
+      "nameAr": "مجموعة من 4 قطع",
+      "nameEn": "Set of 4"
+    },
+    {
+      "id": "cmumkx27g0084kq9dklwul1j3",
+      "nameAr": "تعريشة للمتسلقين",
+      "nameEn": "Trellis for Climbers Leaves+"
+    },
+    {
+      "id": "cmuo3r0a8001hvj0gpn6x9ppg",
+      "nameAr": "قاعدة مستديرة، قطر 22 سم",
+      "nameEn": "Product qaada-mstdyra-qtr-22-sm"
+    },
+    {
+      "id": "cmuo3r0i7001ovj0gn3aaluns",
+      "nameAr": "قاع مربع شفاف مقاس 13 سم",
+      "nameEn": "Product qaa-mrba-shfaf-mqas-13-sm"
+    },
+    {
+      "id": "cmuo3r1020021vj0g3iqvtczy",
+      "nameAr": "قاتل الآفات",
+      "nameEn": "Product qatl-alafat"
+    },
+    {
+      "id": "cmumkx3ju00dxkq9dxeoysbaj",
+      "nameAr": "مجموعة من 3 قطع عاجية",
+      "nameEn": "Set of 3 Ivory"
+    },
+    {
+      "id": "cmumkx3k400dykq9dvbkqqbu1",
+      "nameAr": "مجموعة من 3 قطع مستطيلة",
+      "nameEn": "Set of 3 Rectangular"
+    },
+    {
+      "id": "cmumkx3jj00dwkq9dc31l5dpw",
+      "nameAr": "مجموعة من 3 قطع من الأغطية",
+      "nameEn": "Set of 3"
+    },
+    {
+      "id": "cmuo3r14t0024vj0g0lfh75hx",
+      "nameAr": "نصف معلقة على الحائط",
+      "nameEn": "Product nsf-malqa-ala-alhayt"
+    },
+    {
+      "id": "cmuo3r1tt002mvj0g076dzsu0",
+      "nameAr": "منتج 40",
+      "nameEn": "Product 40"
+    },
+    {
+      "id": "cmuo3r1us002nvj0geextcmp9",
+      "nameAr": "منتج 60-3",
+      "nameEn": "Product 60-3"
+    },
+    {
+      "id": "cmuo3r1sl002lvj0gx7kedsf4",
+      "nameAr": "مربع BRN بقاع",
+      "nameEn": "BRN"
+    },
+    {
+      "id": "cmuo3r1yr002qvj0gfxziv50y",
+      "nameAr": "منتج product-231",
+      "nameEn": "Product product-231"
+    },
+    {
+      "id": "cmuo3r21e002svj0g3z4atvkq",
+      "nameAr": "منتج product-233",
+      "nameEn": "Product product-233"
+    },
+    {
+      "id": "cmuo3r28t002wvj0gse17xd0k",
+      "nameAr": "منتج product-237",
+      "nameEn": "Product product-237"
+    },
+    {
+      "id": "cmuo3r2bc002zvj0gl22gf530",
+      "nameAr": "منتج product-240",
+      "nameEn": "Product product-240"
+    },
+    {
+      "id": "cmuo3r2co0030vj0gfhzokzrs",
+      "nameAr": "منتج 50-4",
+      "nameEn": "Product 50-4"
+    },
+    {
+      "id": "cmuo3r205002rvj0gsnxlw948",
+      "nameAr": "منتج product-232",
+      "nameEn": "Product product-232"
+    },
+    {
+      "id": "cmuo3r2yw003evj0g31i9paze",
+      "nameAr": "منتج brn-2",
+      "nameEn": "BRN 2"
+    },
+    {
+      "id": "cmuo3r34z003ivj0gozc2mxcl",
+      "nameAr": "منتج brn-3",
+      "nameEn": "BRN 3"
+    },
+    {
+      "id": "cmuo3r2qm0037vj0g5qyrncu1",
+      "nameAr": "منتج product-242",
+      "nameEn": "Product product-242"
+    },
+    {
+      "id": "cmuo3r2s10038vj0ggmrv27av",
+      "nameAr": "منتج 10",
+      "nameEn": "Product 10"
+    },
+    {
+      "id": "cmuo3r30d003fvj0g1t4exqsu",
+      "nameAr": "منتج product-247",
+      "nameEn": "Product product-247"
+    },
+    {
+      "id": "cmuo3r33b003hvj0g2fgr6cpq",
+      "nameAr": "منتج 60-4",
+      "nameEn": "Product 60-4"
+    },
+    {
+      "id": "cmuo3r3ic003pvj0gr7e3eedk",
+      "nameAr": "منتج roto-42",
+      "nameEn": "ROTO 42 \""
+    },
+    {
+      "id": "cmuo3r3ke003qvj0gzmqakitp",
+      "nameAr": "منتج roto-45",
+      "nameEn": "ROTO 45 \""
+    },
+    {
+      "id": "cmuo3r3s4003wvj0gzol7c3ze",
+      "nameAr": "منتج roto-68",
+      "nameEn": "ROTO 68 \""
+    },
+    {
+      "id": "cmuo3r37w003jvj0gdynclmif",
+      "nameAr": "منتج product-249",
+      "nameEn": "Product product-249"
+    },
+    {
+      "id": "cmuo3r39p003kvj0g4960cd0x",
+      "nameAr": "منتج product-250",
+      "nameEn": "Product product-250"
+    },
+    {
+      "id": "cmuo3r3c2003lvj0gihd8p7oy",
+      "nameAr": "منتج product-251",
+      "nameEn": "Product product-251"
+    },
+    {
+      "id": "cmuo3r3h0003ovj0gz138w7fo",
+      "nameAr": "منتج roto-35",
+      "nameEn": "ROTO 35 \""
+    },
+    {
+      "id": "cmuo3r3m9003rvj0gerovfc1f",
+      "nameAr": "منتج roto-60",
+      "nameEn": "ROTO 60 \""
+    },
+    {
+      "id": "cmuo3r3n7003svj0gt119qw6o",
+      "nameAr": "منتج roto-70",
+      "nameEn": "ROTO 70 \""
+    },
+    {
+      "id": "cmuo3r3sx003xvj0guwmcvnft",
+      "nameAr": "منتج roto-69",
+      "nameEn": "ROTO 69 \""
+    },
+    {
+      "id": "cmuo3r3e6003mvj0gz4z0ohbr",
+      "nameAr": "منتج 32",
+      "nameEn": "Product 32"
+    },
+    {
+      "id": "cmuo3r3fo003nvj0gq3s26ck4",
+      "nameAr": "منتج product-252",
+      "nameEn": "Product product-252"
+    },
+    {
+      "id": "cmumkx40d00gqkq9du20bb3hr",
+      "nameAr": "مجموعة 3 جولة",
+      "nameEn": "3 Round"
+    },
+    {
+      "id": "cmumkx40600gpkq9dlhnsm15e",
+      "nameAr": "مجموعة 3 جولة",
+      "nameEn": "3 Round"
+    },
+    {
+      "id": "cmumkx40o00grkq9dz5oxz84d",
+      "nameAr": "مجموعة من 3 اسطوانات",
+      "nameEn": "Set of 3 Cylinder"
+    },
+    {
+      "id": "cmuo3r3pg003uvj0gq6pk9gfl",
+      "nameAr": "منتج roto-42-2",
+      "nameEn": "ROTO 42 \""
+    },
+    {
+      "id": "cmuo3r3ro003vvj0gucurf70m",
+      "nameAr": "منتج roto-60-2",
+      "nameEn": "ROTO 60 \""
+    },
+    {
+      "id": "cmuo3r3v3003zvj0gurykxe02",
+      "nameAr": "منتج product-253",
+      "nameEn": "Product product-253"
+    },
+    {
+      "id": "cmuo3r3w30040vj0g9i40zrmj",
+      "nameAr": "منتج product-254",
+      "nameEn": "Product product-254"
+    },
+    {
+      "id": "cmuo3r3y10042vj0gqcniqaol",
+      "nameAr": "منتج product-256",
+      "nameEn": "Product product-256"
+    },
+    {
+      "id": "cmuo3r3x60041vj0gi288qwrv",
+      "nameAr": "منتج product-255",
+      "nameEn": "Product product-255"
+    },
+    {
+      "id": "cmuo3r40h0043vj0g55yvlxgm",
+      "nameAr": "منتج brn",
+      "nameEn": "BRN"
+    },
+    {
+      "id": "cmuo3r4270044vj0gubnlm59l",
+      "nameAr": "منتج brn-4",
+      "nameEn": "BRN"
+    },
+    {
+      "id": "cmuo3r3tz003yvj0ggxg89awb",
+      "nameAr": "منتج roto-80",
+      "nameEn": "ROTO 80 \""
+    },
+    {
+      "id": "cmuo3r4z5004xvj0gnza6jb8l",
+      "nameAr": "منتج brn-5",
+      "nameEn": "BRN"
+    },
+    {
+      "id": "cmumkx2a7008tkq9dtefc4oma",
+      "nameAr": "مجموعة من 2 خشب ذو مظهر مخروطي",
+      "nameEn": "Set of 2 Conical Look Wood"
+    },
+    {
+      "id": "cmuo3r1vu002ovj0ggdyo2f5g",
+      "nameAr": "منتج 85",
+      "nameEn": "Product 85"
+    },
+    {
+      "id": "cmuo3r2p40036vj0goyb5dtbe",
+      "nameAr": "منتج product-241",
+      "nameEn": "Product product-241"
+    },
+    {
+      "id": "cmuo3r3ol003tvj0gs5v6pivy",
+      "nameAr": "منتج roto-31",
+      "nameEn": "ROTO 31 \""
+    },
+    {
+      "id": "cmuo3r44h0047vj0gmhtuf8ti",
+      "nameAr": "منتج 13-2",
+      "nameEn": "Product 13-2"
+    },
+    {
+      "id": "cmuo3r4hy004kvj0gk9vz2dtu",
+      "nameAr": "منتج 26",
+      "nameEn": "Product 26"
+    },
+    {
+      "id": "cmumkx4xi00nmkq9diu6dsf6x",
+      "nameAr": "منتج 139-106",
+      "nameEn": "Indoor Woman"
+    },
+    {
+      "id": "cmumkx4xb00nlkq9dxkzupzq2",
+      "nameAr": "منتج 139-102",
+      "nameEn": "Indoor Woman Classic"
+    },
+    {
+      "id": "cmumkx50600ohkq9ddawth2st",
+      "nameAr": "منتج 8-305",
+      "nameEn": "Product 8-305"
+    },
+    {
+      "id": "cmumkx50200ogkq9dcrxxb0n5",
+      "nameAr": "منتج 8-319",
+      "nameEn": "D-Handle Fiberglass"
+    },
+    {
+      "id": "cmumkx50g00ojkq9dmhktjqol",
+      "nameAr": "منتج 109-640",
+      "nameEn": "Green Model 1X1 m (100X100 cm)"
+    },
+    {
+      "id": "cmumkx50w00omkq9d3bzsylhl",
+      "nameAr": "منتج 109-631",
+      "nameEn": "Green Model Home 1X1 m (100X100 cm)"
+    },
+    {
+      "id": "cmumkx51900ookq9dv53iqfyf",
+      "nameAr": "منتج 109-609",
+      "nameEn": "Green Model ' 1X1 m (100X100 cm)"
+    },
+    {
+      "id": "cmumkx51r00opkq9dqdp81wey",
+      "nameAr": "منتج 109-605",
+      "nameEn": "Green Model 1X1 m (100X100 cm)"
+    },
+    {
+      "id": "cmumkx51200onkq9dgrwx8n4b",
+      "nameAr": "منتج 109-638",
+      "nameEn": "Green Model 1X1 m (100X100 cm)"
+    },
+    {
+      "id": "cmumkx52m00oskq9debglkdig",
+      "nameAr": "منتج 109-629",
+      "nameEn": "Green Model 1X1 m (100X100 cm)"
+    },
+    {
+      "id": "cmuo3r42w0045vj0gnhfnlwiv",
+      "nameAr": "منتج ek-40",
+      "nameEn": "EK 40 \""
+    },
+    {
+      "id": "cmumkx6rz00xhkq9djcejhstr",
+      "nameAr": "طقم قطعتين أبيض مطفي على شكل بيضة 33/22 سم – A.S تيتانيوم",
+      "nameEn": "Set of 2 Egg-Shaped White Matte 33/22 cm – A.S Titanium"
+    },
+    {
+      "id": "cmumkx6rq00xfkq9d66i2hx9d",
+      "nameAr": "طقم قطعتين أسود مطفي على شكل بيضة 33/22 سم – A.S تيتانيوم",
+      "nameEn": "Set of 2 Egg-Shaped Black Matte 33/22 cm – A.S Titanium"
+    },
+    {
+      "id": "cmumkx6rv00xgkq9d2nbzr9m0",
+      "nameAr": "مجموعة من قطعتين كريم مطفي على شكل بيضة 33/22 سم – A.S تيتانيوم",
+      "nameEn": "Set of 2 Egg-Shaped Cream Matte 33/22 cm – A.S Titanium"
+    },
+    {
+      "id": "cmuo3r43c0046vj0gu1p332mo",
+      "nameAr": "منتج product-257",
+      "nameEn": "Product product-257"
+    },
+    {
+      "id": "cmuo3r4790048vj0ge9p3lfbg",
+      "nameAr": "منتج 17",
+      "nameEn": "Product 17"
+    },
+    {
+      "id": "cmuo3r48r0049vj0gv84l36fj",
+      "nameAr": "منتج 22",
+      "nameEn": "Product 22"
+    },
+    {
+      "id": "cmuo3r4a6004avj0gte2eax99",
+      "nameAr": "منتج 27",
+      "nameEn": "Product 27"
+    },
+    {
+      "id": "cmuo3r4b8004bvj0gi1lq0b2v",
+      "nameAr": "منتج 32-2",
+      "nameEn": "Product 32-2"
+    },
+    {
+      "id": "cmuo3r4cp004cvj0glvh9i141",
+      "nameAr": "منتج 36-2",
+      "nameEn": "Product 36-2"
+    },
+    {
+      "id": "cmuo3r4do004dvj0g8695ux2k",
+      "nameAr": "منتج 46",
+      "nameEn": "Product 46"
+    },
+    {
+      "id": "cmuo3r4e4004evj0gaxff6ah9",
+      "nameAr": "منتج 14-3",
+      "nameEn": "Product 14-3"
+    },
+    {
+      "id": "cmuo3r4eh004fvj0gyxa1i887",
+      "nameAr": "منتج 16",
+      "nameEn": "Product 16"
+    },
+    {
+      "id": "cmuo3r4ew004gvj0gdyb152bc",
+      "nameAr": "منتج 18-2",
+      "nameEn": "Product 18-2"
+    },
+    {
+      "id": "cmuo3r4fe004hvj0g65cg7x9k",
+      "nameAr": "منتج 20",
+      "nameEn": "Product 20"
+    },
+    {
+      "id": "cmuo3r4fy004ivj0gjd5vg5xl",
+      "nameAr": "منتج 22-2",
+      "nameEn": "Product 22-2"
+    },
+    {
+      "id": "cmuo3r4gw004jvj0gf0mmcjqg",
+      "nameAr": "منتج 24-4",
+      "nameEn": "Product 24-4"
+    },
+    {
+      "id": "cmuo3r4ix004lvj0glxld9rrg",
+      "nameAr": "منتج 28-6",
+      "nameEn": "Product 28-6"
+    },
+    {
+      "id": "cmuo3r4jh004mvj0gf5eiccp6",
+      "nameAr": "منتج 30-5",
+      "nameEn": "Product 30-5"
+    },
+    {
+      "id": "cmuo3r4k1004nvj0gmjlbiz8m",
+      "nameAr": "منتج 32-3",
+      "nameEn": "Product 32-3"
+    },
+    {
+      "id": "cmuo3r4km004ovj0gjnkud4v9",
+      "nameAr": "منتج 36-3",
+      "nameEn": "Product 36-3"
+    },
+    {
+      "id": "cmuo3r4lo004pvj0gsko84nnm",
+      "nameAr": "منتج 11",
+      "nameEn": "Product 11"
+    },
+    {
+      "id": "cmuo3r4mu004qvj0gmf8pyzl1",
+      "nameAr": "منتج 15-2",
+      "nameEn": "Product 15-2"
+    },
+    {
+      "id": "cmuo3r4on004rvj0gy9y37h5j",
+      "nameAr": "منتج 20-2",
+      "nameEn": "Product 20-2"
+    },
+    {
+      "id": "cmuo3r4qj004svj0gzqwwklsf",
+      "nameAr": "منتج 25-8",
+      "nameEn": "Product 25-8"
+    },
+    {
+      "id": "cmuo3r4s8004tvj0gig822j6a",
+      "nameAr": "منتج 30-6",
+      "nameEn": "Product 30-6"
+    },
+    {
+      "id": "cmuo3r4tr004uvj0gn93oaxpj",
+      "nameAr": "منتج 36-4",
+      "nameEn": "Product 36-4"
+    },
+    {
+      "id": "cmuo3r4vc004vvj0gf5lagcq4",
+      "nameAr": "منتج 41",
+      "nameEn": "Product 41"
+    },
+    {
+      "id": "cmuo3r4xg004wvj0gbfyi7v6z",
+      "nameAr": "منتج 9",
+      "nameEn": "Product 9"
+    },
+    {
+      "id": "cmumkx1r0004qkq9di8vfkvrw",
+      "nameAr": "بومة نوي برأس دوار 15×16×39 سم",
+      "nameEn": "Owl with Head Rotating 15×16×39 cm"
+    },
+    {
+      "id": "cmuo3qyex0002vj0gka0hxl4d",
+      "nameAr": "أدنيت نعوم",
+      "nameEn": "Product adnyt-nawm"
+    },
+    {
+      "id": "cmuo3r0s7001vvj0g16ijstwu",
+      "nameAr": "أرجوحة قزم",
+      "nameEn": "Product arjwha-qzm"
+    },
+    {
+      "id": "cmuo3qyt5000bvj0gdmyasknd",
+      "nameAr": "الشعلة الشمسية الصغيرة",
+      "nameEn": "Product alshala-alshmsya-alsghyra"
+    },
+    {
+      "id": "cmumkx1op004akq9dej37ha4v",
+      "nameAr": "اللقلق 32×13×53 سم",
+      "nameEn": "Stork 32×13×53 cm"
+    },
+    {
+      "id": "cmuo3qyuw000dvj0gl6d5bqs0",
+      "nameAr": "الوقايات",
+      "nameEn": "Product alwqayat"
+    },
+    {
+      "id": "cmuo3r1gb002bvj0gazb8yvhd",
+      "nameAr": "إناء زرع روتو دائري أملس بارتفاع 68 سم",
+      "nameEn": "Product ina-zra-rwtw-dayry-amls-bartfaa-68-sm"
+    },
+    {
+      "id": "cmuo3qyn10007vj0g0yfpjj26",
+      "nameAr": "أنجيل للنمل",
+      "nameEn": "Product anjyl-llnml"
+    },
+    {
+      "id": "cmuo3qzqb0013vj0g0669oteo",
+      "nameAr": "بخاخ كشتوش",
+      "nameEn": "Product bkhakh-kshtwsh"
+    },
+    {
+      "id": "cmumkx1ci0020kq9dgykhrnox",
+      "nameAr": "BODD طويل 34*75 اللون بني",
+      "nameEn": "Tall 34*75 Color Brown"
+    },
+    {
+      "id": "cmumkx1e1002akq9dfxzmwh9j",
+      "nameAr": "بطة",
+      "nameEn": "Duck"
+    },
+    {
+      "id": "cmumkx1ik0031kq9dwgqdeolx",
+      "nameAr": "فزاعة للحديقة 90 سم",
+      "nameEn": "Scarecrow for Garden 90 cm"
+    },
+    {
+      "id": "cmumkx1ir0032kq9dc2wf59w6",
+      "nameAr": "فزاعة للحديقة 150 سم",
+      "nameEn": "Scarecrow for Garden 150 cm"
+    },
+    {
+      "id": "cmumkx1ni0040kq9dsi7v57rk",
+      "nameAr": "مقاس فلامينجو 42×13×80 سم",
+      "nameEn": "Flamingo 42×13×80 cm"
+    },
+    {
+      "id": "cmumkx1pa004ekq9db03gn9bq",
+      "nameAr": "حمامة للحمام 36×32×30 سم",
+      "nameEn": "Dove 36×32×30 cm"
+    },
+    {
+      "id": "cmumkx1qt004pkq9don31tu1j",
+      "nameAr": "بُومَة",
+      "nameEn": "Owl"
+    },
+    {
+      "id": "cmumkx1uz005ckq9di98zyfp5",
+      "nameAr": "عمود تلسكوبي احترافي للمنشار طول 3 ملم",
+      "nameEn": "Telescopic Pole Professional Saw Length 3 '"
+    },
+    {
+      "id": "cmumkx1ut005bkq9dknh076zg",
+      "nameAr": "من 3 كومات",
+      "nameEn": "Product 5-647"
+    },
+    {
+      "id": "cmumkx1zz006bkq9dgr930qj2",
+      "nameAr": "صنبور الموصل \"1 – \"3/4",
+      "nameEn": "Connector Faucet \"1 – \"3/4"
+    },
+    {
+      "id": "cmumkx205006ckq9dfltkvons",
+      "nameAr": "صنبور موصل \"1/2 – \"3/4",
+      "nameEn": "Connector Faucet \"1/2 – \"3/4"
+    },
+    {
+      "id": "cmumkx22z0072kq9dmsdkkcj9",
+      "nameAr": "كيف لاب",
+      "nameEn": "Hoe"
+    },
+    {
+      "id": "cmumkx2320073kq9dmsug6vmf",
+      "nameAr": "كيف للأولاد",
+      "nameEn": "Hoe Boy"
+    },
+    {
+      "id": "cmumkx23a0075kq9dezld97he",
+      "nameAr": "كيف يمكن أن يكون",
+      "nameEn": "Hoe"
+    },
+    {
+      "id": "cmumkx2350074kq9dexpds72e",
+      "nameAr": "كيف يمكن أن يكون",
+      "nameEn": "Hoe"
+    },
+    {
+      "id": "cmumkx21d006mkq9du6ckxtvg",
+      "nameAr": "ماتيتا للأولاد",
+      "nameEn": "Matte Boy"
+    },
+    {
+      "id": "cmumkx251007lkq9dw1b41gmz",
+      "nameAr": "ماتوك 2.5 كجم",
+      "nameEn": "Mattock 2.5 kg"
+    },
+    {
+      "id": "cmumkx255007mkq9db4ghr8mk",
+      "nameAr": "ماتوك 2.5 كجم بيد خشبية",
+      "nameEn": "Mattock 2.5 kg with Wooden Handle"
+    },
+    {
+      "id": "cmumkx25b007nkq9d44wa8xp9",
+      "nameAr": "ماتوك 450 جرام بمقبض من الألياف الزجاجية",
+      "nameEn": "Mattock 450 g with Fiberglass Handle"
+    },
+    {
+      "id": "cmumkx260007skq9de5aexeft",
+      "nameAr": "بخاخ يديني للحديقة وللمنزل",
+      "nameEn": "Sprayer for Garden for Home"
+    },
+    {
+      "id": "cmumkx266007tkq9dkrru235q",
+      "nameAr": "رأى متقن",
+      "nameEn": "Saw"
+    },
+    {
+      "id": "cmumkx24r007jkq9dj8h8b1d9",
+      "nameAr": "صنبور الفاصل до Headи",
+      "nameEn": "Splitter Faucet Head"
+    },
+    {
+      "id": "cmumkx26b007ukq9dc3vetskl",
+      "nameAr": "منشار القش بمقبض خشبي",
+      "nameEn": "Saw Straw with Wooden Handle"
+    },
+    {
+      "id": "cmumkx27j0085kq9dzos4f8oe",
+      "nameAr": "تعريشة للمتسلقين",
+      "nameEn": "Trellis for Climbers"
+    },
+    {
+      "id": "cmumkx27m0086kq9dcrdf0tnu",
+      "nameAr": "تعريشة للمتسلقين",
+      "nameEn": "Trellis for Climbers"
+    },
+    {
+      "id": "cmumkx27q0087kq9d2yaaube5",
+      "nameAr": "تعريشة للمتسلقين",
+      "nameEn": "Trellis for Climbers"
+    },
+    {
+      "id": "cmumkx27s0088kq9d22xly4bx",
+      "nameAr": "تريليس ماتي ستريبس رومانسي",
+      "nameEn": "Trellis MatteStripes Romantic"
+    },
+    {
+      "id": "cmumkx27v0089kq9dde250ffc",
+      "nameAr": "تريليس ماتي ستريبس رومانسي",
+      "nameEn": "Trellis MatteStripes Romantic"
+    },
+    {
+      "id": "cmumkx295008jkq9dusnlrv1d",
+      "nameAr": "مجموعة من 2 مربعات طويلة",
+      "nameEn": "Set of 2 Square Tall"
+    },
+    {
+      "id": "cmumkx298008kkq9d3lgjcaj8",
+      "nameAr": "مجموعة من 2 مربعة",
+      "nameEn": "Set of 2 Square"
+    },
+    {
+      "id": "cmumkx284008bkq9dqkx1s9vb",
+      "nameAr": "مجموعة من قطعتين من الأغطية",
+      "nameEn": "Set of 2"
+    },
+    {
+      "id": "cmumkx280008akq9drvpi04ib",
+      "nameAr": "مجموعة من كل شيء للأولاد",
+      "nameEn": "Set of Boy"
+    },
+    {
+      "id": "cmumkx2ee009ukq9doyffbihd",
+      "nameAr": "مجموعة من 3 قطع",
+      "nameEn": "Set of 3"
+    },
+    {
+      "id": "cmumkx2ei009vkq9d59la2gcb",
+      "nameAr": "مجموعة من 3 قطع",
+      "nameEn": "Set of 3"
+    },
+    {
+      "id": "cmumkx1gu002qkq9dhkgrn5i1",
+      "nameAr": "grader للمتسلقين طويل القامة",
+      "nameEn": "for Climbers Tall"
+    },
+    {
+      "id": "cmumkx2ia00arkq9dtlyzw0km",
+      "nameAr": "مجموعة من 3 قطع على شكل بيضة",
+      "nameEn": "Set of 3 Egg-Shaped"
+    },
+    {
+      "id": "cmumkx2kv00bckq9dem0mx0wq",
+      "nameAr": "مجموعة من 4 قطع",
+      "nameEn": "Set of 4"
+    },
+    {
+      "id": "cmumkx2l700bekq9djcfenv4i",
+      "nameAr": "مجموعة من 5 قطع على شكل بيضة",
+      "nameEn": "Set of 5 Egg-Shaped"
+    },
+    {
+      "id": "cmumkx2mo00bokq9dxzh7quyu",
+      "nameAr": "مجموعة من 2 برميل رمادي داكن",
+      "nameEn": "Set of 2 Barrels Gray Dark"
+    },
+    {
+      "id": "cmumkx2pj00c8kq9dzwm05y4u",
+      "nameAr": "مجموعة من 2 مخروطي الشكل",
+      "nameEn": "Set of 2 Conical"
+    },
+    {
+      "id": "cmuo3r229002tvj0g4nurma5b",
+      "nameAr": "منتج product-234",
+      "nameEn": "Product product-234"
+    },
+    {
+      "id": "cmumkx34n00d7kq9dx18grovt",
+      "nameAr": "مجموعة من 2 مخروطي الشكل",
+      "nameEn": "Set of 2 Conical"
+    },
+    {
+      "id": "cmuo3r248002uvj0gdezdljro",
+      "nameAr": "منتج product-235",
+      "nameEn": "Product product-235"
+    },
+    {
+      "id": "cmuo3r27n002vvj0g57fbjbvd",
+      "nameAr": "منتج product-236",
+      "nameEn": "Product product-236"
+    },
+    {
+      "id": "cmuo3r2np0035vj0gf48wo1r2",
+      "nameAr": "منتج xl",
+      "nameEn": "XL"
+    },
+    {
+      "id": "cmumkx8030148kq9dip1xmzj8",
+      "nameAr": "منتج 71-300",
+      "nameEn": "Anti-Pigeon Spike 50 cm Base"
+    },
+    {
+      "id": "cmumkx3ts00fmkq9dy37j2227",
+      "nameAr": "مجموعة من 3 اسطوانات",
+      "nameEn": "Set of 3 Cylinder"
+    },
+    {
+      "id": "cmumkx3tx00fnkq9dohtvg94s",
+      "nameAr": "مجموعة من 3 قطع مخروطية الشكل مع حافة",
+      "nameEn": "Set of 3 Conical with Rim"
+    },
+    {
+      "id": "cmumkx3u200fokq9dzflceefd",
+      "nameAr": "مجموعة من 3 مخروطية الشكل",
+      "nameEn": "Set of 3 Conical"
+    },
+    {
+      "id": "cmumkx3uf00frkq9dayck0svm",
+      "nameAr": "مجموعة من 3 مخروطية الشكل",
+      "nameEn": "Set of 3 Conical"
+    },
+    {
+      "id": "cmumkx3u500fpkq9dfg2zaxd2",
+      "nameAr": "مجموعة من 3 مخروطية الشكل",
+      "nameEn": "Set of 3 Conical"
+    },
+    {
+      "id": "cmuo3r29e002xvj0gc7198y8t",
+      "nameAr": "منتج product-238",
+      "nameEn": "Product product-238"
+    },
+    {
+      "id": "cmuo3r2a4002yvj0gkl6sauef",
+      "nameAr": "منتج product-239",
+      "nameEn": "Product product-239"
+    },
+    {
+      "id": "cmuo3r31i003gvj0gehmkptl7",
+      "nameAr": "منتج product-248",
+      "nameEn": "Product product-248"
+    },
+    {
+      "id": "cmuo3r1xa002pvj0gfuxf6g4y",
+      "nameAr": "منتج 30-4",
+      "nameEn": "Product 30-4"
+    },
+    {
+      "id": "cmuo3r2es0031vj0gs82gpidd",
+      "nameAr": "منتج 50-5",
+      "nameEn": "Product 50-5"
+    },
+    {
+      "id": "cmuo3r2ge0032vj0geij4umre",
+      "nameAr": "منتج 75-2",
+      "nameEn": "Product 75-2"
+    },
+    {
+      "id": "cmuo3r2h90033vj0g56y9f4su",
+      "nameAr": "منتج 25-7",
+      "nameEn": "Product 25-7"
+    },
+    {
+      "id": "cmuo3r2m20034vj0gsbz93ee2",
+      "nameAr": "منتج 35",
+      "nameEn": "Product 35"
+    },
+    {
+      "id": "cmuo3r2tb0039vj0gcfms5gy2",
+      "nameAr": "منتج 5-5",
+      "nameEn": "Product 5-5"
+    },
+    {
+      "id": "cmuo3r2ue003avj0gqvqq8cft",
+      "nameAr": "منتج product-243",
+      "nameEn": "Product product-243"
+    },
+    {
+      "id": "cmuo3r2vt003bvj0gid0cds4x",
+      "nameAr": "منتج product-244",
+      "nameEn": "Product product-244"
+    },
+    {
+      "id": "cmuo3r2wh003cvj0g8hzoyyx4",
+      "nameAr": "منتج product-245",
+      "nameEn": "Product product-245"
+    },
+    {
+      "id": "cmumkx4yo00o0kq9dl3hsqddo",
+      "nameAr": "منتج 71-303",
+      "nameEn": "42×16×10 cm"
+    },
+    {
+      "id": "cmuo3r2xm003dvj0g19m4gb5o",
+      "nameAr": "منتج product-246",
+      "nameEn": "Product product-246"
+    },
+    {
+      "id": "cmumkx5lp00rmkq9dtb35j2lx",
+      "nameAr": "منتج 5-126",
+      "nameEn": "Trellis for Climbers"
+    },
+    {
+      "id": "cmumkx58600phkq9dqj12b006",
+      "nameAr": "منتج 8-320 | 8-320A",
+      "nameEn": "Mattock 1.5 kg with Fiberglass Handle"
+    },
+    {
+      "id": "cmumkx52f00orkq9ds2jjaiyp",
+      "nameAr": "منتج 109-628",
+      "nameEn": "Green Model 1X1 m (100X100 cm)"
+    },
+    {
+      "id": "cmumkx5lh00rkkq9d4vt1gs0s",
+      "nameAr": "منتج 5-122",
+      "nameEn": "Trellis for Climbers"
+    },
+    {
+      "id": "cmumkx5kw00rgkq9dshsv6sra",
+      "nameAr": "منتج 13-1204",
+      "nameEn": "3 82×94×144 cm"
+    },
+    {
+      "id": "cmumkx69s00v4kq9d706qj9wk",
+      "nameAr": "منتج 80-19",
+      "nameEn": "Brazilian for Planting in Various Colors"
+    },
+    {
+      "id": "cmumkx68900uukq9dvm6i9fs2",
+      "nameAr": "منتج 90-10",
+      "nameEn": "Set of 25 L"
+    },
+    {
+      "id": "cmumkx7xf013skq9dliukk4r6",
+      "nameAr": "منتج 135-831336WB",
+      "nameEn": "Set of 4 Look Wood Design Luxury Sizes Outdoor"
+    },
+    {
+      "id": "cmumkx85y0154kq9d0i5lptew",
+      "nameAr": "منتج 133-107E",
+      "nameEn": "Set of 4 Metal Round in Shade Brown Design Home Balcony"
+    },
+    {
+      "id": "cmumkx84k014xkq9d7rxq27po",
+      "nameAr": "منتج 133-107B",
+      "nameEn": "Set of 4 Metal Round in Shade Blue Deep Design Home Balcony"
+    },
+    {
+      "id": "cmumkx76f00zskq9dysq46cqz",
+      "nameAr": "منتج 133-108GG",
+      "nameEn": "Set of 4 Metal Round Tall in Shade Gray Dark Design Home Balcony"
+    },
+    {
+      "id": "cmumkx79h0106kq9dby2mb7z2",
+      "nameAr": "منتج 109-620",
+      "nameEn": "Green Model 1X1 m (100X100 cm)"
+    },
+    {
+      "id": "cmumkx77800zwkq9do56g7dja",
+      "nameAr": "منتج 133-108G",
+      "nameEn": "Set of 4 Metal Round Tall in Shade Gray Design Home Balcony"
+    },
+    {
+      "id": "cmumkx76600zrkq9d8huvvcmq",
+      "nameAr": "منتج 133-108E",
+      "nameEn": "Set of 4 Metal Round Tall in Shade Brown Design Home Balcony"
+    },
+    {
+      "id": "cmumkx76z00zvkq9d8e359t5i",
+      "nameAr": "منتج 133-108DG",
+      "nameEn": "Set of 4 Metal Round Tall in Shade Green Deep Design Home Balcony"
+    },
+    {
+      "id": "cmumkx75y00zqkq9dlk99883s",
+      "nameAr": "منتج 133-108B",
+      "nameEn": "Set of 4 Metal Round Tall in Shade Blue Deep Design Home Balcony"
+    },
+    {
+      "id": "cmumkx77n00zykq9dxta18bqq",
+      "nameAr": "منتج 133-108W",
+      "nameEn": "Set of 4 Metal Round Tall in Shade White Design Home Balcony"
+    },
+    {
+      "id": "cmumkx7y8013xkq9dhngfencg",
+      "nameAr": "منتج 8-718",
+      "nameEn": "Rain Gauge 50 \" Garden"
+    },
+    {
+      "id": "cmumkx7zn0146kq9de3r43yb7",
+      "nameAr": "منتج 8-705",
+      "nameEn": "Professional \"8 (20 cm) By-Pass with SK5"
+    },
+    {
+      "id": "cmumkx80e014akq9d5qb67jrw",
+      "nameAr": "منتج 43-19",
+      "nameEn": "Sprayer Garden Professional 5 L"
+    },
+    {
+      "id": "cmumkx7y3013wkq9d2hc2xy8v",
+      "nameAr": "منتج 90-412",
+      "nameEn": "Agrimix 70-30 Biran Special Substrate for Roof Gardens and Balconies"
+    },
+    {
+      "id": "cmumkx80l014ckq9dtadnyrz7",
+      "nameAr": "منتج 8-724",
+      "nameEn": "m Spike Body Metal"
+    },
+    {
+      "id": "cmumkx85q0153kq9dol6ylt35",
+      "nameAr": "منتج 133-100E",
+      "nameEn": "Set of 2 Metal Round in Shade Brown Design Home Balcony"
+    },
+    {
+      "id": "cmumkx84c014wkq9dn29qs7o1",
+      "nameAr": "منتج 133-100B",
+      "nameEn": "Set of 2 Metal Round in Shade Blue Deep Design Home Balcony"
+    },
+    {
+      "id": "cmumkx85i0152kq9dqmzu6td1",
+      "nameAr": "منتج 133-102E",
+      "nameEn": "Set of 3 Metal Round in Shade Brown Design Home Balcony"
+    },
+    {
+      "id": "cmumkx845014vkq9dw2aacv6a",
+      "nameAr": "منتج 133-102B",
+      "nameEn": "Set of 3 Metal Round in Shade Blue Deep Design Home Balcony"
+    },
+    {
+      "id": "cmumkx6u500xtkq9dtyot5j6u",
+      "nameAr": "منتج 15-2105R",
+      "nameEn": "Set of 6 Square Finish Rust Modern"
+    },
+    {
+      "id": "cmumkx5j100r4kq9duie7tdzk",
+      "nameAr": "منتج 26-106G",
+      "nameEn": "for Planting"
+    },
+    {
+      "id": "cmumkx9oc01chkq9dx18b04i3",
+      "nameAr": "سياج شبكي ملحوم بطبقة PVC خضراء",
+      "nameEn": "PVC Green"
+    },
+    {
+      "id": "cmuo3qyyx000gvj0gq3kvqdwn",
+      "nameAr": "توسكانا 35 + القاع",
+      "nameEn": "Product twskana-35-alqaa"
+    },
+    {
+      "id": "cmuo3qz0l000hvj0gxnhyw1b4",
+      "nameAr": "توليب 30 سم",
+      "nameEn": "Product twlyb-30-sm"
+    },
+    {
+      "id": "cmuo3qz39000ivj0g9ano6juv",
+      "nameAr": "توليب 50 سم",
+      "nameEn": "Product twlyb-50-sm"
+    },
+    {
+      "id": "cmuo3qz5c000jvj0giqkm6x0q",
+      "nameAr": "توليب 75 سم",
+      "nameEn": "Product twlyb-75-sm"
+    },
+    {
+      "id": "cmuo3qyvp000evj0gk0an4xlz",
+      "nameAr": "جرانولا كشتوش",
+      "nameEn": "Product jranwla-kshtwsh"
+    },
+    {
+      "id": "cmuo3qz7b000lvj0gthg9k39b",
+      "nameAr": "جرينبو XL",
+      "nameEn": "XL"
+    },
+    {
+      "id": "cmumkx45800hkkq9do46g4mh1",
+      "nameAr": "جلد مقاس 58×41×11 سم",
+      "nameEn": "Leather 58×41×11 cm"
+    },
+    {
+      "id": "cmumkx45400hjkq9d2q2thgxt",
+      "nameAr": "جلد مقاس 80×11×45 سم",
+      "nameEn": "Leather 80×11×45 cm"
+    },
+    {
+      "id": "cmumkx42m00h1kq9dprsmfzlt",
+      "nameAr": "جولة في البحر",
+      "nameEn": "Round"
+    },
+    {
+      "id": "cmuo3qz8c000mvj0g0pnasts1",
+      "nameAr": "خبرة",
+      "nameEn": "Product khbra"
+    },
+    {
+      "id": "cmuo3qzj8000wvj0gmurofc5f",
+      "nameAr": "زراعة الخزف الحيواني",
+      "nameEn": "Product zraaa-alkhzf-alhywany"
+    },
+    {
+      "id": "cmuo3qzis000vvj0gekfor3jz",
+      "nameAr": "سلة الورد",
+      "nameEn": "Product sla-alwrd"
+    },
+    {
+      "id": "cmumkx3zn00gnkq9dj1lvql61",
+      "nameAr": "طقم 3 لون دائري رمادي",
+      "nameEn": "3 Round Color Gray"
+    },
+    {
+      "id": "cmumkx3zr00gokq9dyglucchb",
+      "nameAr": "طقم 3 لون دائري رمادي",
+      "nameEn": "3 Round Color Gray"
+    },
+    {
+      "id": "cmuo3r0jb001pvj0g101b5p2w",
+      "nameAr": "قاع مربع شفاف مقاس 17 سم",
+      "nameEn": "Product qaa-mrba-shfaf-mqas-17-sm"
+    },
+    {
+      "id": "cmuo3r0m1001qvj0gr4y9iug1",
+      "nameAr": "قاع مربع شفاف مقاس 22 سم",
+      "nameEn": "Product qaa-mrba-shfaf-mqas-22-sm"
+    },
+    {
+      "id": "cmuo3r0ng001rvj0gedmzpur9",
+      "nameAr": "قاع مربع شفاف مقاس 27 سم",
+      "nameEn": "Product qaa-mrba-shfaf-mqas-27-sm"
+    },
+    {
+      "id": "cmuo3r0oj001svj0g9h8xfct1",
+      "nameAr": "قاع مربع شفاف مقاس 32 سم",
+      "nameEn": "Product qaa-mrba-shfaf-mqas-32-sm"
+    },
+    {
+      "id": "cmuo3r0pn001tvj0ghaqvrkrc",
+      "nameAr": "قاع مربع شفاف مقاس 36 سم",
+      "nameEn": "Product qaa-mrba-shfaf-mqas-36-sm"
+    },
+    {
+      "id": "cmuo3r039001bvj0g5ikil4ru",
+      "nameAr": "قاع مربع شفاف مقاس 46 سم",
+      "nameEn": "Product qaa-mrba-shfaf-mqas-46-sm"
+    },
+    {
+      "id": "cmuo3qzt50015vj0gnajsownq",
+      "nameAr": "قاعدة دائرية شفافة، قطر 11 سم",
+      "nameEn": "Product qaada-dayrya-shfafa-qtr-11-sm"
+    },
+    {
+      "id": "cmuo3qzu40016vj0gdd2pb5r8",
+      "nameAr": "قاعدة دائرية شفافة، قطر 15 سم",
+      "nameEn": "Product qaada-dayrya-shfafa-qtr-15-sm"
+    },
+    {
+      "id": "cmuo3qzvi0017vj0gue4eo0ir",
+      "nameAr": "قاعدة دائرية شفافة، قطر 20 سم",
+      "nameEn": "Product qaada-dayrya-shfafa-qtr-20-sm"
+    },
+    {
+      "id": "cmuo3qzwv0018vj0g2n36o0ci",
+      "nameAr": "قاعدة دائرية شفافة، قطر 25 سم",
+      "nameEn": "Product qaada-dayrya-shfafa-qtr-25-sm"
+    },
+    {
+      "id": "cmuo3r00n0019vj0grv548ehe",
+      "nameAr": "قاعدة دائرية شفافة، قطر 30 سم",
+      "nameEn": "Product qaada-dayrya-shfafa-qtr-30-sm"
+    },
+    {
+      "id": "cmuo3r022001avj0gcycmvmx6",
+      "nameAr": "قاعدة دائرية شفافة، قطر 36 سم",
+      "nameEn": "Product qaada-dayrya-shfafa-qtr-36-sm"
+    },
+    {
+      "id": "cmuo3r04q001cvj0g5xi2wbez",
+      "nameAr": "قاعدة دائرية شفافة، قطر 41 سم",
+      "nameEn": "Product qaada-dayrya-shfafa-qtr-41-sm"
+    },
+    {
+      "id": "cmuo3qzrt0014vj0g9gdn19n0",
+      "nameAr": "قاعدة دائرية شفافة، قطر 9 سم",
+      "nameEn": "Product qaada-dayrya-shfafa-qtr-9-sm"
+    },
+    {
+      "id": "cmuo3r063001dvj0g1hh5jjuz",
+      "nameAr": "قاعدة مستديرة، قطر 14 سم",
+      "nameEn": "Product qaada-mstdyra-qtr-14-sm"
+    },
+    {
+      "id": "cmuo3r079001evj0gtdg7pzz4",
+      "nameAr": "قاعدة مستديرة، قطر 16 سم",
+      "nameEn": "Product qaada-mstdyra-qtr-16-sm"
+    },
+    {
+      "id": "cmuo3r089001fvj0gvyp2t0o2",
+      "nameAr": "قاعدة مستديرة، قطر 18 سم",
+      "nameEn": "Product qaada-mstdyra-qtr-18-sm"
+    },
+    {
+      "id": "cmuo3r095001gvj0g6y8ouad7",
+      "nameAr": "قاعدة مستديرة، قطر 20 سم",
+      "nameEn": "Product qaada-mstdyra-qtr-20-sm"
+    },
+    {
+      "id": "cmuo3r0bg001ivj0gzogyzsab",
+      "nameAr": "قاعدة مستديرة، قطر 24 سم",
+      "nameEn": "Product qaada-mstdyra-qtr-24-sm"
+    },
+    {
+      "id": "cmuo3r0cx001jvj0gmc5bdl9j",
+      "nameAr": "قاعدة مستديرة، قطر 26 سم",
+      "nameEn": "Product qaada-mstdyra-qtr-26-sm"
+    },
+    {
+      "id": "cmuo3r0dx001kvj0gl5ccnzcc",
+      "nameAr": "قاعدة مستديرة، قطر 28 سم",
+      "nameEn": "Product qaada-mstdyra-qtr-28-sm"
+    },
+    {
+      "id": "cmuo3r0f5001lvj0ggp84jxjh",
+      "nameAr": "قاعدة مستديرة، قطر 30 سم",
+      "nameEn": "Product qaada-mstdyra-qtr-30-sm"
+    },
+    {
+      "id": "cmuo3r0h8001nvj0g43t7nvvl",
+      "nameAr": "قاعدة مستديرة، قطر 32 سم",
+      "nameEn": "Product qaada-mstdyra-qtr-32-sm"
+    },
+    {
+      "id": "cmuo3r0g3001mvj0gn7ro92r0",
+      "nameAr": "قاعدة مستديرة، قطر 36 سم",
+      "nameEn": "Product qaada-mstdyra-qtr-36-sm"
+    },
+    {
+      "id": "cmuo3r0r1001uvj0gd5la8fxu",
+      "nameAr": "قزم الري",
+      "nameEn": "Product qzm-alry"
+    },
+    {
+      "id": "cmuo3r0up001xvj0grrac7irp",
+      "nameAr": "قمع 10 لتر",
+      "nameEn": "Product qma-10-ltr"
+    },
+    {
+      "id": "cmuo3r0tb001wvj0g6jpvnx4m",
+      "nameAr": "قمع 5 لتر",
+      "nameEn": "Product qma-5-ltr"
+    },
+    {
+      "id": "cmumkx33g00d5kq9d1e7g6ttb",
+      "nameAr": "مجموعة من 2 اسطوانة مخروطية الشكل",
+      "nameEn": "Set of 2 Cylinder Conical"
+    },
+    {
+      "id": "cmumkx2dc009kkq9dmc3bbycv",
+      "nameAr": "مجموعة من 2 بالون فتحة ضيقة",
+      "nameEn": "Set of 2 Balloon Narrow Opening"
+    },
+    {
+      "id": "cmumkx2z200cwkq9ddzl6w1is",
+      "nameAr": "مجموعة من 2 جولة",
+      "nameEn": "Set of 2 Round"
+    },
+    {
+      "id": "cmumkx33000d4kq9dokikkztd",
+      "nameAr": "مجموعة من 2 سلندرات فنية",
+      "nameEn": "Set of 2"
+    },
+    {
+      "id": "cmumkx2il00aukq9dkq7jv0fy",
+      "nameAr": "مجموعة من 3 اسطوانات",
+      "nameEn": "Set of 3 Cylinder"
+    },
+    {
+      "id": "cmumkx2i500aqkq9dfb90f838",
+      "nameAr": "مجموعة من 3 قطع على شكل بيضة بألوان مختلفة",
+      "nameEn": "Set of 3 Egg-Shaped in Various Colors"
+    },
+    {
+      "id": "cmumkx3x400g8kq9d39ud6jas",
+      "nameAr": "مجموعة من 4 قطع مخروطية الشكل",
+      "nameEn": "Set of 4 Conical"
+    },
+    {
+      "id": "cmumkx3xg00gbkq9dp6eq7a8b",
+      "nameAr": "مجموعة من 5 سلات مستديرة من القش بمقابض",
+      "nameEn": "Set of 5 Baskets Straw Round with Handles"
+    }
+  ]
+}

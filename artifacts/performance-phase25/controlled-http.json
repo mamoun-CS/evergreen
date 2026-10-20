@@ -1,0 +1,2883 @@
+{
+  "environment": {
+    "node": "v22.21.1",
+    "platform": "win32",
+    "cpus": 16,
+    "dataset": 2151
+  },
+  "classification": "First request per route in a new process; Data/DB/OS caches not cleared. 3 warmups, 30 AB/BA warm samples and 5 RSC samples per route/build. SQL sum includes parallel queries and cannot be subtracted as exact rendering time. Pool wait and network-only time unavailable.",
+  "routes": {
+    "home": "/",
+    "shop": "/shop",
+    "category": "/category/animal-sculptures",
+    "product": "/products/alhjr-ballwn-alaswd-allama"
+  },
+  "results": {
+    "phase1": {
+      "home": {
+        "firstProcessRequest": {
+          "headersMs": 501.1870999999999,
+          "completeMs": 604.5647999999999,
+          "bytes": 58534,
+          "sqlSelects": 27,
+          "sqlDurationSumMs": 249,
+          "contentType": "text/html; charset=utf-8",
+          "nextCacheHeader": null
+        },
+        "warm": [
+          {
+            "headersMs": 61.77430000000004,
+            "completeMs": 62.63710000000037,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 27.593900000000303,
+            "completeMs": 28.303400000000238,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 40.860099999999875,
+            "completeMs": 41.4708999999998,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 21.13740000000007,
+            "completeMs": 21.747699999999895,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 56.95809999999983,
+            "completeMs": 57.93439999999964,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 38.14939999999979,
+            "completeMs": 38.589300000000094,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 20.3753999999999,
+            "completeMs": 20.798899999999776,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 26.331499999999778,
+            "completeMs": 26.854699999999866,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 46.69230000000016,
+            "completeMs": 47.695000000000164,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 41.71720000000005,
+            "completeMs": 42.28659999999991,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 36.671499999999924,
+            "completeMs": 37.180599999999686,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 26.135200000000168,
+            "completeMs": 26.782300000000305,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 45.417599999999766,
+            "completeMs": 45.87029999999959,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 52.421499999999924,
+            "completeMs": 53.52319999999963,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 39.79519999999957,
+            "completeMs": 40.91269999999986,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 29.557300000000396,
+            "completeMs": 30.37800000000061,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 41.0042999999996,
+            "completeMs": 42.119300000000294,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 31.939899999999398,
+            "completeMs": 33.06739999999991,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 38.06840000000011,
+            "completeMs": 40.54700000000048,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 24.230400000000373,
+            "completeMs": 25.498199999999997,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 52.80369999999948,
+            "completeMs": 53.300099999999475,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 22.77639999999974,
+            "completeMs": 23.318599999999606,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 43.548899999999776,
+            "completeMs": 44.149099999999635,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 34.45839999999953,
+            "completeMs": 35.349199999999655,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 31.771099999999933,
+            "completeMs": 32.9353000000001,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 66.52599999999984,
+            "completeMs": 67.8148999999994,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 53.57579999999962,
+            "completeMs": 54.03719999999976,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 35.57589999999982,
+            "completeMs": 36.44579999999951,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 42.96759999999995,
+            "completeMs": 43.75960000000032,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 33.80500000000029,
+            "completeMs": 34.645300000000134,
+            "bytes": 58458,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          }
+        ],
+        "rsc": [
+          {
+            "headersMs": 8.75380000000041,
+            "completeMs": 18.615500000000793,
+            "bytes": 19752,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 15.03479999999945,
+            "completeMs": 24.22349999999915,
+            "bytes": 19752,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 10.695799999999508,
+            "completeMs": 19.843799999999646,
+            "bytes": 19752,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 15.253299999999399,
+            "completeMs": 24.240600000000086,
+            "bytes": 19752,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 8.278599999999642,
+            "completeMs": 19.79950000000008,
+            "bytes": 19752,
+            "sqlSelects": 1,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          }
+        ]
+      },
+      "shop": {
+        "firstProcessRequest": {
+          "headersMs": 177.77410000000054,
+          "completeMs": 179.63780000000042,
+          "bytes": 190350,
+          "sqlSelects": 7,
+          "sqlDurationSumMs": 15,
+          "contentType": "text/html; charset=utf-8",
+          "nextCacheHeader": null
+        },
+        "warm": [
+          {
+            "headersMs": 22.345899999999347,
+            "completeMs": 35.330799999999726,
+            "bytes": 191583,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 28.968300000000454,
+            "completeMs": 42.367700000000696,
+            "bytes": 191583,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 52.97950000000037,
+            "completeMs": 55.20060000000012,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 31.84519999999975,
+            "completeMs": 33.99569999999949,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 38.66780000000017,
+            "completeMs": 50.00540000000001,
+            "bytes": 191583,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 32.98199999999997,
+            "completeMs": 34.68589999999949,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 32.27259999999933,
+            "completeMs": 34.701499999999214,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 27.39099999999962,
+            "completeMs": 28.636399999999412,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 26.623999999999796,
+            "completeMs": 27.61949999999979,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 27.760299999999916,
+            "completeMs": 28.718299999999545,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 38.639900000000125,
+            "completeMs": 39.69489999999951,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 44.08820000000014,
+            "completeMs": 45.968300000000454,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 3,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 19.6241,
+            "completeMs": 28.919600000000173,
+            "bytes": 191583,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 47.867199999999684,
+            "completeMs": 49.74589999999989,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 35.056900000000496,
+            "completeMs": 39.04780000000028,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 40.029199999999946,
+            "completeMs": 46.295100000000275,
+            "bytes": 191583,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 26.987200000000485,
+            "completeMs": 28.873999999999796,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 17.845900000000256,
+            "completeMs": 27.392499999999927,
+            "bytes": 191583,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 23.300500000000284,
+            "completeMs": 25.04449999999997,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 45.469200000000455,
+            "completeMs": 48.701600000000326,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 34.40260000000035,
+            "completeMs": 35.67780000000039,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 35.79350000000068,
+            "completeMs": 36.64969999999994,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 15.75250000000051,
+            "completeMs": 22.023300000000745,
+            "bytes": 191267,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 26.9358000000002,
+            "completeMs": 27.98199999999997,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 31.16019999999935,
+            "completeMs": 32.95519999999942,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 35.05069999999978,
+            "completeMs": 37.09199999999964,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 51.365099999999984,
+            "completeMs": 53.39479999999912,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 37.682300000000396,
+            "completeMs": 39.88119999999981,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 36.603000000000065,
+            "completeMs": 38.58850000000075,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 28.161699999998746,
+            "completeMs": 30.083699999999226,
+            "bytes": 190350,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          }
+        ],
+        "rsc": [
+          {
+            "headersMs": 7.812799999999697,
+            "completeMs": 14.151299999999537,
+            "bytes": 36922,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 7.074300000000221,
+            "completeMs": 19.56079999999929,
+            "bytes": 36922,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 10.020300000000134,
+            "completeMs": 18.47689999999966,
+            "bytes": 36922,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 9.146300000000338,
+            "completeMs": 19.60859999999957,
+            "bytes": 36922,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 10.121799999998984,
+            "completeMs": 19.866899999999077,
+            "bytes": 36922,
+            "sqlSelects": 4,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          }
+        ]
+      },
+      "category": {
+        "firstProcessRequest": {
+          "headersMs": 158.97810000000027,
+          "completeMs": 159.71589999999924,
+          "bytes": 40356,
+          "sqlSelects": 9,
+          "sqlDurationSumMs": 25,
+          "contentType": "text/html; charset=utf-8",
+          "nextCacheHeader": null
+        },
+        "warm": [
+          {
+            "headersMs": 68.65380000000005,
+            "completeMs": 68.95079999999871,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 44.49489999999969,
+            "completeMs": 45.14559999999983,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 37.28390000000036,
+            "completeMs": 38.06680000000051,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 48.241900000000896,
+            "completeMs": 49.47320000000036,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 46.23229999999967,
+            "completeMs": 47.180599999999686,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 48.74499999999898,
+            "completeMs": 49.20669999999882,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 46.66820000000007,
+            "completeMs": 47.110500000000684,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 49.685999999999694,
+            "completeMs": 50.13849999999911,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 64.99669999999969,
+            "completeMs": 65.69440000000031,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 48.375600000001214,
+            "completeMs": 48.7533999999996,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 30.2408000000014,
+            "completeMs": 30.837200000001758,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 45.65529999999853,
+            "completeMs": 46.38009999999849,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 47.66849999999977,
+            "completeMs": 48.580400000000736,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 41.52299999999923,
+            "completeMs": 42.1919999999991,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 38.9994999999999,
+            "completeMs": 39.65240000000085,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 45.89940000000024,
+            "completeMs": 46.6213000000007,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 42.07510000000002,
+            "completeMs": 42.947000000000116,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 52.394500000000335,
+            "completeMs": 53.25630000000092,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 4,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 55.58180000000175,
+            "completeMs": 56.59390000000167,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 45.01389999999992,
+            "completeMs": 45.65029999999933,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 33.025799999999435,
+            "completeMs": 33.94340000000011,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 50.358900000001086,
+            "completeMs": 51.079499999999825,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 39.459899999999834,
+            "completeMs": 39.89940000000024,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 53.17280000000028,
+            "completeMs": 53.750599999999395,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 49.447400000000926,
+            "completeMs": 49.873100000000704,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 59.14810000000034,
+            "completeMs": 59.57120000000032,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 41.633599999999205,
+            "completeMs": 42.707800000000134,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 40.35239999999976,
+            "completeMs": 40.97110000000066,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 46.1862000000001,
+            "completeMs": 46.64270000000033,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 49.93990000000122,
+            "completeMs": 50.42200000000048,
+            "bytes": 40356,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          }
+        ],
+        "rsc": [
+          {
+            "headersMs": 9.64179999999942,
+            "completeMs": 18.88680000000022,
+            "bytes": 14448,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 10.220300000000861,
+            "completeMs": 19.870899999999892,
+            "bytes": 14448,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 10.106400000000576,
+            "completeMs": 19.90979999999945,
+            "bytes": 14448,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 3.7782999999999447,
+            "completeMs": 27.952300000000832,
+            "bytes": 14448,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 3.6463000000003376,
+            "completeMs": 19.95100000000093,
+            "bytes": 14448,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          }
+        ]
+      },
+      "product": {
+        "firstProcessRequest": {
+          "headersMs": 125.58149999999841,
+          "completeMs": 127.72629999999845,
+          "bytes": 63127,
+          "sqlSelects": 9,
+          "sqlDurationSumMs": 15,
+          "contentType": "text/html; charset=utf-8",
+          "nextCacheHeader": null
+        },
+        "warm": [
+          {
+            "headersMs": 46.620600000000195,
+            "completeMs": 48.05409999999938,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 24.670099999999366,
+            "completeMs": 28.60399999999936,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 35.71759999999995,
+            "completeMs": 37.502700000000914,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 41.162099999999555,
+            "completeMs": 42.01299999999901,
+            "bytes": 61894,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 55.80149999999958,
+            "completeMs": 57.61670000000049,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 26.694499999999607,
+            "completeMs": 27.98400000000038,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 37.47019999999975,
+            "completeMs": 40.93119999999908,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 57.29489999999896,
+            "completeMs": 59.82079999999951,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 31.483399999999165,
+            "completeMs": 35.51310000000012,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 47.06390000000101,
+            "completeMs": 48.52950000000055,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 29.18369999999959,
+            "completeMs": 30.58519999999953,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 27.596000000001368,
+            "completeMs": 31.83350000000064,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 29.366500000000087,
+            "completeMs": 33.650799999999435,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 36.63210000000072,
+            "completeMs": 40.63520000000062,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 25.385599999999613,
+            "completeMs": 30.366100000001097,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 46.91689999999835,
+            "completeMs": 51.27109999999993,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 38.883200000000215,
+            "completeMs": 41.27150000000074,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 38.0015999999996,
+            "completeMs": 41.583199999999124,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 42.58980000000156,
+            "completeMs": 46.84010000000126,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 19.448899999999412,
+            "completeMs": 22.89550000000054,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 43.97649999999885,
+            "completeMs": 45.651700000000346,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 27.467999999998938,
+            "completeMs": 29.98619999999937,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 29.33679999999913,
+            "completeMs": 29.947399999999107,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 54.034200000000055,
+            "completeMs": 54.55819999999949,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 40.265800000001036,
+            "completeMs": 41.0619999999999,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 31.223500000000058,
+            "completeMs": 31.90849999999955,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 37.50500000000102,
+            "completeMs": 38.06000000000131,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 36.05000000000109,
+            "completeMs": 39.54520000000048,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 44.341599999999744,
+            "completeMs": 45.40110000000095,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 22.324600000001737,
+            "completeMs": 25.598700000000463,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          }
+        ],
+        "rsc": [
+          {
+            "headersMs": 11.097000000001572,
+            "completeMs": 39.86800000000039,
+            "bytes": 17640,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 13.668900000000576,
+            "completeMs": 33.31630000000041,
+            "bytes": 17640,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 10.091300000000047,
+            "completeMs": 39.321100000001024,
+            "bytes": 17640,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 16.1895999999997,
+            "completeMs": 31.491500000000087,
+            "bytes": 17640,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 9.317300000000614,
+            "completeMs": 38.079900000000634,
+            "bytes": 17640,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          }
+        ]
+      }
+    },
+    "phase2": {
+      "home": {
+        "firstProcessRequest": {
+          "headersMs": 360.46309999999994,
+          "completeMs": 384.72389999999996,
+          "bytes": 58534,
+          "sqlSelects": 27,
+          "sqlDurationSumMs": 70,
+          "contentType": "text/html; charset=utf-8",
+          "nextCacheHeader": null
+        },
+        "warm": [
+          {
+            "headersMs": 39.253299999999854,
+            "completeMs": 39.72649999999976,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 24.411499999999705,
+            "completeMs": 25.03879999999981,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 27.2809000000002,
+            "completeMs": 27.797500000000127,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 26.465200000000095,
+            "completeMs": 27.740600000000086,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 23.471599999999853,
+            "completeMs": 24.22980000000007,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 45.26479999999992,
+            "completeMs": 47.318199999999706,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 37.080799999999726,
+            "completeMs": 37.55670000000009,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 33.781299999999646,
+            "completeMs": 35.05060000000003,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 21.698199999999815,
+            "completeMs": 22.79989999999998,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 36.1576,
+            "completeMs": 36.74250000000029,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 31.709499999999935,
+            "completeMs": 32.835599999999886,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 38.84889999999996,
+            "completeMs": 39.86329999999998,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 53.66150000000016,
+            "completeMs": 54.246200000000044,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 18.648400000000038,
+            "completeMs": 19.206500000000233,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 35.32760000000053,
+            "completeMs": 37.06640000000061,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 36.244800000000396,
+            "completeMs": 37.38799999999992,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 36.63519999999971,
+            "completeMs": 37.3167999999996,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 33.97100000000046,
+            "completeMs": 35.1872000000003,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 29.72780000000057,
+            "completeMs": 30.45550000000003,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 39.8729000000003,
+            "completeMs": 40.533400000000256,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 45.762400000000525,
+            "completeMs": 46.35190000000057,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 44.00799999999981,
+            "completeMs": 45.674299999999675,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 29.421000000000276,
+            "completeMs": 30.10570000000007,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 42.678100000000086,
+            "completeMs": 44.33089999999993,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 28.485599999999977,
+            "completeMs": 29.41519999999946,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 28.674600000000282,
+            "completeMs": 29.532900000000154,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 25.987300000000687,
+            "completeMs": 26.363100000000486,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 38.25759999999991,
+            "completeMs": 38.819400000000314,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 29.091699999999946,
+            "completeMs": 29.91989999999987,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 33.23689999999988,
+            "completeMs": 34.53819999999996,
+            "bytes": 58534,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          }
+        ],
+        "rsc": [
+          {
+            "headersMs": 6.430100000000493,
+            "completeMs": 9.458400000000438,
+            "bytes": 19752,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 10.313100000000304,
+            "completeMs": 25.594600000000355,
+            "bytes": 19752,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 5.95259999999962,
+            "completeMs": 19.871799999999894,
+            "bytes": 19752,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 15.8083000000006,
+            "completeMs": 35.08640000000014,
+            "bytes": 19752,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 10.437300000000505,
+            "completeMs": 20.624700000000303,
+            "bytes": 19752,
+            "sqlSelects": 5,
+            "sqlDurationSumMs": 3,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          }
+        ]
+      },
+      "shop": {
+        "firstProcessRequest": {
+          "headersMs": 52.9949000000006,
+          "completeMs": 101.08730000000014,
+          "bytes": 191010,
+          "sqlSelects": 8,
+          "sqlDurationSumMs": 8,
+          "contentType": "text/html; charset=utf-8",
+          "nextCacheHeader": null
+        },
+        "warm": [
+          {
+            "headersMs": 25.491100000000188,
+            "completeMs": 36.38770000000022,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 36.3743000000004,
+            "completeMs": 49.35080000000016,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 31.790200000000368,
+            "completeMs": 47.492599999999584,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 24.76639999999952,
+            "completeMs": 40.402100000000246,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 47.479599999999664,
+            "completeMs": 63.4421999999995,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 28.713800000000447,
+            "completeMs": 44.22389999999996,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 31.271700000000237,
+            "completeMs": 39,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 16.52769999999964,
+            "completeMs": 22.853900000000067,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 27.17699999999968,
+            "completeMs": 44.29749999999967,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 42.250200000000405,
+            "completeMs": 44.52890000000025,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 31.37960000000021,
+            "completeMs": 38.4396999999999,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 24.72609999999986,
+            "completeMs": 48.83939999999984,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 27.51000000000022,
+            "completeMs": 39.3800999999994,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 19.439699999999903,
+            "completeMs": 30.57850000000053,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 36.08560000000034,
+            "completeMs": 47.637400000000525,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 30.404900000000453,
+            "completeMs": 43.54290000000037,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 20.122699999999895,
+            "completeMs": 33.8756999999996,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 32.42879999999968,
+            "completeMs": 43.24189999999999,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 17.572799999999916,
+            "completeMs": 32.10949999999957,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 20.38799999999992,
+            "completeMs": 38.71600000000035,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 14.21939999999995,
+            "completeMs": 21.54200000000037,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 13.69459999999981,
+            "completeMs": 19.873900000000503,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 27.702100000000428,
+            "completeMs": 35.27170000000024,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 17.180500000000393,
+            "completeMs": 24.44710000000032,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 21.0653999999995,
+            "completeMs": 26.887300000000323,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 33.209899999999834,
+            "completeMs": 48.984699999999975,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 25.287200000000666,
+            "completeMs": 37.41660000000047,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 21.358299999999872,
+            "completeMs": 33.48449999999957,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 14.127300000000105,
+            "completeMs": 27.195200000000114,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 15.029100000001563,
+            "completeMs": 29.89900000000125,
+            "bytes": 191010,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          }
+        ],
+        "rsc": [
+          {
+            "headersMs": 13.303399999998874,
+            "completeMs": 24.969699999999648,
+            "bytes": 36922,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 8.121699999999691,
+            "completeMs": 18.803099999999176,
+            "bytes": 36922,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 5.588400000000547,
+            "completeMs": 20.849500000000262,
+            "bytes": 36922,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 6.996900000000096,
+            "completeMs": 19.961299999999028,
+            "bytes": 36922,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 10.033299999999144,
+            "completeMs": 20.251800000000003,
+            "bytes": 36922,
+            "sqlSelects": 2,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          }
+        ]
+      },
+      "category": {
+        "firstProcessRequest": {
+          "headersMs": 74.13270000000011,
+          "completeMs": 74.49069999999847,
+          "bytes": 40356,
+          "sqlSelects": 10,
+          "sqlDurationSumMs": 6,
+          "contentType": "text/html; charset=utf-8",
+          "nextCacheHeader": null
+        },
+        "warm": [
+          {
+            "headersMs": 59.76749999999993,
+            "completeMs": 60.25540000000001,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 37.35019999999895,
+            "completeMs": 37.93739999999889,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 58.054300000001604,
+            "completeMs": 58.62720000000081,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 41.7533999999996,
+            "completeMs": 43.05949999999939,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 38.456099999999424,
+            "completeMs": 39.06880000000092,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 32.8773999999994,
+            "completeMs": 33.43130000000019,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 59.00009999999929,
+            "completeMs": 59.4434999999994,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 49.1828000000005,
+            "completeMs": 49.637800000000425,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 45.19599999999991,
+            "completeMs": 45.90300000000025,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 77.80679999999847,
+            "completeMs": 78.42029999999977,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 62.708199999999124,
+            "completeMs": 63.84770000000026,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 3,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 38.52490000000034,
+            "completeMs": 39.152000000000044,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 50.177200000000084,
+            "completeMs": 51.03490000000056,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 49.18299999999908,
+            "completeMs": 50.01419999999962,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 56.46810000000005,
+            "completeMs": 57.503099999999904,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 3,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 41.432300000000396,
+            "completeMs": 42.305600000001505,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 59.51100000000042,
+            "completeMs": 60.28600000000006,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 76.05429999999978,
+            "completeMs": 76.50660000000062,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 58.81760000000031,
+            "completeMs": 59.47489999999925,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 43.23389999999927,
+            "completeMs": 44.07839999999851,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 55.24010000000089,
+            "completeMs": 56.0692999999992,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 51.12029999999868,
+            "completeMs": 51.78520000000026,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 65.19340000000011,
+            "completeMs": 65.59460000000036,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 45.48079999999936,
+            "completeMs": 45.97819999999956,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 42.28909999999996,
+            "completeMs": 42.66109999999935,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 37.33530000000064,
+            "completeMs": 37.92669999999998,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 46.248499999999694,
+            "completeMs": 46.65220000000045,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 50.10390000000007,
+            "completeMs": 51.323199999998906,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 75.77879999999823,
+            "completeMs": 76.73429999999826,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 42.24479999999858,
+            "completeMs": 42.59619999999995,
+            "bytes": 40356,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          }
+        ],
+        "rsc": [
+          {
+            "headersMs": 15.17699999999968,
+            "completeMs": 30.23319999999876,
+            "bytes": 14448,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 15.309299999998984,
+            "completeMs": 29.69919999999911,
+            "bytes": 14448,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 3.58009999999922,
+            "completeMs": 15.065699999999197,
+            "bytes": 14448,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 4.700399999999718,
+            "completeMs": 16.442800000000716,
+            "bytes": 14448,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 4.74120000000039,
+            "completeMs": 20.243200000000797,
+            "bytes": 14448,
+            "sqlSelects": 8,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          }
+        ]
+      },
+      "product": {
+        "firstProcessRequest": {
+          "headersMs": 84.65259999999944,
+          "completeMs": 85.40949999999975,
+          "bytes": 63127,
+          "sqlSelects": 9,
+          "sqlDurationSumMs": 7,
+          "contentType": "text/html; charset=utf-8",
+          "nextCacheHeader": null
+        },
+        "warm": [
+          {
+            "headersMs": 38.629399999999805,
+            "completeMs": 40.333199999999124,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 28.63210000000072,
+            "completeMs": 33.41109999999935,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 3,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 44.74910000000091,
+            "completeMs": 46.40070000000014,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 46.98919999999998,
+            "completeMs": 48.61999999999898,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 31.051699999999983,
+            "completeMs": 36.290899999999965,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 35.83169999999882,
+            "completeMs": 37.02299999999923,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 55.92410000000018,
+            "completeMs": 58.46049999999923,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 39.771200000001045,
+            "completeMs": 41.29980000000069,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 55.311899999998786,
+            "completeMs": 56.52939999999944,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 34.86830000000009,
+            "completeMs": 36.227600000000166,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 20.916299999998955,
+            "completeMs": 24.72979999999916,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 48.91109999999935,
+            "completeMs": 50.527399999999034,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 42.34699999999975,
+            "completeMs": 45.16229999999996,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 39.40979999999945,
+            "completeMs": 42.95479999999952,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 52.22659999999996,
+            "completeMs": 53.85820000000058,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 32.226300000000265,
+            "completeMs": 33.6247000000003,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 33.70629999999983,
+            "completeMs": 38.02340000000004,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 36.97370000000046,
+            "completeMs": 38.19590000000062,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 45.71479999999974,
+            "completeMs": 48.97530000000006,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 27.77440000000024,
+            "completeMs": 29.86239999999998,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 51.47219999999834,
+            "completeMs": 52.91889999999876,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 34.29730000000018,
+            "completeMs": 35.74539999999979,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 20.48909999999887,
+            "completeMs": 29.05119999999988,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 34.15549999999894,
+            "completeMs": 34.80789999999979,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 15.645300000000134,
+            "completeMs": 18.909299999999348,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 39.4369999999999,
+            "completeMs": 39.902899999999136,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 22.422300000000178,
+            "completeMs": 23.75959999999941,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 38.24419999999918,
+            "completeMs": 40.05369999999857,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 0,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 38.52649999999994,
+            "completeMs": 42.47110000000066,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 57.25849999999991,
+            "completeMs": 58.60230000000047,
+            "bytes": 63127,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/html; charset=utf-8",
+            "nextCacheHeader": null
+          }
+        ],
+        "rsc": [
+          {
+            "headersMs": 10.753899999999703,
+            "completeMs": 30.08849999999984,
+            "bytes": 17640,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 2,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 6.395999999998821,
+            "completeMs": 26.84859999999935,
+            "bytes": 17640,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 10.640199999999822,
+            "completeMs": 39.48670000000129,
+            "bytes": 17640,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 11.087199999999939,
+            "completeMs": 39.970799999999144,
+            "bytes": 17640,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          },
+          {
+            "headersMs": 6.608699999998862,
+            "completeMs": 20.26169999999911,
+            "bytes": 17640,
+            "sqlSelects": 9,
+            "sqlDurationSumMs": 1,
+            "contentType": "text/x-component",
+            "nextCacheHeader": null
+          }
+        ]
+      }
+    }
+  },
+  "summary": {
+    "phase1": {
+      "home": {
+        "headersMs": {
+          "n": 30,
+          "median": 38.10889999999995,
+          "p95": 61.77430000000004
+        },
+        "completeMs": {
+          "n": 30,
+          "median": 39.56815000000029,
+          "p95": 62.63710000000037
+        },
+        "bytes": {
+          "n": 30,
+          "median": 58458,
+          "p95": 58458
+        },
+        "sqlSelects": {
+          "n": 30,
+          "median": 1,
+          "p95": 1
+        },
+        "sqlDurationSumMs": {
+          "n": 30,
+          "median": 0,
+          "p95": 0
+        }
+      },
+      "shop": {
+        "headersMs": {
+          "n": 30,
+          "median": 32.62729999999965,
+          "p95": 51.365099999999984
+        },
+        "completeMs": {
+          "n": 30,
+          "median": 35.50430000000006,
+          "p95": 53.39479999999912
+        },
+        "bytes": {
+          "n": 30,
+          "median": 190350,
+          "p95": 191583
+        },
+        "sqlSelects": {
+          "n": 30,
+          "median": 4,
+          "p95": 4
+        },
+        "sqlDurationSumMs": {
+          "n": 30,
+          "median": 0,
+          "p95": 2
+        }
+      },
+      "category": {
+        "headersMs": {
+          "n": 30,
+          "median": 46.45024999999987,
+          "p95": 64.99669999999969
+        },
+        "completeMs": {
+          "n": 30,
+          "median": 47.145550000000185,
+          "p95": 65.69440000000031
+        },
+        "bytes": {
+          "n": 30,
+          "median": 40356,
+          "p95": 40356
+        },
+        "sqlSelects": {
+          "n": 30,
+          "median": 9,
+          "p95": 9
+        },
+        "sqlDurationSumMs": {
+          "n": 30,
+          "median": 1.5,
+          "p95": 2
+        }
+      },
+      "product": {
+        "headersMs": {
+          "n": 30,
+          "median": 37.051150000000234,
+          "p95": 55.80149999999958
+        },
+        "completeMs": {
+          "n": 30,
+          "median": 40.09020000000055,
+          "p95": 57.61670000000049
+        },
+        "bytes": {
+          "n": 30,
+          "median": 63127,
+          "p95": 63127
+        },
+        "sqlSelects": {
+          "n": 30,
+          "median": 9,
+          "p95": 9
+        },
+        "sqlDurationSumMs": {
+          "n": 30,
+          "median": 1,
+          "p95": 2
+        }
+      }
+    },
+    "phase2": {
+      "home": {
+        "headersMs": {
+          "n": 30,
+          "median": 33.87615000000005,
+          "p95": 45.762400000000525
+        },
+        "completeMs": {
+          "n": 30,
+          "median": 35.11890000000017,
+          "p95": 47.318199999999706
+        },
+        "bytes": {
+          "n": 30,
+          "median": 58534,
+          "p95": 58534
+        },
+        "sqlSelects": {
+          "n": 30,
+          "median": 5,
+          "p95": 5
+        },
+        "sqlDurationSumMs": {
+          "n": 30,
+          "median": 0,
+          "p95": 1
+        }
+      },
+      "shop": {
+        "headersMs": {
+          "n": 30,
+          "median": 25.389150000000427,
+          "p95": 42.250200000000405
+        },
+        "completeMs": {
+          "n": 30,
+          "median": 38.577850000000126,
+          "p95": 49.35080000000016
+        },
+        "bytes": {
+          "n": 30,
+          "median": 191010,
+          "p95": 191010
+        },
+        "sqlSelects": {
+          "n": 30,
+          "median": 2,
+          "p95": 2
+        },
+        "sqlDurationSumMs": {
+          "n": 30,
+          "median": 0.5,
+          "p95": 1
+        }
+      },
+      "category": {
+        "headersMs": {
+          "n": 30,
+          "median": 49.643449999999575,
+          "p95": 76.05429999999978
+        },
+        "completeMs": {
+          "n": 30,
+          "median": 50.52455000000009,
+          "p95": 76.73429999999826
+        },
+        "bytes": {
+          "n": 30,
+          "median": 40356,
+          "p95": 40356
+        },
+        "sqlSelects": {
+          "n": 30,
+          "median": 8,
+          "p95": 8
+        },
+        "sqlDurationSumMs": {
+          "n": 30,
+          "median": 2,
+          "p95": 3
+        }
+      },
+      "product": {
+        "headersMs": {
+          "n": 30,
+          "median": 38.38534999999956,
+          "p95": 55.92410000000018
+        },
+        "completeMs": {
+          "n": 30,
+          "median": 39.97829999999885,
+          "p95": 58.46049999999923
+        },
+        "bytes": {
+          "n": 30,
+          "median": 63127,
+          "p95": 63127
+        },
+        "sqlSelects": {
+          "n": 30,
+          "median": 9,
+          "p95": 9
+        },
+        "sqlDurationSumMs": {
+          "n": 30,
+          "median": 1,
+          "p95": 2
+        }
+      }
+    }
+  }
+}

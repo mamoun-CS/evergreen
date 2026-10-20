@@ -1,0 +1,185 @@
+{
+  "mobileViewport": {
+    "width": 390,
+    "height": 844
+  },
+  "metrics": {
+    "home": [
+      {
+        "lcp": 1080,
+        "cls": 0,
+        "shifts": [],
+        "ttfb": 569.3000000119209,
+        "title": "Ever Green — تحف وديكورات الحدائق",
+        "canonical": "http://localhost:3000",
+        "productLinks": 0
+      },
+      {
+        "lcp": 84,
+        "cls": 0,
+        "shifts": [],
+        "ttfb": 45.400000005960464,
+        "title": "Ever Green — تحف وديكورات الحدائق",
+        "canonical": "http://localhost:3000",
+        "productLinks": 0
+      },
+      {
+        "lcp": 68,
+        "cls": 0,
+        "shifts": [],
+        "ttfb": 28.700000017881393,
+        "title": "Ever Green — تحف وديكورات الحدائق",
+        "canonical": "http://localhost:3000",
+        "productLinks": 0
+      }
+    ],
+    "shop": [
+      {
+        "lcp": 112,
+        "cls": 0,
+        "shifts": [],
+        "ttfb": 25.099999994039536,
+        "title": "Ever Green — متجر",
+        "canonical": "http://localhost:3000/shop",
+        "productLinks": 90
+      },
+      {
+        "lcp": 168,
+        "cls": 0,
+        "shifts": [],
+        "ttfb": 27.799999982118607,
+        "title": "Ever Green — متجر",
+        "canonical": "http://localhost:3000/shop",
+        "productLinks": 90
+      },
+      {
+        "lcp": 148,
+        "cls": 0,
+        "shifts": [],
+        "ttfb": 24.100000023841858,
+        "title": "Ever Green — متجر",
+        "canonical": "http://localhost:3000/shop",
+        "productLinks": 90
+      }
+    ],
+    "category": [
+      {
+        "lcp": 232,
+        "cls": 0,
+        "shifts": [],
+        "ttfb": 107.2000000178814,
+        "title": "مجسمات حيوانات | Ever Green",
+        "canonical": "http://localhost:3000/category/animal-sculptures",
+        "productLinks": 3
+      },
+      {
+        "lcp": 96,
+        "cls": 0,
+        "shifts": [],
+        "ttfb": 69.90000000596046,
+        "title": "مجسمات حيوانات | Ever Green",
+        "canonical": "http://localhost:3000/category/animal-sculptures",
+        "productLinks": 3
+      },
+      {
+        "lcp": 88,
+        "cls": 0,
+        "shifts": [],
+        "ttfb": 60.69999998807907,
+        "title": "مجسمات حيوانات | Ever Green",
+        "canonical": "http://localhost:3000/category/animal-sculptures",
+        "productLinks": 3
+      }
+    ],
+    "product": [
+      {
+        "lcp": 388,
+        "cls": 0,
+        "shifts": [],
+        "ttfb": 46.79999998211861,
+        "title": "الحجر باللون الأسود اللامع | Ever Green",
+        "canonical": "http://localhost:3000/products/alhjr-ballwn-alaswd-allama",
+        "productLinks": 9
+      },
+      {
+        "lcp": 72,
+        "cls": 0,
+        "shifts": [],
+        "ttfb": 43.80000001192093,
+        "title": "الحجر باللون الأسود اللامع | Ever Green",
+        "canonical": "http://localhost:3000/products/alhjr-ballwn-alaswd-allama",
+        "productLinks": 9
+      },
+      {
+        "lcp": 80,
+        "cls": 0,
+        "shifts": [],
+        "ttfb": 42.5,
+        "title": "الحجر باللون الأسود اللامع | Ever Green",
+        "canonical": "http://localhost:3000/products/alhjr-ballwn-alaswd-allama",
+        "productLinks": 9
+      }
+    ]
+  },
+  "checks": [
+    {
+      "route": "/shop?search=garden",
+      "status": 200,
+      "path": "/shop",
+      "alerts": 1
+    },
+    {
+      "route": "/shop?search=%D8%AD%D8%AF%D9%8A%D9%82%D8%A9",
+      "status": 200,
+      "path": "/shop",
+      "alerts": 1
+    },
+    {
+      "route": "/shop?page=2",
+      "status": 200,
+      "path": "/shop",
+      "alerts": 1
+    },
+    {
+      "route": "/shop?sort=price-asc&minPrice=0&availability=available",
+      "status": 200,
+      "path": "/shop",
+      "alerts": 1
+    },
+    {
+      "route": "/checkout",
+      "status": 200,
+      "path": "/checkout",
+      "alerts": 1
+    },
+    {
+      "route": "/login",
+      "status": 200,
+      "path": "/login",
+      "alerts": 1
+    },
+    {
+      "route": "/admin",
+      "status": 200,
+      "path": "/login",
+      "alerts": 1
+    }
+  ],
+  "pageErrors": [],
+  "productButtons": [
+    "",
+    "EN",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "حسناً، موافق",
+    "إغلاق"
+  ]
+}

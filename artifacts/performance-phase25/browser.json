@@ -1,0 +1,173 @@
+{
+  "mobileViewport": {
+    "width": 390,
+    "height": 844
+  },
+  "metrics": {
+    "home": [
+      {
+        "lcp": 1256,
+        "cls": 0,
+        "ttfb": 445.7999999821186,
+        "title": "Ever Green — تحف وديكورات الحدائق",
+        "canonical": "http://localhost:3000",
+        "productLinks": 0
+      },
+      {
+        "lcp": 84,
+        "cls": 0,
+        "ttfb": 51.099999994039536,
+        "title": "Ever Green — تحف وديكورات الحدائق",
+        "canonical": "http://localhost:3000",
+        "productLinks": 0
+      },
+      {
+        "lcp": 108,
+        "cls": 0,
+        "ttfb": 65.89999997615814,
+        "title": "Ever Green — تحف وديكورات الحدائق",
+        "canonical": "http://localhost:3000",
+        "productLinks": 0
+      }
+    ],
+    "shop": [
+      {
+        "lcp": 92,
+        "cls": 0.6765099039980557,
+        "ttfb": 37.5,
+        "title": "Ever Green — متجر",
+        "canonical": "http://localhost:3000/shop",
+        "productLinks": 90
+      },
+      {
+        "lcp": 152,
+        "cls": 0.6765099039980557,
+        "ttfb": 27.099999994039536,
+        "title": "Ever Green — متجر",
+        "canonical": "http://localhost:3000/shop",
+        "productLinks": 90
+      },
+      {
+        "lcp": 112,
+        "cls": 0.6765099039980557,
+        "ttfb": 23.5,
+        "title": "Ever Green — متجر",
+        "canonical": "http://localhost:3000/shop",
+        "productLinks": 90
+      }
+    ],
+    "category": [
+      {
+        "lcp": 208,
+        "cls": 0,
+        "ttfb": 63.599999994039536,
+        "title": "مجسمات حيوانات | Ever Green",
+        "canonical": "http://localhost:3000/category/animal-sculptures",
+        "productLinks": 3
+      },
+      {
+        "lcp": 84,
+        "cls": 0,
+        "ttfb": 60.5,
+        "title": "مجسمات حيوانات | Ever Green",
+        "canonical": "http://localhost:3000/category/animal-sculptures",
+        "productLinks": 3
+      },
+      {
+        "lcp": 84,
+        "cls": 0,
+        "ttfb": 60.70000001788139,
+        "title": "مجسمات حيوانات | Ever Green",
+        "canonical": "http://localhost:3000/category/animal-sculptures",
+        "productLinks": 3
+      }
+    ],
+    "product": [
+      {
+        "lcp": 272,
+        "cls": 0.43838862559241704,
+        "ttfb": 31.299999982118607,
+        "title": "الحجر باللون الأسود اللامع | Ever Green",
+        "canonical": "http://localhost:3000/products/alhjr-ballwn-alaswd-allama",
+        "productLinks": 9
+      },
+      {
+        "lcp": 60,
+        "cls": 0,
+        "ttfb": 39.30000001192093,
+        "title": "الحجر باللون الأسود اللامع | Ever Green",
+        "canonical": "http://localhost:3000/products/alhjr-ballwn-alaswd-allama",
+        "productLinks": 9
+      },
+      {
+        "lcp": 68,
+        "cls": 0.43838862559241704,
+        "ttfb": 27.599999994039536,
+        "title": "الحجر باللون الأسود اللامع | Ever Green",
+        "canonical": "http://localhost:3000/products/alhjr-ballwn-alaswd-allama",
+        "productLinks": 9
+      }
+    ]
+  },
+  "checks": [
+    {
+      "route": "/shop?search=garden",
+      "status": 200,
+      "path": "/shop",
+      "alerts": 1
+    },
+    {
+      "route": "/shop?search=%D8%AD%D8%AF%D9%8A%D9%82%D8%A9",
+      "status": 200,
+      "path": "/shop",
+      "alerts": 1
+    },
+    {
+      "route": "/shop?page=2",
+      "status": 200,
+      "path": "/shop",
+      "alerts": 1
+    },
+    {
+      "route": "/shop?sort=price-asc&minPrice=0&availability=available",
+      "status": 200,
+      "path": "/shop",
+      "alerts": 1
+    },
+    {
+      "route": "/checkout",
+      "status": 200,
+      "path": "/checkout",
+      "alerts": 1
+    },
+    {
+      "route": "/login",
+      "status": 200,
+      "path": "/login",
+      "alerts": 1
+    },
+    {
+      "route": "/admin",
+      "status": 200,
+      "path": "/login",
+      "alerts": 1
+    }
+  ],
+  "pageErrors": [],
+  "productButtons": [
+    "",
+    "EN",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "حسناً، موافق",
+    "إغلاق"
+  ]
+}

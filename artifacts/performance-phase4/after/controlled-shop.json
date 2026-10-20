@@ -1,0 +1,1300 @@
+{
+  "note": "AB/BA, fresh context per visit, warm server optimizer cache, mobile 390x844 DPR2 CPUx4 1.6Mbps/150ms; initial viewport then first product card scrolled into view. LCP measured before scroll; transfer measured after scrolling. No field INP.",
+  "samples": [
+    {
+      "device": "mobile",
+      "run": 0,
+      "version": "before",
+      "status": 200,
+      "lcp": 2164,
+      "cls": 0,
+      "long": [
+        184,
+        192,
+        196,
+        142,
+        56
+      ],
+      "ttfb": 224.2999999821186,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=96&q=75",
+          "bytes": 2634
+        }
+      ],
+      "imageBytes": 2634,
+      "jsBytes": 144392,
+      "requests": 21,
+      "dom": 1103
+    },
+    {
+      "device": "mobile",
+      "run": 0,
+      "version": "after",
+      "status": 200,
+      "lcp": 2092,
+      "cls": 0,
+      "long": [
+        248,
+        258,
+        168,
+        167,
+        72
+      ],
+      "ttfb": 207,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=96&q=75",
+          "bytes": 2634
+        }
+      ],
+      "imageBytes": 2634,
+      "jsBytes": 144387,
+      "requests": 21,
+      "dom": 1102
+    },
+    {
+      "device": "mobile",
+      "run": 1,
+      "version": "after",
+      "status": 200,
+      "lcp": 1956,
+      "cls": 0,
+      "long": [
+        166,
+        191,
+        124,
+        146,
+        123,
+        55
+      ],
+      "ttfb": 36.19999998807907,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=96&q=75",
+          "bytes": 2634
+        }
+      ],
+      "imageBytes": 2634,
+      "jsBytes": 144387,
+      "requests": 21,
+      "dom": 1103
+    },
+    {
+      "device": "mobile",
+      "run": 1,
+      "version": "before",
+      "status": 200,
+      "lcp": 2280,
+      "cls": 0,
+      "long": [
+        294,
+        325,
+        176,
+        214,
+        79
+      ],
+      "ttfb": 30.200000017881393,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=96&q=75",
+          "bytes": 2634
+        }
+      ],
+      "imageBytes": 2634,
+      "jsBytes": 144392,
+      "requests": 21,
+      "dom": 1103
+    },
+    {
+      "device": "mobile",
+      "run": 2,
+      "version": "before",
+      "status": 200,
+      "lcp": 2300,
+      "cls": 0,
+      "long": [
+        370,
+        315,
+        155,
+        131,
+        52
+      ],
+      "ttfb": 93.90000000596046,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=96&q=75",
+          "bytes": 2634
+        }
+      ],
+      "imageBytes": 2634,
+      "jsBytes": 144392,
+      "requests": 21,
+      "dom": 1103
+    },
+    {
+      "device": "mobile",
+      "run": 2,
+      "version": "after",
+      "status": 200,
+      "lcp": 2256,
+      "cls": 0,
+      "long": [
+        142,
+        309,
+        183,
+        199,
+        97
+      ],
+      "ttfb": 23.30000001192093,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=96&q=75",
+          "bytes": 2634
+        }
+      ],
+      "imageBytes": 2634,
+      "jsBytes": 144387,
+      "requests": 21,
+      "dom": 1103
+    },
+    {
+      "device": "mobile",
+      "run": 3,
+      "version": "after",
+      "status": 200,
+      "lcp": 2132,
+      "cls": 0,
+      "long": [
+        459,
+        196,
+        232,
+        58,
+        53
+      ],
+      "ttfb": 55.69999998807907,
+      "images": [],
+      "imageBytes": 0,
+      "jsBytes": 144387,
+      "requests": 20,
+      "dom": 1101
+    },
+    {
+      "device": "mobile",
+      "run": 3,
+      "version": "before",
+      "status": 200,
+      "lcp": 2256,
+      "cls": 0,
+      "long": [
+        181,
+        326,
+        159,
+        51,
+        250,
+        61
+      ],
+      "ttfb": 22.80000001192093,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=96&q=75",
+          "bytes": 2634
+        }
+      ],
+      "imageBytes": 2634,
+      "jsBytes": 144392,
+      "requests": 21,
+      "dom": 1103
+    },
+    {
+      "device": "mobile",
+      "run": 4,
+      "version": "before",
+      "status": 200,
+      "lcp": 2288,
+      "cls": 0,
+      "long": [
+        154,
+        313,
+        214,
+        62,
+        230,
+        56
+      ],
+      "ttfb": 26.799999982118607,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=96&q=75",
+          "bytes": 2634
+        }
+      ],
+      "imageBytes": 2634,
+      "jsBytes": 144392,
+      "requests": 21,
+      "dom": 1103
+    },
+    {
+      "device": "mobile",
+      "run": 4,
+      "version": "after",
+      "status": 200,
+      "lcp": 1944,
+      "cls": 0,
+      "long": [
+        113,
+        217,
+        133,
+        189,
+        73,
+        57
+      ],
+      "ttfb": 45.599999994039536,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=96&q=75",
+          "bytes": 2634
+        }
+      ],
+      "imageBytes": 2634,
+      "jsBytes": 144387,
+      "requests": 21,
+      "dom": 1103
+    },
+    {
+      "device": "desktop",
+      "run": 0,
+      "version": "before",
+      "status": 200,
+      "lcp": 176,
+      "cls": 0,
+      "long": [],
+      "ttfb": 42.400000005960464,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=64&q=75",
+          "bytes": 1639
+        },
+        {
+          "query": "?url=%2Fproducts%2F2955_1.jpg&w=384&q=90",
+          "bytes": 71437
+        },
+        {
+          "query": "?url=%2Fproducts%2F2953_1.jpg&w=384&q=90",
+          "bytes": 64705
+        },
+        {
+          "query": "?url=%2Fproducts%2F2952_1.jpg&w=384&q=90",
+          "bytes": 73251
+        },
+        {
+          "query": "?url=%2Fproducts%2F2949_1.jpg&w=384&q=90",
+          "bytes": 53044
+        },
+        {
+          "query": "?url=%2Fproducts%2F2948_1.jpg&w=384&q=90",
+          "bytes": 63806
+        },
+        {
+          "query": "?url=%2Fproducts%2F2947_1.jpg&w=384&q=90",
+          "bytes": 64865
+        },
+        {
+          "query": "?url=%2Fproducts%2F2946_1.jpg&w=384&q=90",
+          "bytes": 69166
+        },
+        {
+          "query": "?url=%2Fproducts%2F1415_1.jpg&w=384&q=90",
+          "bytes": 58890
+        },
+        {
+          "query": "?url=%2Fproducts%2F2945_1.jpg&w=384&q=90",
+          "bytes": 64610
+        },
+        {
+          "query": "?url=%2Fproducts%2F1413_1.jpg&w=384&q=90",
+          "bytes": 39056
+        },
+        {
+          "query": "?url=%2Fproducts%2F1411_1.jpg&w=384&q=90",
+          "bytes": 34067
+        },
+        {
+          "query": "?url=%2Fproducts%2F1081_1.jpg&w=384&q=90",
+          "bytes": 42068
+        },
+        {
+          "query": "?url=%2Fproducts%2F1077_1.jpg&w=384&q=90",
+          "bytes": 36421
+        },
+        {
+          "query": "?url=%2Fproducts%2F1074_1.jpg&w=384&q=90",
+          "bytes": 50300
+        },
+        {
+          "query": "?url=%2Fproducts%2F1070_1.jpg&w=384&q=90",
+          "bytes": 62051
+        },
+        {
+          "query": "?url=%2Fproducts%2F1069_1.jpg&w=384&q=90",
+          "bytes": 40437
+        },
+        {
+          "query": "?url=%2Fproducts%2F1072_1.jpg&w=384&q=90",
+          "bytes": 42096
+        },
+        {
+          "query": "?url=%2Fproducts%2F1067_1.jpg&w=384&q=90",
+          "bytes": 34644
+        },
+        {
+          "query": "?url=%2Fproducts%2F1062_1.jpg&w=384&q=90",
+          "bytes": 61506
+        },
+        {
+          "query": "?url=%2Fproducts%2F1060_1.jpg&w=384&q=90",
+          "bytes": 45376
+        },
+        {
+          "query": "?url=%2Fproducts%2F1057_1.jpg&w=384&q=90",
+          "bytes": 57258
+        }
+      ],
+      "imageBytes": 1130693,
+      "jsBytes": 144392,
+      "requests": 49,
+      "dom": 1101
+    },
+    {
+      "device": "desktop",
+      "run": 0,
+      "version": "after",
+      "status": 200,
+      "lcp": 132,
+      "cls": 0,
+      "long": [
+        52
+      ],
+      "ttfb": 25.900000005960464,
+      "images": [
+        {
+          "query": "?url=%2Fproducts%2F2949_1.jpg&w=384&q=80",
+          "bytes": 38073
+        },
+        {
+          "query": "?url=%2Fproducts%2F2953_1.jpg&w=384&q=80",
+          "bytes": 47051
+        },
+        {
+          "query": "?url=%2Fproducts%2F2952_1.jpg&w=384&q=80",
+          "bytes": 52947
+        },
+        {
+          "query": "?url=%2Fproducts%2F2955_1.jpg&w=384&q=80",
+          "bytes": 51614
+        },
+        {
+          "query": "?url=%2Fproducts%2F2947_1.jpg&w=384&q=80",
+          "bytes": 46986
+        },
+        {
+          "query": "?url=%2Fproducts%2F2948_1.jpg&w=384&q=80",
+          "bytes": 46645
+        },
+        {
+          "query": "?url=%2Fproducts%2F2946_1.jpg&w=384&q=80",
+          "bytes": 50889
+        },
+        {
+          "query": "?url=%2Fproducts%2F1413_1.jpg&w=384&q=80",
+          "bytes": 28213
+        },
+        {
+          "query": "?url=%2Fproducts%2F2945_1.jpg&w=384&q=80",
+          "bytes": 46596
+        },
+        {
+          "query": "?url=%2Fproducts%2F1415_1.jpg&w=384&q=80",
+          "bytes": 42979
+        },
+        {
+          "query": "?url=%2Fproducts%2F1411_1.jpg&w=384&q=80",
+          "bytes": 22709
+        },
+        {
+          "query": "?url=%2Fproducts%2F1081_1.jpg&w=384&q=80",
+          "bytes": 30348
+        },
+        {
+          "query": "?url=%2Fproducts%2F1077_1.jpg&w=384&q=80",
+          "bytes": 25831
+        },
+        {
+          "query": "?url=%2Fproducts%2F1072_1.jpg&w=384&q=80",
+          "bytes": 29767
+        },
+        {
+          "query": "?url=%2Fproducts%2F1074_1.jpg&w=384&q=80",
+          "bytes": 33179
+        },
+        {
+          "query": "?url=%2Fproducts%2F1070_1.jpg&w=384&q=80",
+          "bytes": 44916
+        },
+        {
+          "query": "?url=%2Fproducts%2F1069_1.jpg&w=384&q=80",
+          "bytes": 28571
+        },
+        {
+          "query": "?url=%2Fproducts%2F1067_1.jpg&w=384&q=80",
+          "bytes": 25544
+        },
+        {
+          "query": "?url=%2Fproducts%2F1060_1.jpg&w=384&q=80",
+          "bytes": 32313
+        },
+        {
+          "query": "?url=%2Fproducts%2F1062_1.jpg&w=384&q=80",
+          "bytes": 46467
+        },
+        {
+          "query": "?url=%2Fproducts%2F1057_1.jpg&w=384&q=80",
+          "bytes": 41177
+        }
+      ],
+      "imageBytes": 812815,
+      "jsBytes": 144387,
+      "requests": 48,
+      "dom": 1103
+    },
+    {
+      "device": "desktop",
+      "run": 1,
+      "version": "after",
+      "status": 200,
+      "lcp": 132,
+      "cls": 0,
+      "long": [
+        52
+      ],
+      "ttfb": 43.20000001788139,
+      "images": [
+        {
+          "query": "?url=%2Fproducts%2F2955_1.jpg&w=384&q=80",
+          "bytes": 51614
+        },
+        {
+          "query": "?url=%2Fproducts%2F2953_1.jpg&w=384&q=80",
+          "bytes": 47051
+        },
+        {
+          "query": "?url=%2Fproducts%2F2949_1.jpg&w=384&q=80",
+          "bytes": 38073
+        },
+        {
+          "query": "?url=%2Fproducts%2F2948_1.jpg&w=384&q=80",
+          "bytes": 46645
+        },
+        {
+          "query": "?url=%2Fproducts%2F2952_1.jpg&w=384&q=80",
+          "bytes": 52947
+        },
+        {
+          "query": "?url=%2Fproducts%2F2947_1.jpg&w=384&q=80",
+          "bytes": 46986
+        },
+        {
+          "query": "?url=%2Fproducts%2F2946_1.jpg&w=384&q=80",
+          "bytes": 50889
+        },
+        {
+          "query": "?url=%2Fproducts%2F2945_1.jpg&w=384&q=80",
+          "bytes": 46596
+        },
+        {
+          "query": "?url=%2Fproducts%2F1415_1.jpg&w=384&q=80",
+          "bytes": 42979
+        },
+        {
+          "query": "?url=%2Fproducts%2F1413_1.jpg&w=384&q=80",
+          "bytes": 28213
+        },
+        {
+          "query": "?url=%2Fproducts%2F1411_1.jpg&w=384&q=80",
+          "bytes": 22709
+        },
+        {
+          "query": "?url=%2Fproducts%2F1081_1.jpg&w=384&q=80",
+          "bytes": 30348
+        },
+        {
+          "query": "?url=%2Fproducts%2F1077_1.jpg&w=384&q=80",
+          "bytes": 25831
+        },
+        {
+          "query": "?url=%2Fproducts%2F1074_1.jpg&w=384&q=80",
+          "bytes": 33179
+        },
+        {
+          "query": "?url=%2Fproducts%2F1072_1.jpg&w=384&q=80",
+          "bytes": 29767
+        },
+        {
+          "query": "?url=%2Fproducts%2F1070_1.jpg&w=384&q=80",
+          "bytes": 44916
+        },
+        {
+          "query": "?url=%2Fproducts%2F1069_1.jpg&w=384&q=80",
+          "bytes": 28571
+        },
+        {
+          "query": "?url=%2Fproducts%2F1062_1.jpg&w=384&q=80",
+          "bytes": 46467
+        },
+        {
+          "query": "?url=%2Fproducts%2F1067_1.jpg&w=384&q=80",
+          "bytes": 25544
+        },
+        {
+          "query": "?url=%2Fproducts%2F1060_1.jpg&w=384&q=80",
+          "bytes": 32313
+        },
+        {
+          "query": "?url=%2Fproducts%2F1057_1.jpg&w=384&q=80",
+          "bytes": 41177
+        }
+      ],
+      "imageBytes": 812815,
+      "jsBytes": 144387,
+      "requests": 48,
+      "dom": 1095
+    },
+    {
+      "device": "desktop",
+      "run": 1,
+      "version": "before",
+      "status": 200,
+      "lcp": 160,
+      "cls": 0,
+      "long": [],
+      "ttfb": 28.69999998807907,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=64&q=75",
+          "bytes": 1639
+        },
+        {
+          "query": "?url=%2Fproducts%2F2955_1.jpg&w=384&q=90",
+          "bytes": 71437
+        },
+        {
+          "query": "?url=%2Fproducts%2F2949_1.jpg&w=384&q=90",
+          "bytes": 53044
+        },
+        {
+          "query": "?url=%2Fproducts%2F2953_1.jpg&w=384&q=90",
+          "bytes": 64705
+        },
+        {
+          "query": "?url=%2Fproducts%2F2952_1.jpg&w=384&q=90",
+          "bytes": 73251
+        },
+        {
+          "query": "?url=%2Fproducts%2F2947_1.jpg&w=384&q=90",
+          "bytes": 64865
+        },
+        {
+          "query": "?url=%2Fproducts%2F2948_1.jpg&w=384&q=90",
+          "bytes": 63806
+        },
+        {
+          "query": "?url=%2Fproducts%2F2946_1.jpg&w=384&q=90",
+          "bytes": 69166
+        },
+        {
+          "query": "?url=%2Fproducts%2F1415_1.jpg&w=384&q=90",
+          "bytes": 58890
+        },
+        {
+          "query": "?url=%2Fproducts%2F2945_1.jpg&w=384&q=90",
+          "bytes": 64610
+        },
+        {
+          "query": "?url=%2Fproducts%2F1413_1.jpg&w=384&q=90",
+          "bytes": 39056
+        },
+        {
+          "query": "?url=%2Fproducts%2F1411_1.jpg&w=384&q=90",
+          "bytes": 34067
+        },
+        {
+          "query": "?url=%2Fproducts%2F1081_1.jpg&w=384&q=90",
+          "bytes": 42068
+        },
+        {
+          "query": "?url=%2Fproducts%2F1077_1.jpg&w=384&q=90",
+          "bytes": 36421
+        },
+        {
+          "query": "?url=%2Fproducts%2F1074_1.jpg&w=384&q=90",
+          "bytes": 50300
+        },
+        {
+          "query": "?url=%2Fproducts%2F1072_1.jpg&w=384&q=90",
+          "bytes": 42096
+        },
+        {
+          "query": "?url=%2Fproducts%2F1069_1.jpg&w=384&q=90",
+          "bytes": 40437
+        },
+        {
+          "query": "?url=%2Fproducts%2F1070_1.jpg&w=384&q=90",
+          "bytes": 62051
+        },
+        {
+          "query": "?url=%2Fproducts%2F1067_1.jpg&w=384&q=90",
+          "bytes": 34644
+        },
+        {
+          "query": "?url=%2Fproducts%2F1062_1.jpg&w=384&q=90",
+          "bytes": 61506
+        },
+        {
+          "query": "?url=%2Fproducts%2F1060_1.jpg&w=384&q=90",
+          "bytes": 45376
+        },
+        {
+          "query": "?url=%2Fproducts%2F1057_1.jpg&w=384&q=90",
+          "bytes": 57258
+        }
+      ],
+      "imageBytes": 1130693,
+      "jsBytes": 144392,
+      "requests": 49,
+      "dom": 1097
+    },
+    {
+      "device": "desktop",
+      "run": 2,
+      "version": "before",
+      "status": 200,
+      "lcp": 152,
+      "cls": 0,
+      "long": [],
+      "ttfb": 22.299999982118607,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=64&q=75",
+          "bytes": 1639
+        },
+        {
+          "query": "?url=%2Fproducts%2F2955_1.jpg&w=384&q=90",
+          "bytes": 71437
+        },
+        {
+          "query": "?url=%2Fproducts%2F2953_1.jpg&w=384&q=90",
+          "bytes": 64705
+        },
+        {
+          "query": "?url=%2Fproducts%2F2952_1.jpg&w=384&q=90",
+          "bytes": 73251
+        },
+        {
+          "query": "?url=%2Fproducts%2F2949_1.jpg&w=384&q=90",
+          "bytes": 53044
+        },
+        {
+          "query": "?url=%2Fproducts%2F2948_1.jpg&w=384&q=90",
+          "bytes": 63806
+        },
+        {
+          "query": "?url=%2Fproducts%2F2947_1.jpg&w=384&q=90",
+          "bytes": 64865
+        },
+        {
+          "query": "?url=%2Fproducts%2F2946_1.jpg&w=384&q=90",
+          "bytes": 69166
+        },
+        {
+          "query": "?url=%2Fproducts%2F1415_1.jpg&w=384&q=90",
+          "bytes": 58890
+        },
+        {
+          "query": "?url=%2Fproducts%2F2945_1.jpg&w=384&q=90",
+          "bytes": 64610
+        },
+        {
+          "query": "?url=%2Fproducts%2F1413_1.jpg&w=384&q=90",
+          "bytes": 39056
+        },
+        {
+          "query": "?url=%2Fproducts%2F1411_1.jpg&w=384&q=90",
+          "bytes": 34067
+        },
+        {
+          "query": "?url=%2Fproducts%2F1081_1.jpg&w=384&q=90",
+          "bytes": 42068
+        },
+        {
+          "query": "?url=%2Fproducts%2F1077_1.jpg&w=384&q=90",
+          "bytes": 36421
+        },
+        {
+          "query": "?url=%2Fproducts%2F1074_1.jpg&w=384&q=90",
+          "bytes": 50300
+        },
+        {
+          "query": "?url=%2Fproducts%2F1072_1.jpg&w=384&q=90",
+          "bytes": 42096
+        },
+        {
+          "query": "?url=%2Fproducts%2F1070_1.jpg&w=384&q=90",
+          "bytes": 62051
+        },
+        {
+          "query": "?url=%2Fproducts%2F1069_1.jpg&w=384&q=90",
+          "bytes": 40437
+        },
+        {
+          "query": "?url=%2Fproducts%2F1067_1.jpg&w=384&q=90",
+          "bytes": 34644
+        },
+        {
+          "query": "?url=%2Fproducts%2F1057_1.jpg&w=384&q=90",
+          "bytes": 57258
+        },
+        {
+          "query": "?url=%2Fproducts%2F1060_1.jpg&w=384&q=90",
+          "bytes": 45376
+        },
+        {
+          "query": "?url=%2Fproducts%2F1062_1.jpg&w=384&q=90",
+          "bytes": 61506
+        }
+      ],
+      "imageBytes": 1130693,
+      "jsBytes": 144392,
+      "requests": 49,
+      "dom": 1097
+    },
+    {
+      "device": "desktop",
+      "run": 2,
+      "version": "after",
+      "status": 200,
+      "lcp": 144,
+      "cls": 0,
+      "long": [],
+      "ttfb": 31.099999994039536,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=64&q=75",
+          "bytes": 1639
+        },
+        {
+          "query": "?url=%2Fproducts%2F2955_1.jpg&w=384&q=80",
+          "bytes": 51614
+        },
+        {
+          "query": "?url=%2Fproducts%2F2953_1.jpg&w=384&q=80",
+          "bytes": 47051
+        },
+        {
+          "query": "?url=%2Fproducts%2F2952_1.jpg&w=384&q=80",
+          "bytes": 52947
+        },
+        {
+          "query": "?url=%2Fproducts%2F2948_1.jpg&w=384&q=80",
+          "bytes": 46645
+        },
+        {
+          "query": "?url=%2Fproducts%2F2949_1.jpg&w=384&q=80",
+          "bytes": 38073
+        },
+        {
+          "query": "?url=%2Fproducts%2F2947_1.jpg&w=384&q=80",
+          "bytes": 46986
+        },
+        {
+          "query": "?url=%2Fproducts%2F2946_1.jpg&w=384&q=80",
+          "bytes": 50889
+        },
+        {
+          "query": "?url=%2Fproducts%2F2945_1.jpg&w=384&q=80",
+          "bytes": 46596
+        },
+        {
+          "query": "?url=%2Fproducts%2F1415_1.jpg&w=384&q=80",
+          "bytes": 42979
+        },
+        {
+          "query": "?url=%2Fproducts%2F1411_1.jpg&w=384&q=80",
+          "bytes": 22709
+        },
+        {
+          "query": "?url=%2Fproducts%2F1413_1.jpg&w=384&q=80",
+          "bytes": 28213
+        },
+        {
+          "query": "?url=%2Fproducts%2F1081_1.jpg&w=384&q=80",
+          "bytes": 30348
+        },
+        {
+          "query": "?url=%2Fproducts%2F1077_1.jpg&w=384&q=80",
+          "bytes": 25831
+        },
+        {
+          "query": "?url=%2Fproducts%2F1074_1.jpg&w=384&q=80",
+          "bytes": 33179
+        },
+        {
+          "query": "?url=%2Fproducts%2F1072_1.jpg&w=384&q=80",
+          "bytes": 29767
+        },
+        {
+          "query": "?url=%2Fproducts%2F1070_1.jpg&w=384&q=80",
+          "bytes": 44916
+        },
+        {
+          "query": "?url=%2Fproducts%2F1069_1.jpg&w=384&q=80",
+          "bytes": 28571
+        },
+        {
+          "query": "?url=%2Fproducts%2F1067_1.jpg&w=384&q=80",
+          "bytes": 25544
+        },
+        {
+          "query": "?url=%2Fproducts%2F1062_1.jpg&w=384&q=80",
+          "bytes": 46467
+        },
+        {
+          "query": "?url=%2Fproducts%2F1057_1.jpg&w=384&q=80",
+          "bytes": 41177
+        },
+        {
+          "query": "?url=%2Fproducts%2F1060_1.jpg&w=384&q=80",
+          "bytes": 32313
+        }
+      ],
+      "imageBytes": 814454,
+      "jsBytes": 144387,
+      "requests": 49,
+      "dom": 1097
+    },
+    {
+      "device": "desktop",
+      "run": 3,
+      "version": "after",
+      "status": 200,
+      "lcp": 156,
+      "cls": 0,
+      "long": [],
+      "ttfb": 39.69999998807907,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=64&q=75",
+          "bytes": 1639
+        },
+        {
+          "query": "?url=%2Fproducts%2F2955_1.jpg&w=384&q=80",
+          "bytes": 51614
+        },
+        {
+          "query": "?url=%2Fproducts%2F2953_1.jpg&w=384&q=80",
+          "bytes": 47051
+        },
+        {
+          "query": "?url=%2Fproducts%2F2952_1.jpg&w=384&q=80",
+          "bytes": 52947
+        },
+        {
+          "query": "?url=%2Fproducts%2F2949_1.jpg&w=384&q=80",
+          "bytes": 38073
+        },
+        {
+          "query": "?url=%2Fproducts%2F2948_1.jpg&w=384&q=80",
+          "bytes": 46645
+        },
+        {
+          "query": "?url=%2Fproducts%2F2947_1.jpg&w=384&q=80",
+          "bytes": 46986
+        },
+        {
+          "query": "?url=%2Fproducts%2F2946_1.jpg&w=384&q=80",
+          "bytes": 50889
+        },
+        {
+          "query": "?url=%2Fproducts%2F2945_1.jpg&w=384&q=80",
+          "bytes": 46596
+        },
+        {
+          "query": "?url=%2Fproducts%2F1415_1.jpg&w=384&q=80",
+          "bytes": 42979
+        },
+        {
+          "query": "?url=%2Fproducts%2F1411_1.jpg&w=384&q=80",
+          "bytes": 22709
+        },
+        {
+          "query": "?url=%2Fproducts%2F1413_1.jpg&w=384&q=80",
+          "bytes": 28213
+        },
+        {
+          "query": "?url=%2Fproducts%2F1081_1.jpg&w=384&q=80",
+          "bytes": 30348
+        },
+        {
+          "query": "?url=%2Fproducts%2F1077_1.jpg&w=384&q=80",
+          "bytes": 25831
+        },
+        {
+          "query": "?url=%2Fproducts%2F1074_1.jpg&w=384&q=80",
+          "bytes": 33179
+        },
+        {
+          "query": "?url=%2Fproducts%2F1072_1.jpg&w=384&q=80",
+          "bytes": 29767
+        },
+        {
+          "query": "?url=%2Fproducts%2F1070_1.jpg&w=384&q=80",
+          "bytes": 44916
+        },
+        {
+          "query": "?url=%2Fproducts%2F1069_1.jpg&w=384&q=80",
+          "bytes": 28571
+        },
+        {
+          "query": "?url=%2Fproducts%2F1067_1.jpg&w=384&q=80",
+          "bytes": 25544
+        },
+        {
+          "query": "?url=%2Fproducts%2F1062_1.jpg&w=384&q=80",
+          "bytes": 46467
+        },
+        {
+          "query": "?url=%2Fproducts%2F1060_1.jpg&w=384&q=80",
+          "bytes": 32313
+        },
+        {
+          "query": "?url=%2Fproducts%2F1057_1.jpg&w=384&q=80",
+          "bytes": 41177
+        }
+      ],
+      "imageBytes": 814454,
+      "jsBytes": 144387,
+      "requests": 49,
+      "dom": 1095
+    },
+    {
+      "device": "desktop",
+      "run": 3,
+      "version": "before",
+      "status": 200,
+      "lcp": 172,
+      "cls": 0,
+      "long": [],
+      "ttfb": 53.29999998211861,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=64&q=75",
+          "bytes": 1639
+        },
+        {
+          "query": "?url=%2Fproducts%2F2952_1.jpg&w=384&q=90",
+          "bytes": 73251
+        },
+        {
+          "query": "?url=%2Fproducts%2F2955_1.jpg&w=384&q=90",
+          "bytes": 71437
+        },
+        {
+          "query": "?url=%2Fproducts%2F2953_1.jpg&w=384&q=90",
+          "bytes": 64705
+        },
+        {
+          "query": "?url=%2Fproducts%2F2949_1.jpg&w=384&q=90",
+          "bytes": 53044
+        },
+        {
+          "query": "?url=%2Fproducts%2F2947_1.jpg&w=384&q=90",
+          "bytes": 64865
+        },
+        {
+          "query": "?url=%2Fproducts%2F2948_1.jpg&w=384&q=90",
+          "bytes": 63806
+        },
+        {
+          "query": "?url=%2Fproducts%2F2946_1.jpg&w=384&q=90",
+          "bytes": 69166
+        },
+        {
+          "query": "?url=%2Fproducts%2F2945_1.jpg&w=384&q=90",
+          "bytes": 64610
+        },
+        {
+          "query": "?url=%2Fproducts%2F1415_1.jpg&w=384&q=90",
+          "bytes": 58890
+        },
+        {
+          "query": "?url=%2Fproducts%2F1413_1.jpg&w=384&q=90",
+          "bytes": 39056
+        },
+        {
+          "query": "?url=%2Fproducts%2F1411_1.jpg&w=384&q=90",
+          "bytes": 34067
+        },
+        {
+          "query": "?url=%2Fproducts%2F1081_1.jpg&w=384&q=90",
+          "bytes": 42068
+        },
+        {
+          "query": "?url=%2Fproducts%2F1077_1.jpg&w=384&q=90",
+          "bytes": 36421
+        },
+        {
+          "query": "?url=%2Fproducts%2F1074_1.jpg&w=384&q=90",
+          "bytes": 50300
+        },
+        {
+          "query": "?url=%2Fproducts%2F1072_1.jpg&w=384&q=90",
+          "bytes": 42096
+        },
+        {
+          "query": "?url=%2Fproducts%2F1070_1.jpg&w=384&q=90",
+          "bytes": 62051
+        },
+        {
+          "query": "?url=%2Fproducts%2F1069_1.jpg&w=384&q=90",
+          "bytes": 40437
+        },
+        {
+          "query": "?url=%2Fproducts%2F1067_1.jpg&w=384&q=90",
+          "bytes": 34644
+        },
+        {
+          "query": "?url=%2Fproducts%2F1062_1.jpg&w=384&q=90",
+          "bytes": 61506
+        },
+        {
+          "query": "?url=%2Fproducts%2F1060_1.jpg&w=384&q=90",
+          "bytes": 45376
+        },
+        {
+          "query": "?url=%2Fproducts%2F1057_1.jpg&w=384&q=90",
+          "bytes": 57258
+        }
+      ],
+      "imageBytes": 1130693,
+      "jsBytes": 144392,
+      "requests": 49,
+      "dom": 1094
+    },
+    {
+      "device": "desktop",
+      "run": 4,
+      "version": "before",
+      "status": 200,
+      "lcp": 148,
+      "cls": 0,
+      "long": [
+        56
+      ],
+      "ttfb": 30.700000017881393,
+      "images": [
+        {
+          "query": "?url=%2Fproducts%2F2955_1.jpg&w=384&q=90",
+          "bytes": 71437
+        },
+        {
+          "query": "?url=%2Fproducts%2F2953_1.jpg&w=384&q=90",
+          "bytes": 64705
+        },
+        {
+          "query": "?url=%2Fproducts%2F2952_1.jpg&w=384&q=90",
+          "bytes": 73251
+        },
+        {
+          "query": "?url=%2Fproducts%2F2949_1.jpg&w=384&q=90",
+          "bytes": 53044
+        },
+        {
+          "query": "?url=%2Fproducts%2F2948_1.jpg&w=384&q=90",
+          "bytes": 63806
+        },
+        {
+          "query": "?url=%2Fproducts%2F2947_1.jpg&w=384&q=90",
+          "bytes": 64865
+        },
+        {
+          "query": "?url=%2Fproducts%2F2946_1.jpg&w=384&q=90",
+          "bytes": 69166
+        },
+        {
+          "query": "?url=%2Fproducts%2F2945_1.jpg&w=384&q=90",
+          "bytes": 64610
+        },
+        {
+          "query": "?url=%2Fproducts%2F1415_1.jpg&w=384&q=90",
+          "bytes": 58890
+        },
+        {
+          "query": "?url=%2Fproducts%2F1413_1.jpg&w=384&q=90",
+          "bytes": 39056
+        },
+        {
+          "query": "?url=%2Fproducts%2F1411_1.jpg&w=384&q=90",
+          "bytes": 34067
+        },
+        {
+          "query": "?url=%2Fproducts%2F1081_1.jpg&w=384&q=90",
+          "bytes": 42068
+        },
+        {
+          "query": "?url=%2Fproducts%2F1077_1.jpg&w=384&q=90",
+          "bytes": 36421
+        },
+        {
+          "query": "?url=%2Fproducts%2F1074_1.jpg&w=384&q=90",
+          "bytes": 50300
+        },
+        {
+          "query": "?url=%2Fproducts%2F1072_1.jpg&w=384&q=90",
+          "bytes": 42096
+        },
+        {
+          "query": "?url=%2Fproducts%2F1070_1.jpg&w=384&q=90",
+          "bytes": 62051
+        },
+        {
+          "query": "?url=%2Fproducts%2F1069_1.jpg&w=384&q=90",
+          "bytes": 40437
+        },
+        {
+          "query": "?url=%2Fproducts%2F1067_1.jpg&w=384&q=90",
+          "bytes": 34644
+        },
+        {
+          "query": "?url=%2Fproducts%2F1062_1.jpg&w=384&q=90",
+          "bytes": 61506
+        },
+        {
+          "query": "?url=%2Fproducts%2F1060_1.jpg&w=384&q=90",
+          "bytes": 45376
+        },
+        {
+          "query": "?url=%2Fproducts%2F1057_1.jpg&w=384&q=90",
+          "bytes": 57258
+        }
+      ],
+      "imageBytes": 1129054,
+      "jsBytes": 144392,
+      "requests": 48,
+      "dom": 1098
+    },
+    {
+      "device": "desktop",
+      "run": 4,
+      "version": "after",
+      "status": 200,
+      "lcp": 148,
+      "cls": 0,
+      "long": [],
+      "ttfb": 29.900000005960464,
+      "images": [
+        {
+          "query": "?url=%2Fimages%2Flogo.jpg&w=64&q=75",
+          "bytes": 1639
+        },
+        {
+          "query": "?url=%2Fproducts%2F2955_1.jpg&w=384&q=80",
+          "bytes": 51614
+        },
+        {
+          "query": "?url=%2Fproducts%2F2952_1.jpg&w=384&q=80",
+          "bytes": 52947
+        },
+        {
+          "query": "?url=%2Fproducts%2F2949_1.jpg&w=384&q=80",
+          "bytes": 38073
+        },
+        {
+          "query": "?url=%2Fproducts%2F2948_1.jpg&w=384&q=80",
+          "bytes": 46645
+        },
+        {
+          "query": "?url=%2Fproducts%2F2953_1.jpg&w=384&q=80",
+          "bytes": 47051
+        },
+        {
+          "query": "?url=%2Fproducts%2F2947_1.jpg&w=384&q=80",
+          "bytes": 46986
+        },
+        {
+          "query": "?url=%2Fproducts%2F1415_1.jpg&w=384&q=80",
+          "bytes": 42979
+        },
+        {
+          "query": "?url=%2Fproducts%2F2946_1.jpg&w=384&q=80",
+          "bytes": 50889
+        },
+        {
+          "query": "?url=%2Fproducts%2F2945_1.jpg&w=384&q=80",
+          "bytes": 46596
+        },
+        {
+          "query": "?url=%2Fproducts%2F1413_1.jpg&w=384&q=80",
+          "bytes": 28213
+        },
+        {
+          "query": "?url=%2Fproducts%2F1411_1.jpg&w=384&q=80",
+          "bytes": 22709
+        },
+        {
+          "query": "?url=%2Fproducts%2F1081_1.jpg&w=384&q=80",
+          "bytes": 30348
+        },
+        {
+          "query": "?url=%2Fproducts%2F1077_1.jpg&w=384&q=80",
+          "bytes": 25831
+        },
+        {
+          "query": "?url=%2Fproducts%2F1074_1.jpg&w=384&q=80",
+          "bytes": 33179
+        },
+        {
+          "query": "?url=%2Fproducts%2F1072_1.jpg&w=384&q=80",
+          "bytes": 29767
+        },
+        {
+          "query": "?url=%2Fproducts%2F1069_1.jpg&w=384&q=80",
+          "bytes": 28571
+        },
+        {
+          "query": "?url=%2Fproducts%2F1070_1.jpg&w=384&q=80",
+          "bytes": 44916
+        },
+        {
+          "query": "?url=%2Fproducts%2F1067_1.jpg&w=384&q=80",
+          "bytes": 25544
+        },
+        {
+          "query": "?url=%2Fproducts%2F1062_1.jpg&w=384&q=80",
+          "bytes": 46467
+        },
+        {
+          "query": "?url=%2Fproducts%2F1060_1.jpg&w=384&q=80",
+          "bytes": 32313
+        },
+        {
+          "query": "?url=%2Fproducts%2F1057_1.jpg&w=384&q=80",
+          "bytes": 41177
+        }
+      ],
+      "imageBytes": 814454,
+      "jsBytes": 144387,
+      "requests": 49,
+      "dom": 1096
+    }
+  ],
+  "errors": [],
+  "browser": "149.0.7827.55"
+}

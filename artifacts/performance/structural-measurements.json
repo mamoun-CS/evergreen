@@ -1,0 +1,48 @@
+{
+  "scenario": "Synthetic fixture; actual source execution; no database/network",
+  "autocomplete": {
+    "before": {
+      "productOperations": 2,
+      "selectedFields": [
+        "id",
+        "slug",
+        "sku",
+        "nameEn",
+        "nameAr",
+        "purchaseMode",
+        "basePrice",
+        "discountPrice",
+        "currency",
+        "images",
+        "productImages",
+        "isAvailable",
+        "stockQuantity",
+        "warrantyInfoEn",
+        "warrantyInfoAr",
+        "ratingAvg",
+        "ratingCount",
+        "brand"
+      ]
+    },
+    "after": {
+      "productOperations": 1,
+      "selectedFields": [
+        "id",
+        "slug",
+        "sku",
+        "nameEn",
+        "nameAr",
+        "images",
+        "productImages"
+      ]
+    },
+    "note": "Rate-limit database work is unchanged and excluded. Prisma relation queries may add SQL statements."
+  },
+  "serializedCard": {
+    "fixtureImageCount": 4,
+    "beforeJsonBytes": 349,
+    "afterJsonBytes": 116,
+    "displayedImageUnchanged": true,
+    "note": "Raw fixture JSON bytes, not compressed or measured production transfer sizes."
+  }
+}
