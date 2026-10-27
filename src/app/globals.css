@@ -251,6 +251,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .dg-quick i { position: absolute; inset-block-start: -9px; inset-inline-end: -10px; min-width: 17px; height: 17px; padding-inline: 3px; display: grid; place-items: center; background: var(--eg-terra); color: #fff; border-radius: var(--eg-r-pill); font-size: 9px; font-style: normal; }
 .dg-quick .dg-quick-label { display: inline; }
 .dg-logo { justify-self: center; display: grid; place-items: center; }
+.dg-brand-lockup { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; min-width: 190px; line-height: 1.15; text-align: center; }
+.dg-brand-name, .dg-brand-tagline { display: block; white-space: nowrap; color: var(--color-primary); font-weight: 800; }
+.dg-brand-name { font-size: 15px; letter-spacing: .01em; }
+.dg-brand-tagline { color: var(--eg-olive); font-size: 12px; font-weight: 700; }
 .dg-logo-mark { position: relative; width: 88px; height: 88px; border-radius: 50%; overflow: hidden; background: #fff; box-shadow: 0 0 0 2px #fff, 0 4px 14px rgba(23,34,25,.12); }
 .dg-masthead-search { justify-self: end; width: min(340px, 100%); }
 
@@ -463,6 +467,9 @@ html.eg-a11y-noanim *, html.eg-a11y-noanim *::before, html.eg-a11y-noanim *::aft
   .dg-quick { gap: 8px; }
   .dg-masthead-in { grid-template-columns: 1fr auto 1fr; gap: 8px; }
   .dg-logo-mark { width: 54px; height: 54px; }
+  .dg-brand-lockup { min-width: 0; gap: 3px; }
+  .dg-brand-name { font-size: 12px; }
+  .dg-brand-tagline { font-size: 9.5px; }
   .dg-masthead-search { display: none; }
   .dg-topbar-delivery { display: none; }
 }
@@ -626,6 +633,8 @@ html.eg-a11y-noanim *, html.eg-a11y-noanim *::before, html.eg-a11y-noanim *::aft
 @media(max-width:760px){.dg-footer-in{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.dg-footer-in>div:first-child{grid-column:1/-1}}
 @media(max-width:420px){.dg-footer-in{grid-template-columns:minmax(0,1fr)}}
 .catalogue-type-card{border-radius:20px;box-shadow:0 4px 12px rgba(0,0,0,.09)}
+.catalogue-product-image{background:linear-gradient(145deg,#fff 0%,#f8fbf7 100%);}
+.catalogue-product-img{filter:contrast(1.04) saturate(1.04);}
 .catalogue-type-image{height:auto;aspect-ratio:1.18;background:#fff}
 .catalogue-type-image:after{display:none}
 .catalogue-type-content{background:var(--color-primary);border-top:0;min-height:70px;padding:12px 14px;justify-content:center;text-align:center}

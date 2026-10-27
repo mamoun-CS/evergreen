@@ -28,7 +28,8 @@ export default function Header({ settings = {} as any, announcementBars = [] as 
   const [catsOpen, setCatsOpen] = useState(false);
   const ar = lang === 'ar';
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-  const phone = settings.contactPhone || '0559401774';
+  const phone = settings.contactPhone || '0597749188';
+  const phone2 = '0559401774';
 
   // Get the first active announcement bar (they're already ordered)
   const activeAnnouncement = announcementBars.length > 0 ? announcementBars[0] : null;
@@ -121,11 +122,13 @@ export default function Header({ settings = {} as any, announcementBars = [] as 
       {/* 1 — customer service phone area */}
       <div className="dg-topbar">
         <div className="dg-container dg-topbar-in">
-          <a className="dg-topbar-phone" href={`tel:${phone.replace(/\s/g, '')}`}>
+          <div className="dg-topbar-phone">
             <Phone aria-hidden="true" />
             <span>{ar ? 'خدمة العملاء:' : 'Customer service:'}</span>
-            <b dir="ltr">{phone}</b>
-          </a>
+            <a href={`tel:${phone.replace(/\s/g, '')}`}><b dir="ltr">{phone}</b></a>
+            <span aria-hidden="true">|</span>
+            <a href={`tel:${phone2}`}><b dir="ltr">{phone2}</b></a>
+          </div>
           <span className="dg-topbar-delivery"><Truck aria-hidden="true" /> {ar ? 'توصيل إلى جميع مناطق فلسطين' : 'Delivery across Palestine'}</span>
         </div>
       </div>
@@ -151,8 +154,12 @@ export default function Header({ settings = {} as any, announcementBars = [] as 
             </button>
           </div>
           <Link href="/" className="dg-logo" aria-label={settings.storeNameAr || 'Ever Green'}>
-            <span className="dg-logo-mark">
-              <Image src={settings.logoUrl || '/images/logo.jpg'} alt={ar ? 'Ever Green لتحف وديكورات الحدائق' : 'Ever Green Garden Ornaments'} fill priority sizes="(max-width:900px) 54px, 88px" />
+            <span className="dg-brand-lockup" dir={ar ? 'rtl' : 'ltr'}>
+              <span className="dg-brand-name">{ar ? 'شركة أ . س . ايفير جرين' : 'A. S. Ever Green Co.'}</span>
+              <span className="dg-logo-mark">
+                <Image src={settings.logoUrl || '/images/logo.jpg'} alt={ar ? 'Ever Green لتحف وديكورات الحدائق' : 'Ever Green Garden Ornaments'} fill priority sizes="(max-width:900px) 54px, 88px" />
+              </span>
+              <span className="dg-brand-tagline">{ar ? 'استيراد و تسويق منتجات الديكور' : 'Importing & marketing decor products'}</span>
             </span>
           </Link>
           <div className="dg-masthead-search">
@@ -233,7 +240,11 @@ export default function Header({ settings = {} as any, announcementBars = [] as 
               </nav>
             </div>
             <div className="dg-drawer-foot">
-              <a href={`tel:${phone.replace(/\s/g, '')}`} dir="ltr"><Phone aria-hidden="true" />{phone}</a>
+              <div className="flex flex-wrap items-center gap-2" dir="ltr">
+                <a href={`tel:${phone.replace(/\s/g, '')}`}><Phone aria-hidden="true" />{phone}</a>
+                <span aria-hidden="true">|</span>
+                <a href={`tel:${phone2}`}>{phone2}</a>
+              </div>
               <button type="button" onClick={toggleLanguage} className="text-sm font-extrabold text-primary">
                 {ar ? 'English' : 'عربي'}
               </button>

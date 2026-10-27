@@ -22,7 +22,8 @@ const platformIcons: Record<string, React.ComponentType<{ className?: string }>>
 export default function Footer({ settings = {} as any, socialLinks = [] as SocialLink[], footerNavItems = [] as FooterNavItem[], rootCategories = [] as RootCategory[] }: { settings?: any; socialLinks?: SocialLink[]; footerNavItems?: FooterNavItem[]; rootCategories?: RootCategory[] }) {
   const { lang } = useLanguage();
   const ar = lang === 'ar';
-  const phone = settings.contactPhone || '0559401774';
+  const phone = settings.contactPhone || '0597749188';
+  const phone2 = '0559401774';
   const email = settings.contactEmail || 'info@evergreen.ps';
   const whatsapp = settings.contactWhatsApp || '';
 
@@ -113,6 +114,7 @@ export default function Footer({ settings = {} as any, socialLinks = [] as Socia
           <h3>{ar ? 'تواصل معنا' : 'Contact'}</h3>
           <p className="dg-footer-small"><MapPin aria-hidden="true" />{ar ? settings.addressAr : settings.addressEn || settings.addressAr}</p>
           <a href={`tel:${phone.replace(/\s/g, '')}`}><Phone aria-hidden="true" /><span className="dg-footer-ltr">{phone}</span></a>
+          <a href={`tel:${phone2}`}><Phone aria-hidden="true" /><span className="dg-footer-ltr">{phone2}</span></a>
           <a href={`mailto:${email}`}><Mail aria-hidden="true" /><span className="dg-footer-ltr">{email}</span></a>
           {settings.googleMapsUrl ? (
             <a href={settings.googleMapsUrl} target="_blank" rel="noopener noreferrer"><MapPin aria-hidden="true" />{ar ? 'الموقع على الخريطة' : 'Open in Google Maps'}</a>

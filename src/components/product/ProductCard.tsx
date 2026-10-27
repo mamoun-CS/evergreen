@@ -101,7 +101,7 @@ export default function ProductCard({ product, variant, imageSizes }: ProductCar
 
   return (
     <article className="relative flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lift group">
-      <div className="relative aspect-square overflow-hidden border-b border-gray-100 bg-gray-50">
+      <div className="catalogue-product-image relative aspect-square overflow-hidden border-b border-gray-100 bg-white">
         {overlayButtons}
         <Link href={productHref} className="absolute inset-0 block p-4" aria-label={title}>
           <Image
@@ -109,8 +109,8 @@ export default function ProductCard({ product, variant, imageSizes }: ProductCar
             alt={title}
             fill
             sizes={imageSizes || "(max-width: 639px) calc(100vw - 32px), (max-width: 1279px) 33vw, 405px"}
-            quality={80}
-            className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+            quality={90}
+            className="catalogue-product-img object-contain p-0.5 transition-transform duration-300 group-hover:scale-105"
           />
           {product.brand && (
             <span className="absolute top-2 start-2 rounded bg-brand-dark/90 px-2 py-0.5 text-[10px] font-bold text-white shadow">

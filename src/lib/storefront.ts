@@ -80,7 +80,7 @@ export const getSiteSettings = unstable_cache(
       storeNameEn: 'Ever Green',
       storeNameAr: 'Ever Green',
       contactEmail: 'info@evergreen.ps',
-      contactPhone: '0559401774',
+      contactPhone: '0597749188',
       contactWhatsApp: '',
       addressAr: 'فلسطين',
       addressEn: 'Palestine',
