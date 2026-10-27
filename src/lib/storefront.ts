@@ -57,6 +57,27 @@ function productWebpExists(filename: string) {
 export function optimizeProductImagePath(imagePath: string) {
   if (!imagePath.startsWith('/products/')) return imagePath;
   const sourceFilename = imagePath.slice('/products/'.length);
+  const aiGeneralImages: Record<string, string> = {
+    'evg-product-aabc914defc0_1': '/images/ai-bamboo-850.webp',
+    'evg-product-154f6149bb84_1': '/images/ai-foliage-145.webp',
+    'evg-product-f7a96bdd7591_1': '/images/ai-red-flower-114.webp',
+    'evg-product-998d1e50d0f0_1': '/images/ai-white-feather.webp',
+    'evg-product-684cad35547a_1': '/images/ai-calathea-628.webp',
+    'evg-product-ef25d1fb7844_1': '/images/ai-yucca-904.webp',
+    'evg-product-d9dfc4cef64b_1': '/images/ai-white-rose.webp',
+    'evg-product-f81837ada0af_1': '/images/ai-mini-palm.webp',
+    'evg-product-8e68669f8354_1': '/images/ai-yucca-902.webp',
+    'evg-product-7c7d5e7bb8d7_1': '/images/ai-yucca-905.webp',
+    'evg-product-da60e157bf4d_1': '/images/ai-general-plant-3.webp',
+    'evg-product-980df985497c_1': '/images/ai-general-1.webp',
+    'evg-product-94e595f25af2_1': '/images/ai-general-2.webp',
+    'evg-product-ef38cc107b3c_1': '/images/ai-general-3.webp',
+    'evg-product-9edfc7c24ce5_1': '/images/ai-general-4.webp',
+  };
+  const aiKey = sourceFilename.replace(/\.(png|jpe?g|webp)$/i, '');
+  if (aiGeneralImages[aiKey]) return aiGeneralImages[aiKey];
+  const clearFilename = sourceFilename.replace(/\.(png|jpe?g|webp)$/i, '.clear.webp');
+  if (clearFilename !== sourceFilename && productWebpExists(clearFilename)) return `/products/${clearFilename}`;
   const enhancedFilename = sourceFilename.replace(/\.(png|jpe?g|webp)$/i, '.enhanced.webp');
   if (enhancedFilename !== sourceFilename && productWebpExists(enhancedFilename)) return `/products/${enhancedFilename}`;
   const webpPath = imagePath.replace(/\.(png|jpe?g)$/i, '.webp');
@@ -147,7 +168,7 @@ export const getRootCategories = unstable_cache(
     return orderCategories(categories, featuredCategorySlugs).map(({ products, children, imageUrl, ...category }) => {
       // Use category's own imageUrl first, fallback to first product's image
       const productImage = products[0]?.images?.[0] || children.flatMap((child) => child.products)[0]?.images?.[0] || null;
-      const image = imageUrl || productImage;
+      const image = category.slug === 'general' ? '/images/category-general.webp' : imageUrl || productImage;
       return { ...category, image: image ? optimizeProductImagePath(image) : null };
     });
   },
