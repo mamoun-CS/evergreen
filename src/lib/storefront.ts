@@ -56,6 +56,9 @@ function productWebpExists(filename: string) {
 
 export function optimizeProductImagePath(imagePath: string) {
   if (!imagePath.startsWith('/products/')) return imagePath;
+  const sourceFilename = imagePath.slice('/products/'.length);
+  const enhancedFilename = sourceFilename.replace(/\.(png|jpe?g|webp)$/i, '.enhanced.webp');
+  if (enhancedFilename !== sourceFilename && productWebpExists(enhancedFilename)) return `/products/${enhancedFilename}`;
   const webpPath = imagePath.replace(/\.(png|jpe?g)$/i, '.webp');
   if (webpPath === imagePath) return imagePath;
   const filename = webpPath.slice('/products/'.length);
