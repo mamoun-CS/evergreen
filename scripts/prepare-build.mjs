@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve, sep } from 'node:path';
 import { createRequire } from 'node:module';
 import { spawnSync } from 'node:child_process';
@@ -13,6 +13,16 @@ export function checkCategoryAssets(root = process.cwd()) {
       throw new Error(`Missing category image: ${asset.slug}. Upload public/categories before building.`);
     }
   }
+}
+
+/** Server code must not list public/ at runtime: file tracing would copy the
+ * whole product image folder (~1 GB) into the server function. */
+export function writeProductWebpManifest(root = process.cwd()) {
+  const directory = resolve(root, 'public/products');
+  const names = existsSync(directory)
+    ? readdirSync(directory).filter((name) => name.toLowerCase().endsWith('.webp')).sort()
+    : [];
+  writeFileSync(resolve(root, 'src/lib/product-webp-names.json'), `${JSON.stringify(names, null, 0)}\n`);
 }
 
 function runPrisma(args) {
@@ -39,6 +49,7 @@ export function prepareBuild({ check = checkCategoryAssets, run = runPrisma } = 
 
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
   try {
+    writeProductWebpManifest();
     if (process.argv.includes('--check')) {
       checkCategoryAssets();
       console.log('Build assets verified. No database changes were made.');
