@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 const contentTypes: Record<string, string> = { webp: 'image/webp', jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png' };
 
-export async function GET(_request: NextRequest, { params }: { params: { path: string[] } }) {
+export async function GET(request: NextRequest, { params }: { params: { path: string[] } }) {
   const relative = params.path.join('/');
   const extension = relative.split('.').pop()?.toLowerCase() || '';
   const contentType = contentTypes[extension];
@@ -23,6 +23,8 @@ export async function GET(_request: NextRequest, { params }: { params: { path: s
     const legacyRoot = path.resolve(process.cwd(), 'public', 'products');
     const legacyPath = path.resolve(legacyRoot, legacyFile);
     if (legacyPath.startsWith(`${legacyRoot}${path.sep}`) && (await stat(legacyPath).catch(() => null))?.isFile()) bytes = await readFile(legacyPath);
+    // public/ is not bundled into serverless functions; the CDN serves it.
+    else return NextResponse.redirect(new URL(`/products/${legacyFile}`, request.url), 308);
   }
 
   if (!bytes) return new NextResponse(null, { status: 404 });

@@ -3,7 +3,12 @@ const nextConfig = {
   reactStrictMode: true,
   // Limit static-generation workers: each worker owns its own Prisma pool.
   // The CPU-derived default exhausted this project's local PostgreSQL budget.
-  experimental: { cpus: 2 },
+  experimental: {
+    cpus: 2,
+    // public/ is served by the CDN. Tracing it would put ~1 GB of product
+    // images into the server function and exceed the deploy upload limit.
+    outputFileTracingExcludes: { '*': ['public/**'] },
+  },
   async headers() {
     return [{ source: '/:path*', headers: [
       { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains' },

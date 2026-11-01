@@ -19,7 +19,7 @@ export function storefront(source) {
   return evaluate('src/lib/storefront.ts', {
     './catalog-taxonomy': {}, react: { cache: fn => fn },
     'next/cache': { unstable_cache: fn => fn }, './prisma': { prisma: {} },
-    fs: { existsSync: () => false }, path: { join: (...parts) => parts.join('/') },
+    './product-webp-names.json': [],
   }, source);
 }
 export function route(allowed = true, source) {
