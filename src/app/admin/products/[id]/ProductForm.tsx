@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createProduct, updateProduct, ProductInput } from '../../actions/product-actions';
+import { createProduct, updateProduct, deleteProduct, ProductInput } from '../../actions/product-actions';
 import { createVariant, updateVariant, deleteVariant, createSpec, updateSpec, deleteSpec } from '../../actions/variant-spec-actions';
 import ImageUploader from '@/components/admin/ImageUploader';
 
@@ -50,7 +50,39 @@ export default function ProductForm({ product, categories, brands, applications,
    <fieldset><legend className="font-medium mb-2">الصور — الصورة الأولى هي الرئيسية</legend><ImageUploader value={images} onChange={setImages} multiple maxFiles={30} />
     <div className="space-y-2 mt-3">{images.map((path,index) => <div key={path} className="flex gap-2 items-center"><span className="truncate flex-1">{path}</span><button type="button" disabled={index === 0} onClick={() => setImages([path,...images.filter((_,i) => i !== index)])} className="border rounded p-2">جعلها الرئيسية</button><button type="button" onClick={() => setImages(images.filter((_,i) => i !== index))} aria-label="Remove image" className="border rounded p-2">إزالة</button></div>)}</div>
    </fieldset>
-   <button disabled={busy} className="bg-emerald-700 text-white rounded px-6 py-3">{product ? 'حفظ كل بيانات المنتج' : 'إنشاء المنتج'}</button>
+    <div className="flex flex-wrap items-center gap-4">
+     <button disabled={busy} className="bg-emerald-700 text-white rounded px-6 py-3 font-bold hover:bg-emerald-800 disabled:opacity-50">{product ? 'حفظ كل بيانات المنتج' : 'إنشاء المنتج'}</button>
+     {product && (
+      <button
+       type="button"
+       disabled={busy}
+       onClick={async () => {
+        if (!window.confirm(`هل أنت متأكد من حذف المنتج «${product.nameAr || product.nameEn}» نهائياً؟ لا يمكن التراجع عن هذا الإجراء.`)) return;
+        setBusy(true);
+        setMessage('');
+        try {
+         const res = await deleteProduct(product.id);
+         if (res.ok) {
+          if (storefront) {
+           router.push('/shop');
+          } else {
+           router.push('/admin/products');
+          }
+         } else {
+          setMessage(res.message || 'تعذر حذف المنتج');
+          setBusy(false);
+         }
+        } catch (err) {
+         setMessage(err instanceof Error ? err.message : 'حدث خطأ أثناء الحذف');
+         setBusy(false);
+        }
+       }}
+       className="rounded border border-red-300 bg-red-50 text-red-700 px-6 py-3 font-bold hover:bg-red-100 hover:text-red-800 disabled:opacity-50"
+      >
+       حذف المنتج نهائياً
+      </button>
+     )}
+    </div>
   </form>
   {product && <>{['variants','specifications'].map(kind => {
    const variant = kind === 'variants';

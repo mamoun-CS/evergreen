@@ -647,3 +647,45 @@ html.eg-a11y-noanim *, html.eg-a11y-noanim *::before, html.eg-a11y-noanim *::aft
 .catalogue-titlebar h1:before,.catalogue-titlebar h1:after{content:"";height:1px;flex:1;background:var(--color-secondary);opacity:.6}
 .catalogue-titlebar>p{display:none}
 @media(max-width:700px){.catalogue-type-content h2{font-size:14px}.catalogue-type-content{min-height:74px}.catalogue-type-image{height:auto}}
+
+/* Smooth marquee for product titles in tables and cards */
+.marquee-container {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.marquee-content {
+  display: inline-block;
+  white-space: nowrap;
+  animation: admin-marquee 10s ease-in-out infinite alternate;
+}
+
+.marquee-container:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+@keyframes admin-marquee {
+  0%, 20% {
+    transform: translateX(0%);
+  }
+  80%, 100% {
+    transform: translateX(40%);
+  }
+}
+
+[dir="ltr"] .marquee-content {
+  animation-name: admin-marquee-ltr;
+}
+
+@keyframes admin-marquee-ltr {
+  0%, 20% {
+    transform: translateX(0%);
+  }
+  80%, 100% {
+    transform: translateX(-40%);
+  }
+}

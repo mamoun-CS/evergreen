@@ -17,6 +17,7 @@ export default async function ProductEditPage({ params }: { params: { id?: strin
       accessories: { select: { id: true } },
       variants: true,
       specifications: true,
+      productImages: { orderBy: [{ isMain: 'desc' }, { sortOrder: 'asc' }] },
     }
   }) : null;
 
@@ -27,6 +28,7 @@ export default async function ProductEditPage({ params }: { params: { id?: strin
 
   const plainProduct = product ? {
     ...product,
+    images: product.productImages?.length ? product.productImages.map(img => img.path) : product.images,
     basePrice: product.basePrice ? Number(product.basePrice) : undefined,
     discountPrice: product.discountPrice ? Number(product.discountPrice) : undefined,
     lengthCm: product.lengthCm ? Number(product.lengthCm) : undefined,

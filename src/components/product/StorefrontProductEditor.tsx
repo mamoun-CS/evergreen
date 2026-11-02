@@ -11,5 +11,15 @@ export default async function StorefrontProductEditor({ id }: { id: string }) {
  ]);
  if (!product) return null;
  const plain = JSON.parse(JSON.stringify({ ...product, images: product.productImages.length ? product.productImages.map(image => image.path) : product.images, categoryIds: product.categories.map(item => item.id), applicationIds: product.applications.map(item => item.id), accessoryIds: product.accessories.map(item => item.id) }));
- return <details className="container mx-auto my-6 px-4" dir="rtl"><summary className="cursor-pointer rounded-lg bg-emerald-700 text-white p-4 font-bold">تعديل المنتج — للأدمن</summary><ProductForm key={product.updatedAt.toISOString()} product={plain} categories={categories} brands={brands} applications={applications} products={products} storefront /></details>;
+ return (
+  <details className="container mx-auto my-6 px-4" dir="rtl">
+   <summary className="flex cursor-pointer items-center justify-between rounded-lg bg-emerald-800 text-white p-4 font-bold shadow hover:bg-emerald-900 transition">
+    <span>تعديل المنتج وحذفه — لوحة الأدمن</span>
+    <span className="text-xs bg-emerald-700/80 px-3 py-1 rounded">اضغط للفتح / الإغلاق</span>
+   </summary>
+   <div className="mt-3">
+    <ProductForm key={product.updatedAt.toISOString()} product={plain} categories={categories} brands={brands} applications={applications} products={products} storefront />
+   </div>
+  </details>
+ );
 }
