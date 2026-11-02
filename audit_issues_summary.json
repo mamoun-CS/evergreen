@@ -1,0 +1,605 @@
+{
+  "categoryIssues": [
+    {
+      "id": "cmv9kh2wa0008m6gf2x9z5n20",
+      "nameAr": "العام",
+      "nameEn": "General",
+      "slug": "general",
+      "parent": null,
+      "productsCount": 1552,
+      "reasons": {
+        "hasArabicInEn": false,
+        "hasNoArabicInAr": false,
+        "identical": false,
+        "isGeneral": true
+      }
+    },
+    {
+      "id": "cmumkx14w000fkq9d846lve3v",
+      "nameAr": "عام",
+      "nameEn": "General",
+      "slug": "aam",
+      "parent": {
+        "nameAr": "العام",
+        "nameEn": "General"
+      },
+      "productsCount": 1513,
+      "reasons": {
+        "hasArabicInEn": false,
+        "hasNoArabicInAr": false,
+        "identical": false,
+        "isGeneral": true
+      }
+    },
+    {
+      "id": "cmuuzelfp0001gvgyzgznbnwz",
+      "nameAr": "نوافير وشلالات ديكورية",
+      "nameEn": "نوافير وشلالات ديكورية",
+      "slug": "imported-category-e670faeacba28f3a",
+      "parent": {
+        "nameAr": "نوافير وشلالات ديكورية",
+        "nameEn": "Decorative Fountains & Waterfalls"
+      },
+      "productsCount": 204,
+      "reasons": {
+        "hasArabicInEn": true,
+        "hasNoArabicInAr": false,
+        "identical": true,
+        "isGeneral": false
+      }
+    }
+  ],
+  "sampleProductIssues": [
+    {
+      "id": "cmvw4j3sz02uxatz50u77pc9p",
+      "nameAr": "3 tier shelf",
+      "nameEn": "3 tier shelf",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منتجات الخوص وجوز الهند"
+    },
+    {
+      "id": "cmumkx1810019kq9d02vnyun5",
+      "nameAr": "زارع الخوص طويل القامة مقسم إلى 3",
+      "nameEn": "Tall Wicker Planter Divided into 3",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": false,
+        "weirdWords": true
+      },
+      "category": "العام"
+    },
+    {
+      "id": "cmvw4j3ve02wcatz5ntiec2gi",
+      "nameAr": "Stand for 3 pots + base",
+      "nameEn": "Stand for 3 pots + base",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منتجات الخوص وجوز الهند"
+    },
+    {
+      "id": "cmumkx17c0015kq9d9f9bh786",
+      "nameAr": "زارع الطين الداكن بأحجام مختلفة",
+      "nameEn": "Dark Terracotta Planter in Various Sizes",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": false,
+        "weirdWords": true
+      },
+      "category": "أواني تيراكوتا إيطالية"
+    },
+    {
+      "id": "cmumkx18c001akq9d4c9fybt1",
+      "nameAr": "زارع الخوص مقسم إلى 3",
+      "nameEn": "Wicker Planter Divided into 3",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": false,
+        "weirdWords": true
+      },
+      "category": "العام"
+    },
+    {
+      "id": "cmumkx18j001bkq9dr5si4t79",
+      "nameAr": "زارع الخوص",
+      "nameEn": "Wicker Planter",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": false,
+        "weirdWords": true
+      },
+      "category": "العام"
+    },
+    {
+      "id": "cmumkx191001ekq9d3tz3q9dn",
+      "nameAr": "زارع على الساقين",
+      "nameEn": "Planter on Legs",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": false,
+        "weirdWords": true
+      },
+      "category": "العام"
+    },
+    {
+      "id": "cmumkx19y001kkq9ddu60nlkx",
+      "nameAr": "بندقية الري الألومنيوم",
+      "nameEn": "Gun Irrigation Aluminum",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": false,
+        "weirdWords": true
+      },
+      "category": "منتجات التيتانيوم للري"
+    },
+    {
+      "id": "cmvw4j3v002w3atz5kt1b1i4c",
+      "nameAr": "Rounded decorative stand for a tall flower pot",
+      "nameEn": "Rounded decorative stand for a tall flower pot",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منتجات الخوص وجوز الهند"
+    },
+    {
+      "id": "cmvw4j3u702vlatz5xyxv8igc",
+      "nameAr": "Ladder for climbers",
+      "nameEn": "Ladder for climbers",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منتجات الخوص وجوز الهند"
+    },
+    {
+      "id": "cmvw4j3u102viatz5nim3btmt",
+      "nameAr": "High climbing fence",
+      "nameEn": "High climbing fence",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منتجات الخوص وجوز الهند"
+    },
+    {
+      "id": "cmvw4j3tv02vfatz5jlpi773h",
+      "nameAr": "A stand for a flower pot",
+      "nameEn": "A stand for a flower pot",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منتجات الخوص وجوز الهند"
+    },
+    {
+      "id": "cmvw4j3tq02vcatz5x3kd3b3n",
+      "nameAr": "A stand for a flower pot",
+      "nameEn": "A stand for a flower pot",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منتجات الخوص وجوز الهند"
+    },
+    {
+      "id": "cmvw4j2uu02a0atz5pbz07lnt",
+      "nameAr": "Set of 4 flower pots",
+      "nameEn": "Set of 4 flower pots",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3tl02v9atz5yq1qt04j",
+      "nameAr": "Decorated 3 potted stand",
+      "nameEn": "Decorated 3 potted stand",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منتجات الخوص وجوز الهند"
+    },
+    {
+      "id": "cmvw4j3tg02v6atz5h6tek7dk",
+      "nameAr": "Antique hay cart flower pot stand",
+      "nameEn": "Antique hay cart flower pot stand",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منتجات الخوص وجوز الهند"
+    },
+    {
+      "id": "cmvw4j3tc02v3atz5nwfqbycz",
+      "nameAr": "Stand for 3 flower pots",
+      "nameEn": "Stand for 3 flower pots",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منتجات الخوص وجوز الهند"
+    },
+    {
+      "id": "cmvw4j3t602v0atz5wsdxa18n",
+      "nameAr": "Decorated stand for a flower pot",
+      "nameEn": "Decorated stand for a flower pot",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منتجات الخوص وجوز الهند"
+    },
+    {
+      "id": "cmvw4j3st02uuatz5ecli4mmd",
+      "nameAr": "Wheel bottom with plastic bottom",
+      "nameEn": "Wheel bottom with plastic bottom",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منتجات الخوص وجوز الهند"
+    },
+    {
+      "id": "cmvw4j3sm02uratz5v1isfujp",
+      "nameAr": "Round + cream colored bottom",
+      "nameEn": "Round + cream colored bottom",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني صغيرة ومتوسطة"
+    },
+    {
+      "id": "cmvw4j3sg02uoatz5nmmspvf3",
+      "nameAr": "Round + cream colored bottom",
+      "nameEn": "Round + cream colored bottom",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني صغيرة ومتوسطة"
+    },
+    {
+      "id": "cmvw4j3sa02ulatz5do606886",
+      "nameAr": "Round white with green decoration + bottom",
+      "nameEn": "Round white with green decoration + bottom",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني صغيرة ومتوسطة"
+    },
+    {
+      "id": "cmvw4j3qx02u0atz5d6czozdo",
+      "nameAr": "A round ceramic pot decorated with a relief pattern - a variety of sizes",
+      "nameEn": "A round ceramic pot decorated with a relief pattern - a variety of sizes",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني صغيرة ومتوسطة"
+    },
+    {
+      "id": "cmvw4j3qg02tratz5tr27j4lm",
+      "nameAr": "Decorative flowerpot woman's face with a wreath 25 cm",
+      "nameEn": "Decorative flowerpot woman's face with a wreath 25 cm",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني صغيرة ومتوسطة"
+    },
+    {
+      "id": "cmvw4j3oz02suatz57xxuworg",
+      "nameAr": "Garden dwarf for planting 25x24x28",
+      "nameEn": "Garden dwarf for planting 25x24x28",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "تماثيل أقزام وحيوانات وفطر"
+    },
+    {
+      "id": "cmvw4j3ot02soatz5obgjxa3q",
+      "nameAr": "A sheep pot designed for planting",
+      "nameEn": "A sheep pot designed for planting",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منحوتات حيوانات للزراعة"
+    },
+    {
+      "id": "cmvw4j3op02slatz5bh54zhx6",
+      "nameAr": "A sheep pot designed for planting",
+      "nameEn": "A sheep pot designed for planting",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منحوتات حيوانات للزراعة"
+    },
+    {
+      "id": "cmvw4j3mw02riatz5v30vuy1h",
+      "nameAr": "Set of 3 round flowerpots",
+      "nameEn": "Set of 3 round flowerpots",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3mq02rcatz5knnm0nbx",
+      "nameAr": "Set of 2 bowls",
+      "nameEn": "Set of 2 bowls",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3mg02r6atz5xkqb5khp",
+      "nameAr": "Set of 2 round flower pots",
+      "nameEn": "Set of 2 round flower pots",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3lj02qfatz5723bu1b3",
+      "nameAr": "A sheep sculpture for the garden and the yard decorative rustic design",
+      "nameEn": "A sheep sculpture for the garden and the yard decorative rustic design",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "تماثيل أقزام وحيوانات وفطر"
+    },
+    {
+      "id": "cmvw4j28u01uratz55urxs9de",
+      "nameAr": "Firefly on a stick",
+      "nameEn": "Firefly on a stick",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "منحوتات حيوانات بلاستيكية"
+    },
+    {
+      "id": "cmvw4j3kq02platz5x2fewolw",
+      "nameAr": "Set of 2 round flower pots",
+      "nameEn": "Set of 2 round flower pots",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3kl02piatz5kupbo9da",
+      "nameAr": "Set of 2 low round flowerpots in different colors",
+      "nameEn": "Set of 2 low round flowerpots in different colors",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3jm02oratz5ipi0iero",
+      "nameAr": "Set of 4 coasters",
+      "nameEn": "Set of 4 coasters",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3j402ofatz5enypppy5",
+      "nameAr": "Set of 2 square flower pots",
+      "nameEn": "Set of 2 square flower pots",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3ic02nuatz52git2xe6",
+      "nameAr": "Set of 2 round flower pots",
+      "nameEn": "Set of 2 round flower pots",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3hu02nfatz5tivivym3",
+      "nameAr": "Set of 3 round flowerpots with top band decoration",
+      "nameEn": "Set of 3 round flowerpots with top band decoration",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3hd02n3atz5oc7v4nx3",
+      "nameAr": "Set of 3 planters",
+      "nameEn": "Set of 3 planters",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3gm02miatz5hm5gtfhd",
+      "nameAr": "Set of 3 round flowerpots with protruding rim",
+      "nameEn": "Set of 3 round flowerpots with protruding rim",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3ga02m9atz5qngqkfqz",
+      "nameAr": "Planter on legs",
+      "nameEn": "Planter on legs",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3g602m6atz50ufk7cnn",
+      "nameAr": "vintage trophy",
+      "nameEn": "vintage trophy",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3g302m3atz5rnz7bxfn",
+      "nameAr": "cup bowl",
+      "nameEn": "cup bowl",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3g002m0atz5j6aitbrl",
+      "nameAr": "cup",
+      "nameEn": "cup",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3fw02lxatz5sbhx657t",
+      "nameAr": "Set of 3 cylinder pots",
+      "nameEn": "Set of 3 cylinder pots",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3fg02llatz5vt8bbusv",
+      "nameAr": "Set of 3 round flowerpots",
+      "nameEn": "Set of 3 round flowerpots",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3f002l3atz518m8iua2",
+      "nameAr": "Set of 3 bowls",
+      "nameEn": "Set of 3 bowls",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3e402k6atz52ywnj11h",
+      "nameAr": "Set of 2 planters",
+      "nameEn": "Set of 2 planters",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3e002k3atz5ts71urnm",
+      "nameAr": "Set of 2 squares",
+      "nameEn": "Set of 2 squares",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    },
+    {
+      "id": "cmvw4j3dt02k0atz5a6nsztel",
+      "nameAr": "Set of 2 planters",
+      "nameEn": "Set of 2 planters",
+      "reasons": {
+        "arabicInEn": false,
+        "identical": true,
+        "weirdWords": false
+      },
+      "category": "أواني فينتج"
+    }
+  ],
+  "totalProductIssues": 1611
+}

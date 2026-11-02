@@ -1,0 +1,592 @@
+[
+  {
+    "id": "cmumkx14e0004kq9d66oo06ku",
+    "nameAr": "عشب صناعي",
+    "nameEn": "Artificial Grass",
+    "slug": "alashb-alsnaay",
+    "parentNameAr": "النباتات والعشب الصناعي",
+    "parentNameEn": "Artificial Plants & Turf",
+    "productsCount": 22,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx15j000wkq9dsb54qzdw",
+    "nameAr": "نباتات اصطناعية",
+    "nameEn": "Artificial Plants",
+    "slug": "nbatat-astnaaya",
+    "parentNameAr": "النباتات والعشب الصناعي",
+    "parentNameEn": "Artificial Plants & Turf",
+    "productsCount": 222,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx151000jkq9dlrya4syc",
+    "nameAr": "ملحقات تركيب العشب الصناعي",
+    "nameEn": "Artificial Turf Installation Accessories",
+    "slug": "mlhqat-alashb-alsnaay",
+    "parentNameAr": "النباتات والعشب الصناعي",
+    "parentNameEn": "Artificial Plants & Turf",
+    "productsCount": 9,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx15m000ykq9dm86cbqoy",
+    "nameAr": "جدران خضراء",
+    "nameEn": "Green Walls",
+    "slug": "aljdar-alakhdr",
+    "parentNameAr": "النباتات والعشب الصناعي",
+    "parentNameEn": "Artificial Plants & Turf",
+    "productsCount": 26,
+    "childrenCount": 0
+  },
+  {
+    "id": "garden-fountains-water-features",
+    "nameAr": "نوافير وشلالات",
+    "nameEn": "Fountains & Water Features",
+    "slug": "fountains-water-features",
+    "parentNameAr": "الديكور وتحف الحدائق",
+    "parentNameEn": "Garden Decor & Ornaments",
+    "productsCount": 30,
+    "childrenCount": 4
+  },
+  {
+    "id": "garden-lighting",
+    "nameAr": "إضاءة الحدائق",
+    "nameEn": "Garden Lighting",
+    "slug": "garden-lighting",
+    "parentNameAr": "الديكور وتحف الحدائق",
+    "parentNameEn": "Garden Decor & Ornaments",
+    "productsCount": 2,
+    "childrenCount": 0
+  },
+  {
+    "id": "garden-outdoor-decor",
+    "nameAr": "إكسسوارات وديكورات خارجية",
+    "nameEn": "Outdoor Accessories & Decor",
+    "slug": "outdoor-decor",
+    "parentNameAr": "الديكور وتحف الحدائق",
+    "parentNameEn": "Garden Decor & Ornaments",
+    "productsCount": 3,
+    "childrenCount": 1
+  },
+  {
+    "id": "cmumkx155000mkq9dxv34mia3",
+    "nameAr": "أعمدة رومانية",
+    "nameEn": "Roman Columns",
+    "slug": "alaamda-alrwmanya",
+    "parentNameAr": "الديكور وتحف الحدائق",
+    "parentNameEn": "Garden Decor & Ornaments",
+    "productsCount": 8,
+    "childrenCount": 0
+  },
+  {
+    "id": "garden-statues-ornaments",
+    "nameAr": "تماثيل ومجسمات",
+    "nameEn": "Statues & Sculptures",
+    "slug": "statues-ornaments",
+    "parentNameAr": "الديكور وتحف الحدائق",
+    "parentNameEn": "Garden Decor & Ornaments",
+    "productsCount": 10,
+    "childrenCount": 6
+  },
+  {
+    "id": "cmumkx15o0010kq9dt0r9we32",
+    "nameAr": "طاولات المدّ والجزر",
+    "nameEn": "Ebb & Flow Tables",
+    "slug": "jdawl-alfydanat",
+    "parentNameAr": "التربة ومستلزمات الزراعة",
+    "parentNameEn": "Soil & Growing Supplies",
+    "productsCount": 2,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx15p0011kq9d5qqcn42k",
+    "nameAr": "خلطات وتربة زراعية",
+    "nameEn": "Potting Mixtures & Soil",
+    "slug": "khltat-alzra",
+    "parentNameAr": "التربة ومستلزمات الزراعة",
+    "parentNameEn": "Soil & Growing Supplies",
+    "productsCount": 10,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx15n000zkq9d7x9bpyuc",
+    "nameAr": "شبكات الظل",
+    "nameEn": "Shade Nets",
+    "slug": "shbkat-alzl",
+    "parentNameAr": "التربة ومستلزمات الزراعة",
+    "parentNameEn": "Soil & Growing Supplies",
+    "productsCount": 5,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx154000lkq9dc1euckjm",
+    "nameAr": "أنظمة الزراعة العمودية والمائية",
+    "nameEn": "Vertical & Hydroponic Growing Systems",
+    "slug": "aamda-alzraaa-almayya-anzma-alnmw-alamwdy-llmnzl-walshrfa",
+    "parentNameAr": "التربة ومستلزمات الزراعة",
+    "parentNameEn": "Soil & Growing Supplies",
+    "productsCount": 4,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx1480001kq9dfw9axufu",
+    "nameAr": "منتجات TERRAFLEX",
+    "nameEn": "TERRAFLEX Products",
+    "slug": "terraflex",
+    "parentNameAr": "أنظمة ومستلزمات الري",
+    "parentNameEn": "Irrigation Systems & Supplies",
+    "productsCount": 12,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14x000gkq9df334x9ot",
+    "nameAr": "منتجات التيتانيوم للري",
+    "nameEn": "Titanium Irrigation Products",
+    "slug": "mntjat-alry-mn-altytanywm",
+    "parentNameAr": "أنظمة ومستلزمات الري",
+    "parentNameEn": "Irrigation Systems & Supplies",
+    "productsCount": 53,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14c0003kq9donta4h50",
+    "nameAr": "أسوار الخيزران",
+    "nameEn": "Bamboo Fencing",
+    "slug": "aswar-alkhyzran",
+    "parentNameAr": "الأرضيات وتنسيق الحدائق",
+    "parentNameEn": "Flooring & Landscaping",
+    "productsCount": 10,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14f0005kq9d2328ztik",
+    "nameAr": "حصى الأنهار",
+    "nameEn": "River Pebbles",
+    "slug": "hsa-alnhr",
+    "parentNameAr": "الأرضيات وتنسيق الحدائق",
+    "parentNameEn": "Flooring & Landscaping",
+    "productsCount": 4,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx13t0000kq9dc2p0i4iq",
+    "nameAr": "تيراس إت — Terrace-It",
+    "nameEn": "Terrace-It",
+    "slug": "terrace-it",
+    "parentNameAr": "الأرضيات وتنسيق الحدائق",
+    "parentNameEn": "Flooring & Landscaping",
+    "productsCount": 8,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14i0007kq9dr6tiekay",
+    "nameAr": "تراسات وأرضيات خارجية",
+    "nameEn": "Terraces & Outdoor Flooring",
+    "slug": "almdrjat",
+    "parentNameAr": "الأرضيات وتنسيق الحدائق",
+    "parentNameEn": "Flooring & Landscaping",
+    "productsCount": 1,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14g0006kq9ddqwlvdpe",
+    "nameAr": "التوف والأحجار",
+    "nameEn": "Tuff & Stones",
+    "slug": "altwf-walahjar",
+    "parentNameAr": "الأرضيات وتنسيق الحدائق",
+    "parentNameEn": "Flooring & Landscaping",
+    "productsCount": 5,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmuuzelfp0001gvgyzgznbnwz",
+    "nameAr": "نوافير وشلالات ديكورية",
+    "nameEn": "Decorative Fountains & Waterfalls",
+    "slug": "imported-category-e670faeacba28f3a",
+    "parentNameAr": "نوافير وشلالات ديكورية",
+    "parentNameEn": "Decorative Fountains & Waterfalls",
+    "productsCount": 204,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx15c000qkq9dvqkzm40a",
+    "nameAr": "أواني كورتن",
+    "nameEn": "Corten Planters",
+    "slug": "awany-kwrtn",
+    "parentNameAr": "أواني معدنية",
+    "parentNameEn": "Metal Planters",
+    "productsCount": 7,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14n0009kq9dbfwobr9p",
+    "nameAr": "أواني EDA",
+    "nameEn": "EDA Pots",
+    "slug": "awany-eda",
+    "parentNameAr": "أواني بلاستيكية ومجموعات EDA",
+    "parentNameEn": "Plastic & EDA Pots",
+    "productsCount": 62,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14p000bkq9d2n83u8h8",
+    "nameAr": "أواني وأحواض برازيلية",
+    "nameEn": "Brazilian Pots",
+    "slug": "brazilian-pots",
+    "parentNameAr": "الأواني والأحواض",
+    "parentNameEn": "Pots & Planters",
+    "productsCount": 98,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14b0002kq9dk3blkz2w",
+    "nameAr": "كؤوس وأوعية وجرار زخرفية",
+    "nameEn": "Decorative Urns, Bowls & Goblets",
+    "slug": "alkwws-walawaya-waljrar-alzkhrfya",
+    "parentNameAr": "الأواني والأحواض",
+    "parentNameEn": "Pots & Planters",
+    "productsCount": 30,
+    "childrenCount": 0
+  },
+  {
+    "id": "floor-planters",
+    "nameAr": "أصص أرضية",
+    "nameEn": "Floor Planters",
+    "slug": "floor-planters",
+    "parentNameAr": "الأواني والأحواض",
+    "parentNameEn": "Pots & Planters",
+    "productsCount": 2,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14o000akq9d20hteghz",
+    "nameAr": "أواني مزجّجة",
+    "nameEn": "Glazed Pots",
+    "slug": "alawany-alzjajya",
+    "parentNameAr": "الأواني والأحواض",
+    "parentNameEn": "Pots & Planters",
+    "productsCount": 85,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14l0008kq9d4emesk6o",
+    "nameAr": "أواني تيراكوتا إيطالية",
+    "nameEn": "Italian Terracotta Pots",
+    "slug": "tyrakwta-aytalya",
+    "parentNameAr": "الأواني والأحواض",
+    "parentNameEn": "Pots & Planters",
+    "productsCount": 100,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx158000okq9dkf1u202e",
+    "nameAr": "أواني معدنية",
+    "nameEn": "Metal Planters",
+    "slug": "alawany-almadnya",
+    "parentNameAr": "الأواني والأحواض",
+    "parentNameEn": "Pots & Planters",
+    "productsCount": 117,
+    "childrenCount": 1
+  },
+  {
+    "id": "cmumkx15a000pkq9d1ya50chh",
+    "nameAr": "أواني بلاستيكية ومجموعات EDA",
+    "nameEn": "Plastic & EDA Pots",
+    "slug": "alawany-alblastykya",
+    "parentNameAr": "الأواني والأحواض",
+    "parentNameEn": "Pots & Planters",
+    "productsCount": 82,
+    "childrenCount": 1
+  },
+  {
+    "id": "garden-pots-planters",
+    "nameAr": "أصص وأحواض زراعية",
+    "nameEn": "Pots & Planters",
+    "slug": "pots-planters",
+    "parentNameAr": "الأواني والأحواض",
+    "parentNameEn": "Pots & Planters",
+    "productsCount": 1,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx15l000xkq9db1a91pjk",
+    "nameAr": "أواني صغيرة ومتوسطة",
+    "nameEn": "Small & Medium Pots",
+    "slug": "alsghyra-walmtwsta",
+    "parentNameAr": "الأواني والأحواض",
+    "parentNameEn": "Pots & Planters",
+    "productsCount": 175,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14t000dkq9dobkaf8pk",
+    "nameAr": "أواني تايلندية",
+    "nameEn": "Thai Pots",
+    "slug": "alawany-altaylandya",
+    "parentNameAr": "الأواني والأحواض",
+    "parentNameEn": "Pots & Planters",
+    "productsCount": 8,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx156000nkq9dd3264ni3",
+    "nameAr": "أواني وأحواض فينتج",
+    "nameEn": "Vintage Pots",
+    "slug": "vintage-pots",
+    "parentNameAr": "الأواني والأحواض",
+    "parentNameEn": "Pots & Planters",
+    "productsCount": 274,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx153000kkq9d68ezcpmj",
+    "nameAr": "منتجات الخوص وجوز الهند",
+    "nameEn": "Wicker & Coconut Products",
+    "slug": "mntjat-alkhws-wjwz-alhnd",
+    "parentNameAr": "الأواني والأحواض",
+    "parentNameEn": "Pots & Planters",
+    "productsCount": 179,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14r000ckq9dbr4wv2vl",
+    "nameAr": "أواني وأحواض مكسوّة بالخشب الطبيعي",
+    "nameEn": "Wood-Coated Pots & Planters",
+    "slug": "wood-coated-planters",
+    "parentNameAr": "الأواني والأحواض",
+    "parentNameEn": "Pots & Planters",
+    "productsCount": 20,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14v000ekq9dzzeeioim",
+    "nameAr": "أدوات زراعية واحترافية",
+    "nameEn": "Gardening & Professional Tools",
+    "slug": "aladwat-almhnya",
+    "parentNameAr": "الأدوات والمعدات",
+    "parentNameEn": "Tools & Equipment",
+    "productsCount": 23,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx150000ikq9de1veph8q",
+    "nameAr": "عربات اليد والنقل",
+    "nameEn": "Wheelbarrows & Transport Carts",
+    "slug": "arbat-alyd-walarbat",
+    "parentNameAr": "الأدوات والمعدات",
+    "parentNameEn": "Tools & Equipment",
+    "productsCount": 5,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14w000fkq9d846lve3v",
+    "nameAr": "عام",
+    "nameEn": "General",
+    "slug": "aam",
+    "parentNameAr": "العام",
+    "parentNameEn": "General",
+    "productsCount": 1513,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmuo3qyak0000vj0gluhue45y",
+    "nameAr": "منتجات Itay Trade",
+    "nameEn": "Itay Trade Products",
+    "slug": "itaytrade-import",
+    "parentNameAr": "العام",
+    "parentNameEn": "General",
+    "productsCount": 179,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx14y000hkq9dc12eawd3",
+    "nameAr": "نوافير وشلالات ديكورية",
+    "nameEn": "Decorative Fountains & Waterfalls",
+    "slug": "nwafyr",
+    "parentNameAr": "نوافير وشلالات",
+    "parentNameEn": "Fountains & Water Features",
+    "productsCount": 214,
+    "childrenCount": 1
+  },
+  {
+    "id": "modern-fountains",
+    "nameAr": "نوافير عصرية",
+    "nameEn": "Modern Fountains",
+    "slug": "modern-fountains",
+    "parentNameAr": "نوافير وشلالات",
+    "parentNameEn": "Fountains & Water Features",
+    "productsCount": 1,
+    "childrenCount": 0
+  },
+  {
+    "id": "stone-fountains",
+    "nameAr": "نوافير حجرية",
+    "nameEn": "Stone Fountains",
+    "slug": "stone-fountains",
+    "parentNameAr": "نوافير وشلالات",
+    "parentNameEn": "Fountains & Water Features",
+    "productsCount": 1,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmuuzelrz005wgvgygq7zplw8",
+    "nameAr": "نوافير جدارية",
+    "nameEn": "Wall Fountains",
+    "slug": "imported-category-7d0ba1c3ad4e041e",
+    "parentNameAr": "نوافير وشلالات",
+    "parentNameEn": "Fountains & Water Features",
+    "productsCount": 2,
+    "childrenCount": 0
+  },
+  {
+    "id": "garden-accessories",
+    "nameAr": "إكسسوارات الحدائق",
+    "nameEn": "Garden Accessories",
+    "slug": "garden-accessories",
+    "parentNameAr": "إكسسوارات وديكورات خارجية",
+    "parentNameEn": "Outdoor Accessories & Decor",
+    "productsCount": 26,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx15h000ukq9d177jzn62",
+    "nameAr": "منحوتات حيوانات للزراعة",
+    "nameEn": "Animal Planters",
+    "slug": "tmathyl-hywanat-qabla-llzraaa",
+    "parentNameAr": "تماثيل ومجسمات",
+    "parentNameEn": "Statues & Sculptures",
+    "productsCount": 12,
+    "childrenCount": 0
+  },
+  {
+    "id": "animal-sculptures",
+    "nameAr": "مجسمات حيوانات",
+    "nameEn": "Animal Sculptures",
+    "slug": "animal-sculptures",
+    "parentNameAr": "تماثيل ومجسمات",
+    "parentNameEn": "Statues & Sculptures",
+    "productsCount": 1,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx15g000tkq9dvfqtwel3",
+    "nameAr": "تماثيل شخصيات وأقزام",
+    "nameEn": "Figure & Gnome Statues",
+    "slug": "tmathyl-arqam",
+    "parentNameAr": "تماثيل ومجسمات",
+    "parentNameEn": "Statues & Sculptures",
+    "productsCount": 43,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx15f000skq9dnevz4b3a",
+    "nameAr": "تماثيل أقزام وحيوانات وفطر",
+    "nameEn": "Gnomes, Animals & Mushrooms",
+    "slug": "altmathyl-altmathyl-walhywanat-walftr",
+    "parentNameAr": "تماثيل ومجسمات",
+    "parentNameEn": "Statues & Sculptures",
+    "productsCount": 18,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmv9kh5ln000xm6gfay69w85t",
+    "nameAr": "مجسمات فطر",
+    "nameEn": "Mushroom Sculptures",
+    "slug": "mushroom-sculptures",
+    "parentNameAr": "تماثيل ومجسمات",
+    "parentNameEn": "Statues & Sculptures",
+    "productsCount": 0,
+    "childrenCount": 0
+  },
+  {
+    "id": "cmumkx15i000vkq9dpdzeaog1",
+    "nameAr": "منحوتات حيوانات بلاستيكية",
+    "nameEn": "Plastic Garden Animals",
+    "slug": "tmathyl-hywanat-blastykya",
+    "parentNameAr": "تماثيل ومجسمات",
+    "parentNameEn": "Statues & Sculptures",
+    "productsCount": 67,
+    "childrenCount": 0
+  },
+  {
+    "id": "catalog-artificial-greenery",
+    "nameAr": "النباتات والعشب الصناعي",
+    "nameEn": "Artificial Plants & Turf",
+    "slug": "artificial-greenery",
+    "parentNameAr": null,
+    "parentNameEn": null,
+    "productsCount": 0,
+    "childrenCount": 4
+  },
+  {
+    "id": "catalog-outdoor-surfaces",
+    "nameAr": "الأرضيات وتنسيق الحدائق",
+    "nameEn": "Flooring & Landscaping",
+    "slug": "outdoor-surfaces",
+    "parentNameAr": null,
+    "parentNameEn": null,
+    "productsCount": 0,
+    "childrenCount": 5
+  },
+  {
+    "id": "catalog-decoration",
+    "nameAr": "الديكور وتحف الحدائق",
+    "nameEn": "Garden Decor & Ornaments",
+    "slug": "decoration",
+    "parentNameAr": null,
+    "parentNameEn": null,
+    "productsCount": 1,
+    "childrenCount": 5
+  },
+  {
+    "id": "cmv9kh2wa0008m6gf2x9z5n20",
+    "nameAr": "العام",
+    "nameEn": "General",
+    "slug": "general",
+    "parentNameAr": null,
+    "parentNameEn": null,
+    "productsCount": 1552,
+    "childrenCount": 2
+  },
+  {
+    "id": "catalog-irrigation-systems",
+    "nameAr": "أنظمة ومستلزمات الري",
+    "nameEn": "Irrigation Systems & Supplies",
+    "slug": "irrigation-systems",
+    "parentNameAr": null,
+    "parentNameEn": null,
+    "productsCount": 0,
+    "childrenCount": 2
+  },
+  {
+    "id": "cmumkx15e000rkq9ddt1sfiu7",
+    "nameAr": "الأواني والأحواض",
+    "nameEn": "Pots & Planters",
+    "slug": "alawany",
+    "parentNameAr": null,
+    "parentNameEn": null,
+    "productsCount": 9,
+    "childrenCount": 13
+  },
+  {
+    "id": "catalog-gardening-supplies",
+    "nameAr": "التربة ومستلزمات الزراعة",
+    "nameEn": "Soil & Growing Supplies",
+    "slug": "gardening-supplies",
+    "parentNameAr": null,
+    "parentNameEn": null,
+    "productsCount": 0,
+    "childrenCount": 4
+  },
+  {
+    "id": "cmv9kh2se0007m6gfd77gzn6n",
+    "nameAr": "الأدوات والمعدات",
+    "nameEn": "Tools & Equipment",
+    "slug": "tools-equipment",
+    "parentNameAr": null,
+    "parentNameEn": null,
+    "productsCount": 0,
+    "childrenCount": 2
+  }
+]
