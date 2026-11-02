@@ -83,7 +83,7 @@ export default function ProductDetailsClient({
 }: ProductDetailsClientProps) {
   const { lang, t } = useLanguage();
   const ar = lang === "ar";
-  const { addToCart } = useCart();
+  const { addToCart, setIsCartOpen } = useCart();
   const wishlist = useWishlist();
   const compare = useCompare();
   const [selectedImage, setSelectedImage] = useState(0);
@@ -117,27 +117,21 @@ export default function ProductDetailsClient({
 
   const handleAction = () => {
     const mainImg = product.images?.[0] || "/images/logo.jpg";
-    if (
-      product.purchaseMode === "PURCHASABLE" &&
-      unitPrice &&
-      inStock &&
-      (!product.variants?.length || selectedVariant)
-    ) {
-      addToCart(
-        {
-          id: product.id,
-          variantId: selectedVariant?.id,
-          variantTitleEn: selectedVariant?.titleEn,
-          variantTitleAr: selectedVariant?.titleAr,
-          slug: product.slug,
-          nameEn: product.nameEn,
-          nameAr: product.nameAr,
-          image: mainImg,
-          price: Number(unitPrice),
-        },
-        quantity,
-      );
-    }
+    addToCart(
+      {
+        id: product.id,
+        variantId: selectedVariant?.id,
+        variantTitleEn: selectedVariant?.titleEn,
+        variantTitleAr: selectedVariant?.titleAr,
+        slug: product.slug,
+        nameEn: product.nameEn,
+        nameAr: product.nameAr,
+        image: mainImg,
+        price: Number(unitPrice || 0),
+      },
+      quantity,
+    );
+    setIsCartOpen(true);
   };
 
   const stepGallery = (delta: number) =>
@@ -410,34 +404,31 @@ export default function ProductDetailsClient({
               </div>
             )}
 
-            {product.purchaseMode === "PURCHASABLE" ? (
+            <div className="flex flex-col gap-2">
               <button
                 onClick={handleAction}
-                disabled={
-                  product.purchaseMode === "PURCHASABLE" &&
-                  (!inStock ||
-                    (product.variants?.length > 0 && !selectedVariant))
-                }
-                className="w-full py-3 px-4 bg-brand-dark hover:bg-brand-hover text-white font-bold text-xs rounded-lg shadow-md flex items-center justify-center gap-2 transition-all transform hover:-translate-y-0.5"
+                className="w-full py-3 px-4 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs rounded-lg shadow-md flex items-center justify-center gap-2 transition-all transform hover:-translate-y-0.5"
               >
-                {product.purchaseMode === "PURCHASABLE" && inStock ? (
-                  <>
-                    <ShoppingCart className="w-4 h-4" />
-                    <span>{t.product.addToCart}</span>
-                  </>
-                ) : (
-                  <span>{t.product.outOfStock}</span>
-                )}
+                <ShoppingCart className="w-4 h-4" />
+                <span>{ar ? "أضف للسلة لطلب التسعير / الشراء" : "Add to Cart for Quote / Purchase"}</span>
               </button>
-            ) : (
-              <Link
-                href={`/contact?product=${encodeURIComponent(product.slug)}`}
-                className="w-full py-3 px-4 bg-terra hover:bg-[var(--eg-terra-dark)] text-white font-bold text-xs rounded-lg shadow-md flex items-center justify-center gap-2 transition-all"
-              >
-                <Phone className="w-4 h-4" aria-hidden="true" />
-                <span>{t.product.contactUsForPrice}</span>
-              </Link>
-            )}
+
+              {product.purchaseMode !== "PURCHASABLE" && (
+                <a
+                  href={`https://wa.me/972559401774?text=${encodeURIComponent(
+                    ar
+                      ? `مرحباً، أود الاستفسار عن تسعيرة وتوفر المنتج: ${title} (${product.sku || product.slug})`
+                      : `Hello, I would like to inquire about pricing for: ${title} (${product.sku || product.slug})`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs rounded-lg shadow flex items-center justify-center gap-2 transition-all"
+                >
+                  <Phone className="w-4 h-4" aria-hidden="true" />
+                  <span>{ar ? "استفسار مباشر عن هذا الصنف عبر واتساب" : "Inquire Directly via WhatsApp"}</span>
+                </a>
+              )}
+            </div>
           </div>
 
           {warranty && (

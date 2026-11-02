@@ -4,10 +4,10 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '../layout/LanguageContext';
-import { Heart } from 'lucide-react';
+import { Heart, ShoppingCart, ArrowLeftRight } from 'lucide-react';
 import { useWishlist, WishlistProduct } from '@/components/wishlist/WishlistContext';
-import { ArrowLeftRight } from 'lucide-react';
 import { useCompare } from '@/components/compare/CompareContext';
+import { useCart } from '@/components/cart/CartContext';
 
 export interface ProductCardProps {
   variant?: 'featured';
@@ -38,6 +38,7 @@ export default function ProductCard({ product, variant, imageSizes }: ProductCar
   const { lang } = useLanguage();
   const wishlist = useWishlist();
   const compare = useCompare();
+  const { addToCart, setIsCartOpen } = useCart();
   const ar = lang === 'ar';
 
   const title = ar ? product.nameAr : product.nameEn;
@@ -136,14 +137,35 @@ export default function ProductCard({ product, variant, imageSizes }: ProductCar
           {!inStock && <p className="mt-1 inline-flex rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-bold text-gray-500">{ar ? 'غير متوفر حالياً' : 'Currently unavailable'}</p>}
         </div>
 
-        <div className="mt-auto border-t border-gray-100 pt-3">
+        <div className="mt-auto border-t border-gray-100 pt-3 flex flex-col gap-2">
           {priceRow}
-          <Link
-            href={productHref}
-            className="mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-brand-dark px-4 text-center text-sm font-bold text-white transition-colors hover:bg-brand-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
-          >
-            {ar ? 'مزيد من المعلومات' : 'More information'}
-          </Link>
+          <div className="grid grid-cols-2 gap-2 mt-2">
+            <button
+              type="button"
+              onClick={() => {
+                addToCart({
+                  id: product.id,
+                  slug: product.slug,
+                  nameEn: product.nameEn,
+                  nameAr: product.nameAr,
+                  image,
+                  price: Number(unitPrice || 0),
+                }, 1);
+                setIsCartOpen(true);
+              }}
+              className="inline-flex min-h-10 items-center justify-center rounded-lg bg-emerald-700 px-2 text-center text-xs font-bold text-white transition-colors hover:bg-emerald-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-600 gap-1.5 shadow-sm"
+              aria-label={ar ? `أضف ${title} إلى السلة` : `Add ${title} to cart`}
+            >
+              <ShoppingCart className="w-3.5 h-3.5" />
+              <span>{ar ? 'أضف للسلة' : 'Add to cart'}</span>
+            </button>
+            <Link
+              href={productHref}
+              className="inline-flex min-h-10 items-center justify-center rounded-lg bg-slate-100 border border-slate-200 px-2 text-center text-xs font-bold text-slate-800 transition-colors hover:bg-slate-200"
+            >
+              {ar ? 'التفاصيل' : 'Details'}
+            </Link>
+          </div>
         </div>
       </div>
     </article>
