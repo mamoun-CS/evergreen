@@ -1,48 +1,15 @@
 import 'server-only';
-import nodemailer from 'nodemailer';
 import { prisma } from './prisma';
-import { orderConfirmation, EmailOrder } from './email-templates/order-confirmation';
-import { adminNotification } from './email-templates/admin-notification';
-import { escapeHtml, frame } from './email-templates/utils';
-import { orderClaimEmail } from './email-templates/order-claim';
-export async function sendEmail(recipient: string, subject: string, html: string, orderId?: string, sensitive = false) {
- let error = 'SMTP is not configured', attempts = 0;
- const configured = process.env.SMTP_HOST && process.env.SMTP_FROM;
- if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)) error = 'Invalid email address';
- else if (configured) {
-  const port = Number(process.env.SMTP_PORT || 587);
-  const client = nodemailer.createTransport({host:process.env.SMTP_HOST,port,secure:port===465,auth:process.env.SMTP_USER ? {user:process.env.SMTP_USER,pass:process.env.SMTP_PASSWORD} : undefined,connectionTimeout:5000,greetingTimeout:5000,socketTimeout:10000});
-  for (attempts=1; attempts<=3; attempts++) {
-   try { await client.sendMail({from:process.env.SMTP_FROM,to:recipient,subject,html}); error=''; break; }
-   catch (e) { error=sensitive ? 'Delivery failed' : e instanceof Error ? e.message : 'Delivery failed'; if (attempts<3) await new Promise(r=>setTimeout(r,attempts*250)); }
-  }
- }
- await prisma.emailLog.create({data:{recipient,subject,orderId,status:error?'FAILED':'SENT',attempts:Math.min(attempts,3),error:error ? error.slice(0,1000) : null}}).catch(()=>console.error('Email log unavailable'));
- if (error) console.error('Email delivery failed',{orderId,error});
- return !error;
+// Email is intentionally disabled. Log a durable failure for visibility, but
+// never construct a transport or attempt network delivery.
+export async function sendEmail(recipient: string, subject: string, _html: string, orderId?: string, _sensitive = false) {
+ await prisma.emailLog.create({data:{recipient,subject,orderId,status:'FAILED',attempts:0,error:'Email notifications are disabled'}}).catch(()=>console.error('Email log unavailable'));
+ return false;
 }
-export function sendOrderClaimEmail(email: string, orderNumber: string, token: string) {
- return sendEmail(email, 'Evergreen — تأكيد ملكية الطلب / Confirm ownership', orderClaimEmail(orderNumber, token), undefined, true);
-}
-export function sendOrderConfirmation(email: string, order: EmailOrder) { return sendEmail(email,`Evergreen — ${order.orderNumber}`,orderConfirmation(order),order.id); }
-export function sendAdminNotification(order: EmailOrder) { return sendEmail(process.env.ADMIN_EMAIL || '',`New order ${order.orderNumber}`,adminNotification(order),order.id); }
-export async function notifyOrderCreated(id: string) {
- try { const order=await prisma.order.findUniqueOrThrow({where:{id},include:{items:{include:{product:true}}}}); await Promise.allSettled([sendOrderConfirmation(order.email,order),sendAdminNotification(order)]); } catch { console.error('Order notification failed',{id}); }
-}
-export async function sendOrderUpdate(id: string, message: string) {
- try { const order=await prisma.order.findUniqueOrThrow({where:{id}}); await sendEmail(order.email,`Evergreen — ${order.orderNumber}`,frame(`<h2>${escapeHtml(order.orderNumber)}</h2><p>${escapeHtml(message)}</p>`,order.language),id); } catch { console.error('Order update email failed',{id}); }
-}
-
-import { abandonedCart1, abandonedCart2 } from './email-templates/abandoned-cart';
-
-export function sendRecoveryEmail1(cart: any) {
-  let items = [];
-  try { items = typeof cart.items === 'string' ? JSON.parse(cart.items) : cart.items; } catch (e) {}
-  return sendEmail(cart.email, 'You left something in your cart!', abandonedCart1(cart.id, items, cart.subtotal));
-}
-
-export function sendRecoveryEmail2(cart: any) {
-  let items = [];
-  try { items = typeof cart.items === 'string' ? JSON.parse(cart.items) : cart.items; } catch (e) {}
-  return sendEmail(cart.email, '10% Off Your Cart!', abandonedCart2(cart.id, items, cart.subtotal));
-}
+export function sendOrderClaimEmail(email: string, orderNumber: string, _token: string) { return sendEmail(email, `Evergreen — ${orderNumber}`, '', undefined, true); }
+export function sendOrderConfirmation(email: string, order: { orderNumber: string; id: string }) { return sendEmail(email, `Evergreen — ${order.orderNumber}`, '', order.id); }
+export function sendAdminNotification(order: { orderNumber: string; id: string }) { return sendEmail(process.env.ADMIN_EMAIL || '', `New order ${order.orderNumber}`, '', order.id); }
+export async function notifyOrderCreated(_id: string) { return; }
+export async function sendOrderUpdate(_id: string, _message: string) { return; }
+export function sendRecoveryEmail1(cart: { email: string }) { return sendEmail(cart.email, 'Recovery email disabled', ''); }
+export function sendRecoveryEmail2(cart: { email: string }) { return sendEmail(cart.email, 'Recovery email disabled', ''); }

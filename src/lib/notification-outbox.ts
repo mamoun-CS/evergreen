@@ -1,6 +1,5 @@
 import 'server-only';
 import crypto from 'node:crypto';
-import nodemailer from 'nodemailer';
 import { Prisma, PrismaClient } from '@prisma/client';
 import { prisma } from './prisma';
 
@@ -132,55 +131,15 @@ export type TransportResult = {
   permanent?: boolean;
 };
 
-/**
- * Perform actual SMTP delivery. Bounded timeout, Message-ID deduplication.
- */
+/** Email delivery is disabled for this deployment. */
 export async function deliverEmail(
   recipient: string,
   subject: string,
   html: string,
   dedupKey: string
 ): Promise<TransportResult> {
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)) {
-    return { success: false, error: 'Invalid recipient email format', permanent: true };
-  }
-  const configured = Boolean(process.env.SMTP_HOST && process.env.SMTP_FROM);
-  if (!configured) {
-    return { success: false, error: 'SMTP is not configured', permanent: false };
-  }
-
-  const port = Number(process.env.SMTP_PORT || 587);
-  const client = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port,
-    secure: port === 465,
-    auth: process.env.SMTP_USER ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASSWORD } : undefined,
-    connectionTimeout: 5000,
-    greetingTimeout: 5000,
-    socketTimeout: 10000,
-  });
-
-  const domain = (process.env.SMTP_FROM || 'evergreen.store').split('@').pop() || 'evergreen.store';
-  const cleanDedup = dedupKey.replace(/[^a-zA-Z0-9_-]/g, '_');
-  const messageId = `<${cleanDedup}@${domain}>`;
-
-  try {
-    const info = await client.sendMail({
-      from: process.env.SMTP_FROM,
-      to: recipient,
-      subject,
-      html,
-      messageId,
-      headers: {
-        'X-Evergreen-Notification-Key': cleanDedup,
-      },
-    });
-    return { success: true, messageId: info.messageId || messageId };
-  } catch (error) {
-    const sanitized = sanitizeError(error);
-    const isPermanent = /550|551|552|553|554|invalid recipient|mailbox not found/i.test(sanitized);
-    return { success: false, error: sanitized, permanent: isPermanent };
-  }
+  void recipient; void subject; void html; void dedupKey;
+  return { success: false, error: 'Email notifications are disabled', permanent: true };
 }
 
 /**
